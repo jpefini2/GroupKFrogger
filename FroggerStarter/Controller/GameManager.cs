@@ -104,10 +104,10 @@ namespace FroggerStarter.Controller
 
         private void playerHit()
         {
+            this.playerManager.PlayDeathAnimation();
             this.playerManager.Lives--;
             this.onPlayerLivesUpdated();
             this.setPlayerToCenterOfBottomLane();
-            this.playerManager.PlayDeathAnimation();
         }
 
         private void playerReachedFinish()
