@@ -10,6 +10,7 @@ namespace FroggerStarter.Model
     {
         private readonly Frog player;
 
+        private bool isDying;
         private DispatcherTimer animationTimer;
 
         /// <summary>Gets or sets the player's lives.</summary>
@@ -41,6 +42,7 @@ namespace FroggerStarter.Model
             this.Lives = startingLives;
             this.Score = 0;
 
+            this.isDying = false;
             this.animationTimer = new DispatcherTimer();
             this.animationTimer.Tick += this.switchDeathSprite;
             this.animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
@@ -64,6 +66,11 @@ namespace FroggerStarter.Model
         /// <param name="yBounds">The y bounds.</param>
         public void MovePlayer(Direction direction, int xBounds, int yBounds)
         {
+            if (this.isDying)
+            {
+                return;
+            }
+
             switch (direction)
             {
                 case Direction.Left:
@@ -143,6 +150,7 @@ namespace FroggerStarter.Model
 
         public void PlayDeathAnimation()
         {
+            this.isDying = true;
             this.Sprite.Visibility = Visibility.Collapsed;
             this.DeathSprites[0].Visibility = Visibility.Visible;
             this.animationTimer.Start();
@@ -167,9 +175,10 @@ namespace FroggerStarter.Model
             }
             else
             {
-                this.DeathSprites[2].Visibility = Visibility.Collapsed;
+                this.DeathSprites[3].Visibility = Visibility.Collapsed;
                 this.Sprite.Visibility = Visibility.Visible;
                 this.animationTimer.Stop();
+                this.isDying = false;
             }
         }
     }
