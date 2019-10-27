@@ -107,6 +107,7 @@ namespace FroggerStarter.Controller
             this.playerManager.Lives--;
             this.onPlayerLivesUpdated();
             this.setPlayerToCenterOfBottomLane();
+            this.playerManager.PlayDeathAnimation();
         }
 
         private void playerReachedFinish()
@@ -133,14 +134,18 @@ namespace FroggerStarter.Controller
             this.createAndPlacePlayer();
             this.createAndPlaceFinishLine();
             this.createAndPlaceRoad();
-            
-            /*this.createAndPopulateRoad();*/
         }
 
         private void createAndPlacePlayer()
         {
             this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
+
+            foreach (var sprite in this.playerManager.DeathSprites)
+            {
+                this.gameCanvas.Children.Add(sprite);
+            }
+
             this.setPlayerToCenterOfBottomLane();
         }
 

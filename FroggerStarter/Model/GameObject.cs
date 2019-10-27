@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using FroggerStarter.View.Sprites;
 using System.Drawing;
+using Windows.ApplicationModel.Store.LicenseManagement;
 
 namespace FroggerStarter.Model
 {
@@ -102,7 +104,7 @@ namespace FroggerStarter.Model
         ///     Precondition: None
         ///     Postcondition: X == X@prev + SpeedX
         /// </summary>
-        public void MoveRight()
+        public virtual void MoveRight()
         {
             this.moveX(this.SpeedX);
         }
@@ -112,7 +114,7 @@ namespace FroggerStarter.Model
         ///     Precondition: None
         ///     Postcondition: X == X@prev + SpeedX
         /// </summary>
-        public void MoveLeft()
+        public virtual void MoveLeft()
         {
             this.moveX(-this.SpeedX);
         }
@@ -122,7 +124,7 @@ namespace FroggerStarter.Model
         ///     Precondition: None
         ///     Postcondition: Y == Y@prev - SpeedY
         /// </summary>
-        public void MoveUp()
+        public virtual void MoveUp()
         {
             this.moveY(-this.SpeedY);
         }
@@ -132,7 +134,7 @@ namespace FroggerStarter.Model
         ///     Precondition: None
         ///     Postcondition: Y == Y@prev + SpeedY
         /// </summary>
-        public void MoveDown()
+        public virtual void MoveDown()
         {
             this.moveY(this.SpeedY);
         }

@@ -1,5 +1,7 @@
-﻿using FroggerStarter.View.Sprites;
+﻿using System;
+using FroggerStarter.View.Sprites;
 using System.Drawing;
+using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
@@ -7,6 +9,9 @@ namespace FroggerStarter.Model
     public class PlayerManager
     {
         private readonly Frog player;
+
+        private DispatcherTimer animationTimer;
+        private bool isDying;
 
         /// <summary>Gets or sets the player's lives.</summary>
         /// <value>The lives.</value>
@@ -24,6 +29,11 @@ namespace FroggerStarter.Model
         /// <value>The frog sprite.</value>
         public BaseSprite Sprite => this.player.Sprite;
 
+        public BaseSprite[] DeathSprites
+        {
+            get { return this.player.DeathSprites; }
+        }
+
         /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
         /// <param name="startingLives">The starting lives of the player</param>
         public PlayerManager(int startingLives)
@@ -31,6 +41,11 @@ namespace FroggerStarter.Model
             this.player = new Frog();
             this.Lives = startingLives;
             this.Score = 0;
+
+            this.isDying = false;
+            this.animationTimer = new DispatcherTimer();
+            this.animationTimer.Tick += this.switchDeathSprite;
+            this.animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
         }
 
         /// <summary>Moves the player to point instantly to the specified coordinates</summary>
@@ -128,5 +143,44 @@ namespace FroggerStarter.Model
             this.player.SetSpeed(xSpeed, ySpeed);
         }
 
+        public void PlayDeathAnimation()
+        {
+            this.animationTimer.Start();
+        }
+
+        private void switchDeathSprite(object sender, object e)
+        {
+            if (!this.isDying)
+            {
+                this.Sprite.Visibility = Visibility.Collapsed;
+                this.DeathSprites[0].Visibility = Visibility.Visible;
+                this.isDying = true;
+            }
+            else
+            {
+                if (this.DeathSprites[0].Visibility == Visibility.Visible)
+                {
+                    this.DeathSprites[0].Visibility = Visibility.Collapsed;
+                    this.DeathSprites[1].Visibility = Visibility.Visible;
+                }
+                else if (this.DeathSprites[1].Visibility == Visibility.Visible)
+                {
+                    this.DeathSprites[1].Visibility = Visibility.Collapsed;
+                    this.DeathSprites[2].Visibility = Visibility.Visible;
+                }
+                else if (this.DeathSprites[2].Visibility == Visibility.Visible)
+                {
+                    this.DeathSprites[2].Visibility = Visibility.Collapsed;
+                    this.DeathSprites[3].Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.DeathSprites[2].Visibility = Visibility.Collapsed;
+                    this.Sprite.Visibility = Visibility.Visible;
+                    this.isDying = false;
+                    this.animationTimer.Stop();
+                }
+            }
+        }
     }
 }
