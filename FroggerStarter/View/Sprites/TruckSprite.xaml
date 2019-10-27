@@ -1,0 +1,52 @@
+﻿<local:BaseSprite
+    x:Class="FroggerStarter.View.Sprites.TruckSprite"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FroggerStarter.View.Sprites"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Height="40"
+    Width="100">
+
+    <Canvas Width="100" Height="40" Background="Transparent">
+
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="8" Canvas.Top="0" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="7" Canvas.Top="1" Width="12" Height="3"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="21" Canvas.Top="0" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="20" Canvas.Top="1" Width="12" Height="3"/>
+
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="36" Canvas.Top="0" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="35" Canvas.Top="1" Width="12" Height="3"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="49" Canvas.Top="0" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="48" Canvas.Top="1" Width="12" Height="3"/>
+
+
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="8" Canvas.Top="35" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="7" Canvas.Top="36" Width="12" Height="3"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="21" Canvas.Top="35" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="20" Canvas.Top="36" Width="12" Height="3"/>
+
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="36" Canvas.Top="35" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="35" Canvas.Top="36" Width="12" Height="3"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="49" Canvas.Top="35" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="48" Canvas.Top="36" Width="12" Height="3"/>
+
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="78" Canvas.Top="35" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="77" Canvas.Top="36" Width="12" Height="3"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="78" Canvas.Top="0" Width="10" Height="5"/>
+        <Rectangle Fill="DarkSlateGray" Canvas.Left="77" Canvas.Top="1" Width="12" Height="3"/>
+
+
+
+        <Rectangle Fill="DarkBlue" Canvas.Left="4" Canvas.Top="5" Width="56" Height="30"/>
+        <Rectangle Fill="DarkBlue" Canvas.Left="0" Canvas.Top="8" Width="64" Height="24"/>
+        <Rectangle Fill="Orange" Canvas.Left="64" Canvas.Top="10" Width="2" Height="20"/>
+        <Rectangle Fill="DarkBlue" Canvas.Left="68" Canvas.Top="5" Width="30" Height="30"/>
+        <Rectangle Fill="DarkBlue" Canvas.Left="66" Canvas.Top="7" Width="34" Height="26"/>
+
+        <Polygon Fill="Gray" Points="88,8 92,10 97,15 97,25 92,30 88,32"/>
+
+
+    </Canvas>
+</local:BaseSprite>

@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="FroggerStarter.View.GamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Canvas x:Name="canvas" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Black">
+
+        <TextBlock Text="Frogger" IsTextSelectionEnabled="True" FontSize="40" Canvas.Top="0" Canvas.Left="230" Width="150" Height="60" Foreground="Green" FontWeight="Bold" />
+
+        <TextBlock Text="Lives:" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="0" Width="100" Height="40" Foreground="Red" FontWeight="Bold" />
+        <TextBlock x:Name="livesTextBlock"  Text="3" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="100" Width="25" Height="40" Foreground="Red" FontWeight="Bold" />
+
+        <TextBlock Text="Score: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="500" Width="100" Height="40"  Foreground="Blue" FontWeight="Bold" />
+        <TextBlock x:Name="scoreTextBlock" Text="0" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="610" Width="25" Height="40" Foreground="Blue" FontWeight="Bold" />
+
+        <Rectangle Canvas.Top="55" Fill="Gray" Width="{StaticResource AppWidth}" Height="50" />
+        <Rectangle Canvas.Top="355" Fill="Gray" Width="{StaticResource AppWidth}" Height="55" />
+        
+
+    </Canvas>
+</Page>
