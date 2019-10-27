@@ -12,7 +12,7 @@
         <TextBlock Text="Frogger" IsTextSelectionEnabled="True" FontSize="40" Canvas.Top="0" Canvas.Left="230" Width="150" Height="60" Foreground="Green" FontWeight="Bold" />
 
         <TextBlock Text="Lives:" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="0" Width="100" Height="40" Foreground="Red" FontWeight="Bold" />
-        <TextBlock x:Name="livesTextBlock"  Text="3" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="100" Width="25" Height="40" Foreground="Red" FontWeight="Bold" />
+        <TextBlock x:Name="livesTextBlock" Text="4" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="100" Width="25" Height="40" Foreground="Red" FontWeight="Bold" />
 
         <TextBlock Text="Score: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="500" Width="100" Height="40"  Foreground="Blue" FontWeight="Bold" />
         <TextBlock x:Name="scoreTextBlock" Text="0" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="610" Width="25" Height="40" Foreground="Blue" FontWeight="Bold" />

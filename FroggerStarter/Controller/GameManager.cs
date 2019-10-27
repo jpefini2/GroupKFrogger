@@ -132,7 +132,7 @@ namespace FroggerStarter.Controller
 
             this.createAndPlacePlayer();
             this.createAndPlaceFinishLine();
-            this.CreateAndPlaceRoad();
+            this.createAndPlaceRoad();
             
             /*this.createAndPopulateRoad();*/
         }
@@ -160,7 +160,7 @@ namespace FroggerStarter.Controller
             this.finishLine = new Rectangle(x, y, width, height);
         }
 
-        private void CreateAndPlaceRoad()
+        private void createAndPlaceRoad()
         {
             var roadLength = (int)this.backgroundWidth;
             var laneWidth = (int)this.backgroundHeight / rowsOnScreen;

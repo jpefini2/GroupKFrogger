@@ -16,7 +16,7 @@ namespace FroggerStarter.Model
 
     public GameSettings()
     {
-        this.NumberOfStartingLives = 3;
+        this.NumberOfStartingLives = 4;
         this.laneSettings = new List<LaneSettings>();
 
         this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Car, 3, 6));
