@@ -123,6 +123,8 @@
     <Compile Include="Model\Direction.cs" />
     <Compile Include="Model\Frog.cs" />
     <Compile Include="Controller\GameManager.cs" />
+    <Compile Include="Model\FrogHome.cs" />
+    <Compile Include="Model\FrogHomeManager.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\GameSettings.cs" />
     <Compile Include="Model\Lane.cs" />
@@ -149,6 +151,12 @@
     </Compile>
     <Compile Include="View\Sprites\FrogDeathSprite1.xaml.cs">
       <DependentUpon>FrogDeathSprite1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\FilledFrogHomeSprite.xaml.cs">
+      <DependentUpon>FilledFrogHomeSprite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\FrogHomeSprite.xaml.cs">
+      <DependentUpon>FrogHomeSprite.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\TruckSprite.xaml.cs">
       <DependentUpon>TruckSprite.xaml</DependentUpon>
@@ -202,6 +210,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Sprites\FrogDeathSprite1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sprites\FilledFrogHomeSprite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sprites\FrogHomeSprite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

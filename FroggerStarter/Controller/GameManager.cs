@@ -25,6 +25,7 @@ namespace FroggerStarter.Controller
         private DispatcherTimer timer;
         private PlayerManager playerManager;
         private RoadManager roadManager;
+        private FrogHomeManager frogHomeManager;
 
         /// <summary>Delegate for handling a change in player lives</summary>
         /// <param name="lives">The lives.</param>
@@ -132,7 +133,9 @@ namespace FroggerStarter.Controller
             this.gameSettings = new GameSettings();
 
             this.createAndPlacePlayer();
-            this.createAndPlaceFinishLine();
+
+            this.createAndPlaceFrogHomes();
+
             this.createAndPlaceRoad();
         }
 
@@ -154,6 +157,17 @@ namespace FroggerStarter.Controller
             var x = (int) (this.backgroundWidth / 2 - this.playerManager.Sprite.Width / 2);
             var y = (int) (this.backgroundHeight - this.playerManager.Sprite.Height - BottomLaneOffset);
             this.playerManager.MovePlayerToPoint(x, y);
+        }
+
+        private void createAndPlaceFrogHomes()
+        {
+            var y = ((int) (this.backgroundHeight / rowsOnScreen));
+            this.frogHomeManager = new FrogHomeManager(y, (int) this.backgroundWidth, this.gameSettings.NumberOfFrogHomes);
+
+            foreach (var frogHome in this.frogHomeManager)
+            {
+                this.gameCanvas.Children.Add(frogHome.Sprite);
+            }
         }
 
         private void createAndPlaceFinishLine()

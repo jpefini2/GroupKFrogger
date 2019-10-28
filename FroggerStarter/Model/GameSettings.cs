@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
-    class GameSettings : IEnumerable<LaneSettings>
-
+    public class GameSettings : IEnumerable<LaneSettings>
     {
-    private List<LaneSettings> laneSettings;
     public int NumberOfStartingLives { get; }
 
+    public int NumberOfFrogHomes { get; }
 
-    public GameSettings()
+    private List<LaneSettings> laneSettings;
+
+        public GameSettings()
     {
         this.NumberOfStartingLives = 4;
+        this.NumberOfFrogHomes = 5;
         this.laneSettings = new List<LaneSettings>();
 
         this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Car, 3, 6));
