@@ -36,6 +36,7 @@ namespace FroggerStarter.Model
                 var frogHome = new FrogHome();
                 frogHome.X = x;
                 frogHome.Y = this.y;
+                frogHome.FilledSprite.RenderAt(x, y);
                 this.frogHomes.Add(frogHome);
 
                 x += widthOfFrogHome + gapBetweenHomes;
