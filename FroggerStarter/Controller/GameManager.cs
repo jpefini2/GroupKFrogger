@@ -126,6 +126,9 @@ namespace FroggerStarter.Controller
             this.playerManager.Lives--;
             this.onPlayerLivesUpdated();
             this.setPlayerToCenterOfBottomLane();
+
+            this.timeRemaining = this.gameSettings.TimeLimit;
+            this.onRemainingTimeUpdated();
         }
 
         private void playerReachedHome()
@@ -134,6 +137,9 @@ namespace FroggerStarter.Controller
             this.playerManager.Score++;
             this.onPlayerScoreUpdated();
             this.setPlayerToCenterOfBottomLane();
+
+            this.timeRemaining = this.gameSettings.TimeLimit;
+            this.onRemainingTimeUpdated();
         }
 
         /// <summary>
