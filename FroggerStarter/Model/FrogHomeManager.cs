@@ -42,6 +42,34 @@ namespace FroggerStarter.Model
             }
         }
 
+        public bool isCollidingWithEmptyHome(Rectangle collisionBox)
+        {
+            bool isColliding = false;
+            foreach (var frogHome in this)
+            {
+                if (frogHome.CollisionBox.IntersectsWith(collisionBox) && !frogHome.IsFilled)
+                {
+                    isColliding = true;
+                    frogHome.FillHome();
+                    break;
+                }
+            }
+
+            return isColliding;
+        }
+
+        public void FillHomesIntersectingWith(Rectangle collisionBox)
+        {
+            foreach (var frogHome in this)
+            {
+                if (frogHome.CollisionBox.IntersectsWith(collisionBox))
+                {
+                    frogHome.FillHome();
+                    break;
+                }
+            }
+        }
+
         public IEnumerator<FrogHome> GetEnumerator()
         {
             return this.frogHomes.GetEnumerator();

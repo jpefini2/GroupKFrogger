@@ -1,25 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 using FroggerStarter.View.Sprites;
 
 namespace FroggerStarter.Model
 {
     public class FrogHome : GameObject
     {
-        private bool isFilled;
-        private BaseSprite filledSprite;
+        public bool IsFilled { get; set; }
+
+        public BaseSprite FilledSprite { get; }
 
         public FrogHome()
         {
             this.Sprite = new FrogHomeSprite();
-            this.isFilled = false;
-            this.filledSprite = new FilledFrogHomeSprite();
+            this.IsFilled = false;
+            this.FilledSprite = new FilledFrogHomeSprite();
+
+            this.FilledSprite.Visibility = Visibility.Collapsed;
         }
 
         public void FillHome()
         {
-            this.isFilled = true;
-            this.Sprite = new FilledFrogHomeSprite();
+            this.IsFilled = true;
+            this.Sprite.Visibility = Visibility.Collapsed;
+            this.FilledSprite.Visibility = Visibility.Visible;
         }
     }
 }

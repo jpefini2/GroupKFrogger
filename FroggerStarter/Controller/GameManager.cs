@@ -97,9 +97,10 @@ namespace FroggerStarter.Controller
                 
             }
 
-            if (this.playerManager.CollisionBox.IntersectsWith(this.finishLine))
+            if (this.frogHomeManager.isCollidingWithEmptyHome(this.playerManager.CollisionBox))
             {
-                this.playerReachedFinish();
+                
+                this.playerReachedHome();
             }
         }
 
@@ -111,8 +112,9 @@ namespace FroggerStarter.Controller
             this.setPlayerToCenterOfBottomLane();
         }
 
-        private void playerReachedFinish()
+        private void playerReachedHome()
         {
+            this.frogHomeManager.FillHomesIntersectingWith(this.playerManager.CollisionBox);
             this.playerManager.Score++;
             this.onPlayerScoreUpdated();
             this.setPlayerToCenterOfBottomLane();
@@ -133,9 +135,7 @@ namespace FroggerStarter.Controller
             this.gameSettings = new GameSettings();
 
             this.createAndPlacePlayer();
-
             this.createAndPlaceFrogHomes();
-
             this.createAndPlaceRoad();
         }
 
@@ -167,9 +167,10 @@ namespace FroggerStarter.Controller
             foreach (var frogHome in this.frogHomeManager)
             {
                 this.gameCanvas.Children.Add(frogHome.Sprite);
+                this.gameCanvas.Children.Add(frogHome.FilledSprite);
             }
         }
-
+        
         private void createAndPlaceFinishLine()
         { 
             const int x = 0;
