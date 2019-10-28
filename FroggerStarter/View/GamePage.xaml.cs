@@ -43,6 +43,7 @@ namespace FroggerStarter.View
 
             this.gameManager.PlayerLivesUpdated += this.handlePlayerLivesChange;
             this.gameManager.PlayerScoreUpdated += this.handlePlayerScoreChange;
+            this.gameManager.RemainingTimeUpdated += this.handleRemainingTimeChange;
         }
 
         #endregion
@@ -68,22 +69,27 @@ namespace FroggerStarter.View
             }
         }
 
-        private void handlePlayerLivesChange(int lives)
+        private void handlePlayerLivesChange(object sender, PlayerLivesUpdatedEventArgs e)
         {
-            this.livesTextBlock.Text = lives.ToString();
-            if (lives <= 0)
+            this.livesTextBlock.Text = e.PlayerLives.ToString();
+            if (e.PlayerLives <= 0)
             {
                 this.gameManager.StopGame();
                 displayGameOverDialog();
             }
-        }        private void handlePlayerScoreChange(int score)
+        }        private void handlePlayerScoreChange(object sender, PlayerScoreUpdatedEventArgs e)
         {
-            this.scoreTextBlock.Text = score.ToString();
-            if (score >= 3)
+            this.scoreTextBlock.Text = e.PlayerScore.ToString();
+            if (this.gameManager.PlayerHasWon())
             {
                 this.gameManager.StopGame();
                 displayYouWinDialog();
             }
+        }
+
+        private void handleRemainingTimeChange(object sender, RemainingTimeUpdatedEventArgs e)
+        {
+            this.timeTextBlock.Text = e.RemainingTime.ToString();
         }        private static async void displayGameOverDialog()
         {
             var gameOverDialog = new ContentDialog

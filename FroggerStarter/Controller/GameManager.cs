@@ -19,25 +19,22 @@ namespace FroggerStarter.Controller
         private readonly double backgroundHeight;
         private readonly double backgroundWidth;
 
-        private GameSettings gameSettings;
         private Canvas gameCanvas;
-        private Rectangle finishLine;
         private DispatcherTimer timer;
+        private GameSettings gameSettings;
+
+        private DispatcherTimer countDownTimer;
+        private int timeRemaining;
+
         private PlayerManager playerManager;
         private RoadManager roadManager;
         private FrogHomeManager frogHomeManager;
 
-        /// <summary>Delegate for handling a change in player lives</summary>
-        /// <param name="lives">The lives.</param>
-        public delegate void PlayerLivesHandler(int lives);
-        /// <summary>Occurs when [player lives updated].</summary>
-        public event PlayerLivesHandler PlayerLivesUpdated;
+        public event EventHandler<PlayerLivesUpdatedEventArgs> PlayerLivesUpdated;
 
-        /// <summary>Delegate for handling a change in player score</summary>
-        /// <param name="score">The score.</param>
-        public delegate void PlayerScoreHandler(int score);
-        /// <summary>Occurs when [player score updated].</summary>
-        public event PlayerScoreHandler PlayerScoreUpdated;
+        public event EventHandler<PlayerScoreUpdatedEventArgs> PlayerScoreUpdated;
+
+        public event EventHandler<RemainingTimeUpdatedEventArgs> RemainingTimeUpdated;
 
         #endregion
 
@@ -69,6 +66,7 @@ namespace FroggerStarter.Controller
             this.backgroundWidth = backgroundWidth;
 
             this.setupGameTimer();
+            this.setupCountDownTimer();
         }
 
         #endregion
@@ -78,15 +76,33 @@ namespace FroggerStarter.Controller
         private void setupGameTimer()
         {
             this.timer = new DispatcherTimer();
-            this.timer.Tick += this.timerOnTick;
+            this.timer.Tick += this.gameTimerOnTick;
             this.timer.Interval = new TimeSpan(0, 0, 0, 0, 15);
             this.timer.Start();
         }
-
-        private void timerOnTick(object sender, object e)
+        private void gameTimerOnTick(object sender, object e)
         {
             this.roadManager.MoveTraffic();
             this.checkPlayerCollision();
+        }
+
+        private void setupCountDownTimer()
+        {
+            this.countDownTimer = new DispatcherTimer();
+            this.countDownTimer.Tick += this.countDownTimerOnTick;
+            this.countDownTimer.Interval = new TimeSpan(0, 0, 0, 1);
+            this.countDownTimer.Start();
+        }
+
+        private void countDownTimerOnTick(object sender, object e)
+        {
+            this.timeRemaining--;
+            this.onRemainingTimeUpdated();
+
+            if (this.timeRemaining == 0)
+            {
+                this.playerHit();
+            }
         }
 
         private void checkPlayerCollision()
@@ -118,7 +134,6 @@ namespace FroggerStarter.Controller
             this.playerManager.Score++;
             this.onPlayerScoreUpdated();
             this.setPlayerToCenterOfBottomLane();
-            this.roadManager.SpeedUpTraffic();
         }
 
         /// <summary>
@@ -133,7 +148,8 @@ namespace FroggerStarter.Controller
         {
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
-
+            this.timeRemaining = this.gameSettings.TimeLimit;
+            
             this.createAndPlacePlayer();
             this.createAndPlaceFrogHomes();
             this.createAndPlaceRoad();
@@ -171,15 +187,6 @@ namespace FroggerStarter.Controller
             }
         }
         
-        private void createAndPlaceFinishLine()
-        { 
-            const int x = 0;
-            var y = (int) this.backgroundHeight / 8;
-            var width = (int) this.backgroundWidth;
-            var height = (int) this.backgroundHeight / 8;
-            this.finishLine = new Rectangle(x, y, width, height);
-        }
-
         private void createAndPlaceRoad()
         {
             var roadLength = (int)this.backgroundWidth;
@@ -205,14 +212,27 @@ namespace FroggerStarter.Controller
             this.playerManager.MovePlayer(direction, (int)this.backgroundWidth, (int)this.backgroundHeight);
         }
 
+        public bool PlayerHasWon()
+        {
+            return this.frogHomeManager.AllHomesAreFilled();
+        }
+        
         private void onPlayerLivesUpdated()
         {
-            this.PlayerLivesUpdated?.Invoke(this.playerManager.Lives);
+            var data = new PlayerLivesUpdatedEventArgs { PlayerLives = this.playerManager.Lives};
+            this.PlayerLivesUpdated?.Invoke(this, data);
         }
 
         private void onPlayerScoreUpdated()
         {
-            this.PlayerScoreUpdated?.Invoke(this.playerManager.Score);
+            var data = new PlayerScoreUpdatedEventArgs { PlayerScore = this.playerManager.Score };
+            this.PlayerScoreUpdated?.Invoke(this, data);
+        }
+
+        private void onRemainingTimeUpdated()
+        {
+            var data = new RemainingTimeUpdatedEventArgs { RemainingTime = this.timeRemaining };
+            this.RemainingTimeUpdated?.Invoke(this, data);
         }
 
         /// <summary>Stops the game.</summary>
@@ -223,5 +243,20 @@ namespace FroggerStarter.Controller
         }
 
         #endregion
+    }
+
+    public class PlayerLivesUpdatedEventArgs : EventArgs
+    {
+        public int PlayerLives { get; set; }
+    }
+
+    public class PlayerScoreUpdatedEventArgs : EventArgs
+    {
+        public int PlayerScore { get; set; }
+    }
+
+    public class RemainingTimeUpdatedEventArgs : EventArgs
+    {
+        public int RemainingTime { get; set; }
     }
 }

@@ -71,6 +71,21 @@ namespace FroggerStarter.Model
             }
         }
 
+        public bool AllHomesAreFilled()
+        {
+            var allHomesFilled = true;
+            foreach (var frogHome in this)
+            {
+                if (!frogHome.IsFilled)
+                {
+                    allHomesFilled = false;
+                    break;
+                }
+            }
+
+            return allHomesFilled;
+        }
+
         public IEnumerator<FrogHome> GetEnumerator()
         {
             return this.frogHomes.GetEnumerator();

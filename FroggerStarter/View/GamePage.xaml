@@ -19,7 +19,10 @@
 
         <Rectangle Canvas.Top="55" Fill="Gray" Width="{StaticResource AppWidth}" Height="50" />
         <Rectangle Canvas.Top="355" Fill="Gray" Width="{StaticResource AppWidth}" Height="55" />
-        
+
+        <TextBlock Text="Time: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="10" Width="100" Height="40"  Foreground="WhiteSmoke" FontWeight="Bold" />
+        <TextBlock x:Name="timeTextBlock" Text="20" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="110" Width="50" Height="40" Foreground="WhiteSmoke" FontWeight="Bold" />
+
 
     </Canvas>
 </Page>
