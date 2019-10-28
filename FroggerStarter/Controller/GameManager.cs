@@ -134,7 +134,7 @@ namespace FroggerStarter.Controller
         private void playerReachedHome()
         {
             this.frogHomeManager.FillHomesIntersectingWith(this.playerManager.CollisionBox);
-            this.playerManager.Score++;
+            this.playerManager.Score += this.timeRemaining * this.gameSettings.ScoreModifier;
             this.onPlayerScoreUpdated();
             this.setPlayerToCenterOfBottomLane();
 

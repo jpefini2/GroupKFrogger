@@ -15,6 +15,8 @@ namespace FroggerStarter.Model
 
     public int TimeLimit { get; }
 
+    public int ScoreModifier { get; }
+
     private List<LaneSettings> laneSettings;
 
         public GameSettings()
@@ -22,6 +24,7 @@ namespace FroggerStarter.Model
         this.NumberOfStartingLives = 4;
         this.NumberOfFrogHomes = 5;
         this.TimeLimit = 20;
+        this.ScoreModifier = 100;
         this.laneSettings = new List<LaneSettings>();
 
         this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Car, 3, 6));
