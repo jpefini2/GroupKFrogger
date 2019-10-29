@@ -125,6 +125,8 @@ namespace FroggerStarter.Controller
             this.onPlayerLivesUpdated();
             this.setPlayerToCenterOfBottomLane();
 
+            this.roadManager.ResetToOneVehiclePerLane();
+
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
         }

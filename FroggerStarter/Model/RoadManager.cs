@@ -136,6 +136,19 @@ namespace FroggerStarter.Model
             return isHit;
         }
 
+        public void ResetToOneVehiclePerLane()
+        {
+            foreach (var lane in this.lanes)
+            {
+                lane.HideAllVehicles();
+                lane.RevealRandomVehicle();
+            }
+            this.revealVehicleTimer.Stop();
+            this.revealVehicleTimer.Start();
+        }
+
+
+
         public IEnumerator<Vehicle> GetEnumerator()
         {
             foreach (var lane in this.lanes)
