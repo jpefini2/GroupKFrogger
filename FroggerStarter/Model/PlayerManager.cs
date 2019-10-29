@@ -10,9 +10,6 @@ namespace FroggerStarter.Model
     {
         private readonly Frog player;
 
-        private bool isDying;
-        private DispatcherTimer animationTimer;
-
         /// <summary>Gets or sets the player's lives.</summary>
         /// <value>The lives.</value>
         public int Lives { get; set; }
@@ -41,11 +38,12 @@ namespace FroggerStarter.Model
             this.player = new Frog();
             this.Lives = startingLives;
             this.Score = 0;
+        }
 
-            this.isDying = false;
-            this.animationTimer = new DispatcherTimer();
-            this.animationTimer.Tick += this.switchDeathSprite;
-            this.animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+        public void KillPlayer()
+        {
+            this.player.PlayDeathAnimation();
+            this.Lives--;
         }
 
         /// <summary>Moves the player to point instantly to the specified coordinates</summary>
@@ -66,7 +64,7 @@ namespace FroggerStarter.Model
         /// <param name="yBounds">The y bounds.</param>
         public void MovePlayer(Direction direction, int xBounds, int yBounds)
         {
-            if (this.isDying)
+            if (this.player.IsDying)
             {
                 return;
             }
@@ -146,40 +144,6 @@ namespace FroggerStarter.Model
         public void SetSpeed(int xSpeed, int ySpeed)
         {
             this.player.SetSpeed(xSpeed, ySpeed);
-        }
-
-        public void PlayDeathAnimation()
-        {
-            this.isDying = true;
-            this.Sprite.Visibility = Visibility.Collapsed;
-            this.DeathSprites[0].Visibility = Visibility.Visible;
-            this.animationTimer.Start();
-        }
-
-        private void switchDeathSprite(object sender, object e)
-        {
-            if (this.DeathSprites[0].Visibility == Visibility.Visible)
-            {
-                this.DeathSprites[0].Visibility = Visibility.Collapsed;
-                this.DeathSprites[1].Visibility = Visibility.Visible;
-            }
-            else if (this.DeathSprites[1].Visibility == Visibility.Visible)
-            {
-                this.DeathSprites[1].Visibility = Visibility.Collapsed;
-                this.DeathSprites[2].Visibility = Visibility.Visible;
-            }
-            else if (this.DeathSprites[2].Visibility == Visibility.Visible)
-            {
-                this.DeathSprites[2].Visibility = Visibility.Collapsed;
-                this.DeathSprites[3].Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.DeathSprites[3].Visibility = Visibility.Collapsed;
-                this.Sprite.Visibility = Visibility.Visible;
-                this.animationTimer.Stop();
-                this.isDying = false;
-            }
         }
     }
 }

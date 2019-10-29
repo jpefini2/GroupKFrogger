@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using FroggerStarter.View.Sprites;
+using System;
 
 namespace FroggerStarter.Model
 {
@@ -14,7 +15,11 @@ namespace FroggerStarter.Model
         private const int SpeedXDirection = 50;
         private const int SpeedYDirection = 50;
 
+        private DispatcherTimer animationTimer;
+
         public BaseSprite[] DeathSprites { get; private set; }
+
+        public bool IsDying { get; set; }
 
         #endregion
 
@@ -29,6 +34,11 @@ namespace FroggerStarter.Model
             SetSpeed(SpeedXDirection, SpeedYDirection);
 
             this.setupDeathAnimation();
+
+            this.IsDying = false;
+            this.animationTimer = new DispatcherTimer();
+            this.animationTimer.Tick += this.switchDeathSprite;
+            this.animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
         }
 
         private void setupDeathAnimation()
@@ -53,31 +63,66 @@ namespace FroggerStarter.Model
             this.DeathSprites[3] = deathSprite4;
         }
 
+        public void PlayDeathAnimation()
+        {
+            this.IsDying = true;
+            this.Sprite.Visibility = Visibility.Collapsed;
+            this.DeathSprites[0].Visibility = Visibility.Visible;
+            this.animationTimer.Start();
+        }
+
+        private void switchDeathSprite(object sender, object e)
+        {
+            if (this.DeathSprites[0].Visibility == Visibility.Visible)
+            {
+                this.DeathSprites[0].Visibility = Visibility.Collapsed;
+                this.DeathSprites[1].Visibility = Visibility.Visible;
+            }
+            else if (this.DeathSprites[1].Visibility == Visibility.Visible)
+            {
+                this.DeathSprites[1].Visibility = Visibility.Collapsed;
+                this.DeathSprites[2].Visibility = Visibility.Visible;
+            }
+            else if (this.DeathSprites[2].Visibility == Visibility.Visible)
+            {
+                this.DeathSprites[2].Visibility = Visibility.Collapsed;
+                this.DeathSprites[3].Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.DeathSprites[3].Visibility = Visibility.Collapsed;
+                this.Sprite.Visibility = Visibility.Visible;
+                this.animationTimer.Stop();
+                this.IsDying = false;
+                this.UpdateDeathSpritesLocation();
+            }
+        }
+
         public override void MoveRight()
         {
             base.MoveRight();
-            this.updateDeathSpritesLocation();
+            this.UpdateDeathSpritesLocation();
         }
 
         public override void MoveLeft()
         {
             base.MoveLeft();
-            this.updateDeathSpritesLocation();
+            this.UpdateDeathSpritesLocation();
         }
 
         public override void MoveUp()
         {
             base.MoveUp();
-            this.updateDeathSpritesLocation();
+            this.UpdateDeathSpritesLocation();
         }
 
         public override void MoveDown()
         {
             base.MoveDown();
-            this.updateDeathSpritesLocation();
+            this.UpdateDeathSpritesLocation();
         }
 
-        private void updateDeathSpritesLocation()
+        public void UpdateDeathSpritesLocation()
         {
             foreach (var deathSprite in this.DeathSprites)
             {
