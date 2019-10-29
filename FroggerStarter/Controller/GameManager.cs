@@ -14,6 +14,7 @@ namespace FroggerStarter.Controller
     {
         #region Data members
 
+        private const int TopLaneOffset = 4;
         private const int BottomLaneOffset = 5;
         private const int rowsOnScreen = 8;
         private readonly double backgroundHeight;
@@ -181,7 +182,7 @@ namespace FroggerStarter.Controller
 
         private void createAndPlaceFrogHomes()
         {
-            var y = ((int) (this.backgroundHeight / rowsOnScreen));
+            var y = ((int) (this.backgroundHeight / rowsOnScreen) + TopLaneOffset);
             this.frogHomeManager = new FrogHomeManager(y, (int) this.backgroundWidth, this.gameSettings.NumberOfFrogHomes);
 
             foreach (var frogHome in this.frogHomeManager)
