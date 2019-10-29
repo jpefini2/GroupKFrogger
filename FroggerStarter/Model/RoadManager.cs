@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
@@ -93,7 +94,8 @@ namespace FroggerStarter.Model
                 vehicle.SetSpeed(laneSettings.StartingTrafficSpeed, 0);
                 vehicles[i] = vehicle;
             }
-            lane.AddVehicles(vehicles);
+            lane.SetAndHideVehicles(vehicles);
+            lane.revealRandomHiddenVehicle();
             this.lanes.Add(lane);
         }
 
@@ -105,7 +107,7 @@ namespace FroggerStarter.Model
             var isHit = false;
             foreach (var vehicle in this)
             {
-                if (collisionBox.IntersectsWith(vehicle.CollisionBox))
+                if (collisionBox.IntersectsWith(vehicle.CollisionBox) && vehicle.Sprite.Visibility == Visibility.Visible)
                 {
                     isHit = true;
                     break;

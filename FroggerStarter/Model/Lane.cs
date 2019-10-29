@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
@@ -81,8 +82,10 @@ namespace FroggerStarter.Model
 
         /// <summary>Adds the given array of vehicles to this.vehicles</summary>
         /// <param name="vehicles">The vehicles to add</param>
-        public void AddVehicles(Vehicle[] vehicles)
+        public void SetAndHideVehicles(Vehicle[] vehicles)
         {
+            this.vehicles.Clear();
+
             var gapBetweenVehicles = (this.length - getLengthOfAllVehiclesEndToEnd(vehicles)) / vehicles.Length;
             var vehicleX = gapBetweenVehicles / 2;
             var vehicleY = this.y + (this.width - vehicles[0].Height) / 2;
@@ -91,6 +94,7 @@ namespace FroggerStarter.Model
             {
                 vehicle.X = vehicleX;
                 vehicle.Y = (int) vehicleY;
+                vehicle.Sprite.Visibility = Visibility.Collapsed;
                 this.vehicles.Add(vehicle);
 
                 vehicleX += (int) (vehicle.Width + gapBetweenVehicles);
@@ -105,6 +109,22 @@ namespace FroggerStarter.Model
                 totalLength += (int) vehicle.Width;
             }
             return totalLength;
+        }
+
+        public void revealRandomHiddenVehicle()
+        {
+            var random = new Random();
+            var hiddenVehicles = new List<Vehicle>();
+            for (int i = 0; i < this.vehicles.Count; i++)
+            {
+                if (this.vehicles[i].Sprite.Visibility == Visibility.Collapsed)
+                {
+                    hiddenVehicles.Add(this.vehicles[i]);
+                }
+            }
+
+            var randomHiddenVehicleIndex = random.Next(hiddenVehicles.Count - 1);
+            hiddenVehicles[randomHiddenVehicleIndex].Sprite.Visibility = Visibility.Visible;
         }
 
         /// <summary>Sets the speed of all vehicles in this.vehicles</summary>
