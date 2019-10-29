@@ -7,14 +7,14 @@ using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
-    /// <summary>A lane of traffic as a collection of vehicles with a direction</summary>
+    /// <summary>A lane of traffic as a collection of newVehicles with a direction</summary>
     public class Lane : IEnumerable<Vehicle>
     {
         private readonly int y;
         private readonly int width;
         private readonly int length;
         private readonly Direction trafficDirection;
-        private List<Vehicle> vehicles;
+        private readonly List<Vehicle> vehicles;
 
         private Vehicle vehicleScheduledToReveal;
         private DispatcherTimer scheduledVehicleOffRoadTimer;
@@ -72,6 +72,7 @@ namespace FroggerStarter.Model
             }
         }
 
+        /// <summary>Reveals a random vehicle hidden in this lane, if some are still hidden</summary>
         public void RevealRandomVehicle()
         {
             var random = new Random();
@@ -92,7 +93,7 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Moves all the stored vehicles forward</summary>
+        /// <summary>Moves all the stored newVehicles forward</summary>
         public void MoveTraffic()
         {
             foreach (var vehicle in this.vehicles)
@@ -121,17 +122,17 @@ namespace FroggerStarter.Model
             return !vehicle.CollisionBox.IntersectsWith(laneCollision);
         }
 
-        /// <summary>Adds the given array of vehicles to this.vehicles</summary>
-        /// <param name="vehicles">The vehicles to add</param>
-        public void AddVehicles(Vehicle[] vehicles)
+        /// <summary>Sets this.vehicles to the given array of newVehicles and spaces them out</summary>
+        /// <param name="newVehicles">The newVehicles to add</param>
+        public void SetAndSpaceVehicles(Vehicle[] newVehicles)
         {
             this.vehicles.Clear();
 
-            var gapBetweenVehicles = (this.length - getLengthOfAllVehiclesEndToEnd(vehicles)) / vehicles.Length;
+            var gapBetweenVehicles = (this.length - getLengthOfAllVehiclesEndToEnd(newVehicles)) / newVehicles.Length;
             var vehicleX = gapBetweenVehicles / 2;
-            var vehicleY = this.y + (this.width - vehicles[0].Height) / 2;
+            var vehicleY = this.y + (this.width - newVehicles[0].Height) / 2;
 
-            foreach (var vehicle in vehicles)
+            foreach (var vehicle in newVehicles)
             {
                 vehicle.X = vehicleX;
                 vehicle.Y = (int) vehicleY;
@@ -151,7 +152,7 @@ namespace FroggerStarter.Model
             return totalLength;
         }
 
-        /// <summary>Sets the speed of all vehicles in this.vehicles</summary>
+        /// <summary>Sets the speed of all newVehicles in this.newVehicles</summary>
         /// <param name="speed">The speed.</param>
         public void SetTrafficSpeed(int speed)
         {
@@ -161,7 +162,7 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Speeds up all vehicles in this.vehicles.</summary>
+        /// <summary>Speeds up all newVehicles in this.newVehicles.</summary>
         public void SpeedUpTraffic()
         {
             foreach (var vehicle in this)
@@ -171,6 +172,7 @@ namespace FroggerStarter.Model
             }
         }
 
+        /// <summary>Hides all newVehicles.</summary>
         public void HideAllVehicles()
         {
             foreach (var vehicle in this)
@@ -181,6 +183,8 @@ namespace FroggerStarter.Model
 
 
 
+        /// <summary>Returns an enumerator that iterates through the collection.</summary>
+        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<Vehicle> GetEnumerator()
         {
             return this.vehicles.GetEnumerator();

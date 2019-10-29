@@ -10,11 +10,10 @@
     Width="{StaticResource AppWidth}">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="FrogColor" Color="LawnGreen"/>
     </UserControl.Resources>
 
     <Canvas Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Transparent">
-        <TextBlock x:Name="gameOverTextBlock" Text="Game-Over" IsTextSelectionEnabled="True" FontSize="75" Canvas.Top="155" Canvas.Left="125" Width="405" Height="100" Foreground="Red" FontWeight="Bold" />
+        <TextBlock Text="Game-Over" IsTextSelectionEnabled="True" FontSize="75" Canvas.Top="155" Canvas.Left="125" Width="405" Height="100" Foreground="Red" FontWeight="Bold" />
 
     </Canvas>
 </local:BaseSprite>

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using FroggerStarter.View.Sprites;
 using System.Drawing;
-using Windows.ApplicationModel.Store.LicenseManagement;
 
 namespace FroggerStarter.Model
 {

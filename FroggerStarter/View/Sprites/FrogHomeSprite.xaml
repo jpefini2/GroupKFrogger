@@ -10,7 +10,6 @@
     Width="50">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="FrogColor" Color="LawnGreen"/>
         <SolidColorBrush x:Key="GrassColor" Color="ForestGreen"/>
     </UserControl.Resources>
 

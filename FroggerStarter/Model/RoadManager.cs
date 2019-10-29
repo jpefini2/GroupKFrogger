@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
@@ -66,23 +67,6 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Sets the speed of the traffic in the specified lane to the specified speed</summary>
-        /// <param name="laneIndex">Index of the lane.</param>
-        /// <param name="speed">The speed.</param>
-        public void SetLaneToSpeed(int laneIndex, int speed)
-        {
-            this.lanes[laneIndex].SetTrafficSpeed(speed);
-        }
-
-        /// <summary>Speeds up traffic in all lanes</summary>
-        public void SpeedUpTraffic()
-        {
-            foreach (var lane in this.lanes)
-            {
-                lane.SpeedUpTraffic();
-            }
-        }
-
         /// <summary>Moves the traffic in all lanes</summary>
         public void MoveTraffic()
         {
@@ -92,28 +76,21 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Adds a lane to the road with the given specifications</summary>
-        /// <param name="trafficDirection">The traffic direction.</param>
-        /* public void AddLane(Direction trafficDirection)
-         {
-             var laneY = this.y + this.lanes.Count * this.laneWidth;
-             var lane = new Lane(laneY, this.laneLength, this.laneWidth,  trafficDirection);
-             this.lanes.Add(lane);
-         }*/
-
+        /// <summary>Adds the lane.</summary>
+        /// <param name="laneSettings">The lane settings.</param>
         public void AddLane(LaneSettings laneSettings)
         {
             var laneY = this.y + this.lanes.Count * this.laneWidth;
             var lane = new Lane(laneY, this.laneLength, this.laneWidth, laneSettings.TrafficDirection);
 
             var vehicles = new Vehicle[laneSettings.TrafficAmount];
-            for (int i = 0; i < laneSettings.TrafficAmount; i++)
+            for (var i = 0; i < laneSettings.TrafficAmount; i++)
             {
                 var vehicle = new Vehicle(laneSettings.TrafficType, laneSettings.TrafficDirection);
                 vehicle.SetSpeed(laneSettings.StartingTrafficSpeed, 0);
                 vehicles[i] = vehicle;
             }
-            lane.AddVehicles(vehicles);
+            lane.SetAndSpaceVehicles(vehicles);
             lane.HideAllVehicles();
             lane.RevealRandomVehicle();
             this.lanes.Add(lane);
@@ -136,6 +113,7 @@ namespace FroggerStarter.Model
             return isHit;
         }
 
+        /// <summary>Hides all but one randomly chosen vehicle in each lane</summary>
         public void ResetToOneVehiclePerLane()
         {
             foreach (var lane in this.lanes)
@@ -149,15 +127,11 @@ namespace FroggerStarter.Model
 
 
 
+        /// <summary>Returns an enumerator that iterates through the collection.</summary>
+        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<Vehicle> GetEnumerator()
         {
-            foreach (var lane in this.lanes)
-            {
-                foreach (var vehicle in lane)
-                {
-                    yield return vehicle;
-                }
-            }
+            return this.lanes.SelectMany(lane => lane).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

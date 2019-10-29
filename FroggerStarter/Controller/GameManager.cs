@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using FroggerStarter.Model;
-using System.Drawing;
 
 namespace FroggerStarter.Controller
 {
@@ -16,7 +15,7 @@ namespace FroggerStarter.Controller
 
         private const int TopLaneOffset = 4;
         private const int BottomLaneOffset = 5;
-        private const int rowsOnScreen = 8;
+        private const int RowsOnScreen = 8;
         private readonly double backgroundHeight;
         private readonly double backgroundWidth;
 
@@ -31,8 +30,13 @@ namespace FroggerStarter.Controller
         private FrogHomeManager frogHomeManager;
         private GameSettings gameSettings;
 
+        /// <summary>Occurs when [player lives updated].</summary>
         public event EventHandler<PlayerLivesUpdatedEventArgs> PlayerLivesUpdated;
+
+        /// <summary>Occurs when [player score updated].</summary>
         public event EventHandler<PlayerScoreUpdatedEventArgs> PlayerScoreUpdated;
+
+        /// <summary>Occurs when [remaining time updated].</summary>
         public event EventHandler<RemainingTimeUpdatedEventArgs> RemainingTimeUpdated;
 
         #endregion
@@ -112,7 +116,7 @@ namespace FroggerStarter.Controller
                 
             }
 
-            if (this.frogHomeManager.isCollidingWithEmptyHome(this.playerManager.CollisionBox))
+            if (this.frogHomeManager.IsCollidingWithEmptyHome(this.playerManager.CollisionBox))
             {
                 
                 this.playerReachedHome();
@@ -183,7 +187,7 @@ namespace FroggerStarter.Controller
 
         private void createAndPlaceFrogHomes()
         {
-            var y = ((int) (this.backgroundHeight / rowsOnScreen) + TopLaneOffset);
+            var y = (int) (this.backgroundHeight / RowsOnScreen) + TopLaneOffset;
             this.frogHomeManager = new FrogHomeManager(y, (int) this.backgroundWidth, this.gameSettings.NumberOfFrogHomes);
 
             foreach (var frogHome in this.frogHomeManager)
@@ -196,7 +200,7 @@ namespace FroggerStarter.Controller
         private void createAndPlaceRoad()
         {
             var roadLength = (int)this.backgroundWidth;
-            var laneWidth = (int)this.backgroundHeight / rowsOnScreen;
+            var laneWidth = (int)this.backgroundHeight / RowsOnScreen;
             var roadY = laneWidth * 2;
 
             this.roadManager = new RoadManager(roadY, roadLength, laneWidth);
@@ -218,6 +222,11 @@ namespace FroggerStarter.Controller
             this.playerManager.MovePlayer(direction, (int)this.backgroundWidth, (int)this.backgroundHeight);
         }
 
+        /// <summary>Has the player won</summary>
+        /// <returns>
+        /// true, if all frog homes are filled,
+        /// false, if not
+        /// </returns>
         public bool PlayerHasWon()
         {
             return this.frogHomeManager.AllHomesAreFilled();
@@ -252,18 +261,30 @@ namespace FroggerStarter.Controller
         #endregion
     }
 
+    /// <summary>Event args for change in player lives</summary>
+    /// <seealso cref="System.EventArgs" />
     public class PlayerLivesUpdatedEventArgs : EventArgs
     {
+        /// <summary>Gets or sets the player lives.</summary>
+        /// <value>The player lives.</value>
         public int PlayerLives { get; set; }
     }
 
+    /// <summary>Event args for change in player score</summary>
+    /// <seealso cref="System.EventArgs" />
     public class PlayerScoreUpdatedEventArgs : EventArgs
     {
+        /// <summary>Gets or sets the player score.</summary>
+        /// <value>The player score.</value>
         public int PlayerScore { get; set; }
     }
 
+    /// <summary>Event args for change in remaining time</summary>
+    /// <seealso cref="System.EventArgs" />
     public class RemainingTimeUpdatedEventArgs : EventArgs
     {
+        /// <summary>Gets or sets the remaining time.</summary>
+        /// <value>The remaining time.</value>
         public int RemainingTime { get; set; }
     }
 }

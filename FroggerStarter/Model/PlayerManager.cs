@@ -1,7 +1,5 @@
-﻿using System;
-using FroggerStarter.View.Sprites;
+﻿using FroggerStarter.View.Sprites;
 using System.Drawing;
-using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
@@ -26,10 +24,9 @@ namespace FroggerStarter.Model
         /// <value>The frog sprite.</value>
         public BaseSprite Sprite => this.player.Sprite;
 
-        public BaseSprite[] DeathSprites
-        {
-            get { return this.player.DeathSprites; }
-        }
+        /// <summary>Gets the death sprites.</summary>
+        /// <value>The death sprites.</value>
+        public BaseSprite[] DeathSprites => this.player.DeathSprites;
 
         /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
         /// <param name="startingLives">The starting lives of the player</param>
@@ -40,6 +37,7 @@ namespace FroggerStarter.Model
             this.Score = 0;
         }
 
+        /// <summary>Kills the player.</summary>
         public void KillPlayer()
         {
             this.player.PlayDeathAnimation();
@@ -80,8 +78,10 @@ namespace FroggerStarter.Model
                 case Direction.Up:
                     this.movePlayerUp();
                     break;
-                default:
+                case Direction.Down:
                     this.movePlayerDown(yBounds);
+                    break;
+                default:
                     break;
             }
         }
