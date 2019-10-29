@@ -21,7 +21,6 @@ namespace FroggerStarter.Controller
 
         private Canvas gameCanvas;
         private DispatcherTimer timer;
-        private GameSettings gameSettings;
 
         private DispatcherTimer countDownTimer;
         private int timeRemaining;
@@ -29,11 +28,10 @@ namespace FroggerStarter.Controller
         private PlayerManager playerManager;
         private RoadManager roadManager;
         private FrogHomeManager frogHomeManager;
+        private GameSettings gameSettings;
 
         public event EventHandler<PlayerLivesUpdatedEventArgs> PlayerLivesUpdated;
-
         public event EventHandler<PlayerScoreUpdatedEventArgs> PlayerScoreUpdated;
-
         public event EventHandler<RemainingTimeUpdatedEventArgs> RemainingTimeUpdated;
 
         #endregion

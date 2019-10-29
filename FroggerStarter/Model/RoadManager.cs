@@ -15,6 +15,8 @@ namespace FroggerStarter.Model
 
         private readonly List<Lane> lanes;
 
+        private DispatcherTimer revealVehicleTimer;
+
         /// <summary>Initializes a new instance of the <see cref="RoadManager"/> class.</summary>
         /// <param name="y">The y.</param>
         /// <param name="laneLength">Length of the lane.</param>
@@ -45,6 +47,23 @@ namespace FroggerStarter.Model
             this.laneLength = laneLength;
             this.laneWidth = laneWidth;
             this.lanes = new List<Lane>();
+            this.setupRevealVehicleTimer();
+        }
+
+        private void setupRevealVehicleTimer()
+        {
+            this.revealVehicleTimer = new DispatcherTimer();
+            this.revealVehicleTimer.Tick += this.revealVehicleTimerOnTick;
+            this.revealVehicleTimer.Interval = new TimeSpan(0, 0, 0, 10);
+            this.revealVehicleTimer.Start();
+        }
+
+        private void revealVehicleTimerOnTick(object sender, object e)
+        {
+            foreach (var lane in this.lanes)
+            {
+                lane.RevealRandomVehicle();
+            }
         }
 
         /// <summary>Sets the speed of the traffic in the specified lane to the specified speed</summary>
@@ -94,8 +113,9 @@ namespace FroggerStarter.Model
                 vehicle.SetSpeed(laneSettings.StartingTrafficSpeed, 0);
                 vehicles[i] = vehicle;
             }
-            lane.SetAndHideVehicles(vehicles);
-            lane.revealRandomHiddenVehicle();
+            lane.AddVehicles(vehicles);
+            lane.HideAllVehicles();
+            lane.RevealRandomVehicle();
             this.lanes.Add(lane);
         }
 

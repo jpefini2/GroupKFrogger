@@ -16,6 +16,9 @@ namespace FroggerStarter.Model
         private readonly Direction trafficDirection;
         private List<Vehicle> vehicles;
 
+        private Vehicle vehicleScheduledToReveal;
+        private DispatcherTimer scheduledVehicleOffRoadTimer;
+
         /// <summary>Initializes a new instance of the <see cref="Lane"/> class.</summary>
         /// <param name="y">The y.</param>
         /// <param name="length">The length.</param>
@@ -48,7 +51,45 @@ namespace FroggerStarter.Model
             this.width = width;
             this.length = length;
             this.trafficDirection = trafficDirection;
-            
+
+            this.vehicleScheduledToReveal = null;
+            this.setupScheduledVehicleOffRoadTimer();
+        }
+
+        private void setupScheduledVehicleOffRoadTimer()
+        {
+            this.scheduledVehicleOffRoadTimer = new DispatcherTimer();
+            this.scheduledVehicleOffRoadTimer.Tick += this.scheduledVehicleOffRoadTimerOnTick;
+            this.scheduledVehicleOffRoadTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+        }
+
+        private void scheduledVehicleOffRoadTimerOnTick(object sender, object e)
+        {
+            if (this.vehicleIsOffRoad(this.vehicleScheduledToReveal))
+            {
+                this.vehicleScheduledToReveal.Sprite.Visibility = Visibility.Visible;
+                this.scheduledVehicleOffRoadTimer.Stop();
+            }
+        }
+
+        public void RevealRandomVehicle()
+        {
+            var random = new Random();
+            var hiddenVehicles = new List<Vehicle>();
+            foreach (var vehicle in this)
+            {
+                if (vehicle.Sprite.Visibility == Visibility.Collapsed)
+                {
+                    hiddenVehicles.Add(vehicle);
+                }
+            }
+
+            if (hiddenVehicles.Count > 0)
+            {
+                var randomIndex = random.Next(hiddenVehicles.Count - 1);
+                this.vehicleScheduledToReveal = hiddenVehicles[randomIndex];
+                this.scheduledVehicleOffRoadTimer.Start();
+            }
         }
 
         /// <summary>Moves all the stored vehicles forward</summary>
@@ -82,7 +123,7 @@ namespace FroggerStarter.Model
 
         /// <summary>Adds the given array of vehicles to this.vehicles</summary>
         /// <param name="vehicles">The vehicles to add</param>
-        public void SetAndHideVehicles(Vehicle[] vehicles)
+        public void AddVehicles(Vehicle[] vehicles)
         {
             this.vehicles.Clear();
 
@@ -94,7 +135,6 @@ namespace FroggerStarter.Model
             {
                 vehicle.X = vehicleX;
                 vehicle.Y = (int) vehicleY;
-                vehicle.Sprite.Visibility = Visibility.Collapsed;
                 this.vehicles.Add(vehicle);
 
                 vehicleX += (int) (vehicle.Width + gapBetweenVehicles);
@@ -109,22 +149,6 @@ namespace FroggerStarter.Model
                 totalLength += (int) vehicle.Width;
             }
             return totalLength;
-        }
-
-        public void revealRandomHiddenVehicle()
-        {
-            var random = new Random();
-            var hiddenVehicles = new List<Vehicle>();
-            for (int i = 0; i < this.vehicles.Count; i++)
-            {
-                if (this.vehicles[i].Sprite.Visibility == Visibility.Collapsed)
-                {
-                    hiddenVehicles.Add(this.vehicles[i]);
-                }
-            }
-
-            var randomHiddenVehicleIndex = random.Next(hiddenVehicles.Count - 1);
-            hiddenVehicles[randomHiddenVehicleIndex].Sprite.Visibility = Visibility.Visible;
         }
 
         /// <summary>Sets the speed of all vehicles in this.vehicles</summary>
@@ -144,6 +168,14 @@ namespace FroggerStarter.Model
             {
                 var newXSpeed = vehicle.SpeedX + 2;
                 vehicle.SetSpeed(newXSpeed, 0);
+            }
+        }
+
+        public void HideAllVehicles()
+        {
+            foreach (var vehicle in this)
+            {
+                vehicle.Sprite.Visibility = Visibility.Collapsed;
             }
         }
 

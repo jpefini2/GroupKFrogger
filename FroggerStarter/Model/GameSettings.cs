@@ -27,11 +27,11 @@ namespace FroggerStarter.Model
         this.ScoreModifier = 100;
         this.laneSettings = new List<LaneSettings>();
 
-        this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Car, 3, 6));
-        this.laneSettings.Add(new LaneSettings(Direction.Left, VehicleType.Truck, 2, 5));
-        this.laneSettings.Add(new LaneSettings(Direction.Left, VehicleType.Car, 3, 4));
-        this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Truck, 3, 3));
-        this.laneSettings.Add(new LaneSettings(Direction.Left, VehicleType.Car, 2, 2));
+        this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Car, 5, 6));
+        this.laneSettings.Add(new LaneSettings(Direction.Left, VehicleType.Truck, 3, 5));
+        this.laneSettings.Add(new LaneSettings(Direction.Left, VehicleType.Car, 4, 4));
+        this.laneSettings.Add(new LaneSettings(Direction.Right, VehicleType.Truck, 2, 3));
+        this.laneSettings.Add(new LaneSettings(Direction.Left, VehicleType.Car, 3, 2));
     }
 
         public IEnumerator<LaneSettings> GetEnumerator()
