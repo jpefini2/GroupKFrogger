@@ -158,6 +158,9 @@
     <Compile Include="View\Sprites\FrogHomeSprite.xaml.cs">
       <DependentUpon>FrogHomeSprite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Sprites\GameOverSprite.xaml.cs">
+      <DependentUpon>GameOverSprite.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Sprites\TruckSprite.xaml.cs">
       <DependentUpon>TruckSprite.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Sprites\FrogHomeSprite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sprites\GameOverSprite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

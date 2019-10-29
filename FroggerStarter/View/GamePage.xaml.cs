@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using FroggerStarter.Controller;
 using Windows.UI.Xaml.Controls;
 using System;
+using FroggerStarter.View.Sprites;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,6 +42,8 @@ namespace FroggerStarter.View
             this.gameManager = new GameManager(this.applicationHeight, this.applicationWidth);
             this.gameManager.InitializeGame(this.canvas);
 
+
+
             this.gameManager.PlayerLivesUpdated += this.handlePlayerLivesChange;
             this.gameManager.PlayerScoreUpdated += this.handlePlayerScoreChange;
             this.gameManager.RemainingTimeUpdated += this.handleRemainingTimeChange;
@@ -75,7 +78,7 @@ namespace FroggerStarter.View
             if (e.PlayerLives <= 0)
             {
                 this.gameManager.StopGame();
-                displayGameOverDialog();
+                this.canvas.Children.Add(new GameOverSprite());
             }
         }        private void handlePlayerScoreChange(object sender, PlayerScoreUpdatedEventArgs e)
         {
@@ -83,36 +86,14 @@ namespace FroggerStarter.View
             if (this.gameManager.PlayerHasWon())
             {
                 this.gameManager.StopGame();
-                displayYouWinDialog();
+                this.canvas.Children.Add(new GameOverSprite());
             }
         }
 
         private void handleRemainingTimeChange(object sender, RemainingTimeUpdatedEventArgs e)
         {
             this.timeTextBlock.Text = e.RemainingTime.ToString();
-        }        private static async void displayGameOverDialog()
-        {
-            var gameOverDialog = new ContentDialog
-            {
-                Title = "GAME-OVER",
-                Content = "Better luck next time.",
-                CloseButtonText = "Exit"
-            };
-
-            await gameOverDialog.ShowAsync();
-            Environment.Exit(0);
-        }        private static async void displayYouWinDialog()
-        {
-            var youWinDialog = new ContentDialog
-            {
-                Title = "YOU WIN",
-                Content = "Congratulations!",
-                CloseButtonText = "Exit"
-            };
-
-            await youWinDialog.ShowAsync();
-            Environment.Exit(0);
-        }
+        }
 
         #endregion
     }

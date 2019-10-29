@@ -243,6 +243,7 @@ namespace FroggerStarter.Controller
         public void StopGame()
         {
             this.timer.Stop();
+            this.countDownTimer.Stop();
             this.playerManager.SetSpeed(0, 0);
         }
 
