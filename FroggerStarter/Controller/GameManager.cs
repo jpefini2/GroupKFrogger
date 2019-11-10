@@ -167,7 +167,7 @@ namespace FroggerStarter.Controller
 
         private void createAndPlacePlayer()
         {
-            this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives);
+            this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, (int)this.backgroundWidth, (int)this.backgroundHeight);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
 
             foreach (var sprite in this.playerManager.DeathSprites)
@@ -219,7 +219,7 @@ namespace FroggerStarter.Controller
         /// <param name="direction">The direction.</param>
         public void MovePlayer(Direction direction)
         {
-            this.playerManager.MovePlayer(direction, (int)this.backgroundWidth, (int)this.backgroundHeight);
+            this.playerManager.MovePlayer(direction);
         }
 
         /// <summary>Has the player won</summary>

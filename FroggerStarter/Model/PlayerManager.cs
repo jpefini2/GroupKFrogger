@@ -7,6 +7,8 @@ namespace FroggerStarter.Model
     public class PlayerManager
     {
         private readonly Frog player;
+        private int xBounds;
+        private int yBounds;
 
         /// <summary>Gets or sets the player's lives.</summary>
         /// <value>The lives.</value>
@@ -30,11 +32,13 @@ namespace FroggerStarter.Model
 
         /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
         /// <param name="startingLives">The starting lives of the player</param>
-        public PlayerManager(int startingLives)
+        public PlayerManager(int startingLives, int xBounds, int yBounds)
         {
             this.player = new Frog();
             this.Lives = startingLives;
             this.Score = 0;
+            this.xBounds = xBounds;
+            this.yBounds = yBounds;
         }
 
         /// <summary>Kills the player.</summary>
@@ -60,7 +64,7 @@ namespace FroggerStarter.Model
         /// <param name="direction">The direction.</param>
         /// <param name="xBounds">The x bounds.</param>
         /// <param name="yBounds">The y bounds.</param>
-        public void MovePlayer(Direction direction, int xBounds, int yBounds)
+        public void MovePlayer(Direction direction)
         {
             if (this.player.IsDying)
             {
@@ -73,13 +77,13 @@ namespace FroggerStarter.Model
                     this.movePlayerLeft();
                     break;
                 case Direction.Right:
-                    this.movePlayerRight(xBounds);
+                    this.movePlayerRight();
                     break;
                 case Direction.Up:
                     this.movePlayerUp();
                     break;
                 case Direction.Down:
-                    this.movePlayerDown(yBounds);
+                    this.movePlayerDown();
                     break;
                 default:
                     break;
@@ -104,9 +108,9 @@ namespace FroggerStarter.Model
         ///     Precondition: none
         ///     Postcondition: player.X = player.X@prev + player.Width
         /// </summary>
-        private void movePlayerRight(int xBounds)
+        private void movePlayerRight()
         {
-            if (this.player.X + this.player.SpeedX + this.player.Width <= xBounds)
+            if (this.player.X + this.player.SpeedX + this.player.Width <= this.xBounds)
             {
                 this.player.MoveRight();
             }
@@ -130,9 +134,9 @@ namespace FroggerStarter.Model
         ///     Precondition: none
         ///     Postcondition: player.Y = player.Y@prev + player.Height
         /// </summary>
-        private void movePlayerDown(int yBounds)
+        private void movePlayerDown()
         {
-            if (this.player.Y + this.player.SpeedY + this.player.Width <= yBounds)
+            if (this.player.Y + this.player.SpeedY + this.player.Width <= this.yBounds)
             {
                 this.player.MoveDown();
             }
