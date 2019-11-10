@@ -98,8 +98,7 @@ namespace FroggerStarter.Model
             var vehicles = new Vehicle[laneSettings.TrafficAmount];
             for (var i = 0; i < laneSettings.TrafficAmount; i++)
             {
-                var vehicle = this.vehicleFactory.MakeVehicle(laneSettings.TrafficType, laneSettings.TrafficDirection);
-                vehicle.SetSpeed(laneSettings.StartingTrafficSpeed, 0);
+                var vehicle = this.vehicleFactory.MakeVehicle(laneSettings.TrafficType, laneSettings.TrafficDirection, laneSettings.StartingTrafficSpeed);
                 vehicles[i] = vehicle;
             }
             lane.SetAndSpaceVehicles(vehicles);

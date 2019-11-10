@@ -10,7 +10,7 @@ namespace FroggerStarter.Model
     class Truck : Vehicle
     {
 
-        public Truck(Direction orientation) : base(orientation)
+        public Truck(Direction orientation, int speed) : base(orientation, speed)
         {
             TruckSprite sprite = new TruckSprite();
             this.RotateSprite(sprite);

@@ -13,21 +13,21 @@ namespace FroggerStarter.Model
         {
         }
 
-        public Vehicle MakeVehicle(VehicleType type, Direction orientation)
+        public Vehicle MakeVehicle(VehicleType type, Direction orientation, int speed)
         {
             Vehicle vehicle;
 
             if (type == VehicleType.Car)
             {
-                vehicle = new Car(orientation);
+                vehicle = new Car(orientation, speed);
             }
             else if (type == VehicleType.TurboCar)
             {
-                vehicle = new TurboCar(orientation);
+                vehicle = new TurboCar(orientation, speed);
             }
             else
             {
-                vehicle = new Truck(orientation);
+                vehicle = new Truck(orientation, speed);
             }
 
             return vehicle;

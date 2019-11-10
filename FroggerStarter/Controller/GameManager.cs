@@ -112,7 +112,7 @@ namespace FroggerStarter.Controller
             if (this.roadManager.VehiclesAreCollidingWith(this.playerManager.CollisionBox))
             {
                 this.playerHit();
-                
+               
             }
         }
 
