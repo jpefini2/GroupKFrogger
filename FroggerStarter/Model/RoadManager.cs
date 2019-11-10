@@ -70,6 +70,11 @@ namespace FroggerStarter.Model
         /// <summary>Moves the traffic in all lanes</summary>
         public void MoveTraffic()
         {
+            this.moveTrafficForwardInAllLanes();
+        }
+
+        private void moveTrafficForwardInAllLanes()
+        {
             foreach (var lane in this.lanes)
             {
                 lane.MoveTraffic();
@@ -82,7 +87,14 @@ namespace FroggerStarter.Model
         {
             var laneY = this.y + this.lanes.Count * this.laneWidth;
             var lane = new Lane(laneY, this.laneLength, this.laneWidth, laneSettings.TrafficDirection);
+            FillLaneWithVehicles(laneSettings, lane);
+            lane.HideAllVehicles();
+            lane.RevealRandomVehicle();
+            this.lanes.Add(lane);
+        }
 
+        private static void FillLaneWithVehicles(LaneSettings laneSettings, Lane lane)
+        {
             var vehicles = new Vehicle[laneSettings.TrafficAmount];
             for (var i = 0; i < laneSettings.TrafficAmount; i++)
             {
@@ -91,9 +103,6 @@ namespace FroggerStarter.Model
                 vehicles[i] = vehicle;
             }
             lane.SetAndSpaceVehicles(vehicles);
-            lane.HideAllVehicles();
-            lane.RevealRandomVehicle();
-            this.lanes.Add(lane);
         }
 
         /// <summary>Checks if any vehicle in the road is colliding with the given collisionBox</summary>
