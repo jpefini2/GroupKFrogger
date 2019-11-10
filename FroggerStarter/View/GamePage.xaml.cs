@@ -40,8 +40,6 @@ namespace FroggerStarter.View
             this.gameManager = new GameManager(this.applicationHeight, this.applicationWidth);
             this.gameManager.InitializeGame(this.canvas);
 
-
-
             this.gameManager.PlayerLivesUpdated += this.handlePlayerLivesChange;
             this.gameManager.PlayerScoreUpdated += this.handlePlayerScoreChange;
             this.gameManager.RemainingTimeUpdated += this.handleRemainingTimeChange;

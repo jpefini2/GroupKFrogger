@@ -132,6 +132,7 @@
     <Compile Include="Model\LaneSettings.cs" />
     <Compile Include="Model\PlayerManager.cs" />
     <Compile Include="Model\RoadManager.cs" />
+    <Compile Include="Model\SoundManager.cs" />
     <Compile Include="Model\Truck.cs" />
     <Compile Include="Model\Vehicle.cs" />
     <Compile Include="Model\VehicleFactory.cs" />
@@ -181,6 +182,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="car_brake_crash-Cam_Martinez-567114981.wav" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -189,6 +191,8 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Resources\Car-crash-sound-effect.mp3" />
+    <Content Include="Resources\car_brake_crash-Cam_Martinez-567114981.wav" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
