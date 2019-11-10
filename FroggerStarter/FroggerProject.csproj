@@ -130,6 +130,7 @@
     <Compile Include="Model\GameSettings.cs" />
     <Compile Include="Model\Lane.cs" />
     <Compile Include="Model\LaneSettings.cs" />
+    <Compile Include="Model\LevelSettings.cs" />
     <Compile Include="Model\PlayerManager.cs" />
     <Compile Include="Model\RoadManager.cs" />
     <Compile Include="Model\SoundManager.cs" />

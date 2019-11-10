@@ -204,7 +204,7 @@ namespace FroggerStarter.Controller
             var roadY = laneWidth * 2;
 
             this.roadManager = new RoadManager(roadY, roadLength, laneWidth);
-            foreach (var laneSettings in this.gameSettings)
+            foreach (var laneSettings in this.gameSettings.LevelSettings[0])
             {
                 this.roadManager.AddLane(laneSettings);
             }
