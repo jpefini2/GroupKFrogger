@@ -37,7 +37,7 @@ namespace FroggerStarter.Model
         this.laneSettings = new List<LaneSettings> {
             new LaneSettings(Direction.Right, VehicleType.Car, 5, 6),
             new LaneSettings(Direction.Left, VehicleType.Truck, 3, 5),
-            new LaneSettings(Direction.Left, VehicleType.Car, 4, 4),
+            new LaneSettings(Direction.Left, VehicleType.TurboCar, 4, 9),
             new LaneSettings(Direction.Right, VehicleType.Truck, 2, 3),
             new LaneSettings(Direction.Left, VehicleType.Car, 3, 2)
         };

@@ -133,6 +133,7 @@
     <Compile Include="Model\PlayerManager.cs" />
     <Compile Include="Model\RoadManager.cs" />
     <Compile Include="Model\Truck.cs" />
+    <Compile Include="Model\TurboCar.cs" />
     <Compile Include="Model\Vehicle.cs" />
     <Compile Include="Model\VehicleFactory.cs" />
     <Compile Include="Model\VehicleType.cs" />
