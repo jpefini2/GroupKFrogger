@@ -167,7 +167,10 @@ namespace FroggerStarter.Controller
 
         private void createAndPlacePlayer()
         {
-            this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, (int)this.backgroundWidth, (int)this.backgroundHeight);
+            int playerXBound = (int)this.backgroundWidth;
+            int playerLowerYBound = (int)this.backgroundHeight;
+            int playerUpperYBound = (int) this.backgroundHeight / RowsOnScreen;
+            this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, playerXBound, playerLowerYBound, playerUpperYBound);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
 
             foreach (var sprite in this.playerManager.DeathSprites)

@@ -1,4 +1,5 @@
 ﻿using FroggerStarter.View.Sprites;
+using System;
 using System.Drawing;
 
 namespace FroggerStarter.Model
@@ -8,7 +9,8 @@ namespace FroggerStarter.Model
     {
         private readonly Frog player;
         private int xBounds;
-        private int yBounds;
+        private int lowerYBounds;
+        private int upperYBounds;
 
         /// <summary>Gets or sets the player's lives.</summary>
         /// <value>The lives.</value>
@@ -32,13 +34,14 @@ namespace FroggerStarter.Model
 
         /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
         /// <param name="startingLives">The starting lives of the player</param>
-        public PlayerManager(int startingLives, int xBounds, int yBounds)
+        public PlayerManager(int startingLives, int xBounds, int lowerYBounds, int upperYBounds)
         {
             this.player = new Frog();
             this.Lives = startingLives;
             this.Score = 0;
             this.xBounds = xBounds;
-            this.yBounds = yBounds;
+            this.lowerYBounds = lowerYBounds;
+            this.upperYBounds = upperYBounds;
         }
 
         /// <summary>Kills the player.</summary>
@@ -123,7 +126,7 @@ namespace FroggerStarter.Model
         /// </summary>
         private void movePlayerUp()
         {
-            if (this.player.Y - this.player.SpeedY >= 0)
+            if (this.player.Y - this.player.SpeedY >= this.upperYBounds)
             {
                 this.player.MoveUp();
             }
@@ -136,7 +139,7 @@ namespace FroggerStarter.Model
         /// </summary>
         private void movePlayerDown()
         {
-            if (this.player.Y + this.player.SpeedY + this.player.Width <= this.yBounds)
+            if (this.player.Y + this.player.SpeedY + this.player.Width <= this.lowerYBounds)
             {
                 this.player.MoveDown();
             }

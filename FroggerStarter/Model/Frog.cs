@@ -12,6 +12,7 @@ namespace FroggerStarter.Model
     {
         #region Data members
 
+        private const int NumOfDeathAnimationFrames = 4;
         private const int SpeedXDirection = 50;
         private const int SpeedYDirection = 50;
 
@@ -50,14 +51,11 @@ namespace FroggerStarter.Model
 
         private void setupDeathAnimation()
         {
-            this.DeathSprites = new BaseSprite[4];
+            this.DeathSprites = new BaseSprite[NumOfDeathAnimationFrames];
 
             var deathSprite1 = new FrogDeathSprite1 {Visibility = Visibility.Collapsed};
-
             var deathSprite2 = new FrogDeathSprite2 {Visibility = Visibility.Collapsed};
-
             var deathSprite3 = new FrogDeathSprite3 {Visibility = Visibility.Collapsed};
-
             var deathSprite4 = new FrogDeathSprite4 {Visibility = Visibility.Collapsed};
 
             this.DeathSprites[0] = deathSprite1;
@@ -77,28 +75,25 @@ namespace FroggerStarter.Model
 
         private void switchDeathSprite(object sender, object e)
         {
-            if (this.DeathSprites[0].Visibility == Visibility.Visible)
+            for (int i = 0; i < this.DeathSprites.Length; i++)
             {
-                this.DeathSprites[0].Visibility = Visibility.Collapsed;
-                this.DeathSprites[1].Visibility = Visibility.Visible;
-            }
-            else if (this.DeathSprites[1].Visibility == Visibility.Visible)
-            {
-                this.DeathSprites[1].Visibility = Visibility.Collapsed;
-                this.DeathSprites[2].Visibility = Visibility.Visible;
-            }
-            else if (this.DeathSprites[2].Visibility == Visibility.Visible)
-            {
-                this.DeathSprites[2].Visibility = Visibility.Collapsed;
-                this.DeathSprites[3].Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.DeathSprites[3].Visibility = Visibility.Collapsed;
-                Sprite.Visibility = Visibility.Visible;
-                this.animationTimer.Stop();
-                this.IsDying = false;
-                this.UpdateDeathSpritesLocation();
+                if (this.DeathSprites[i].Visibility == Visibility.Visible)
+                {
+                    if (i != (NumOfDeathAnimationFrames - 1))
+                    {
+                        this.DeathSprites[i].Visibility = Visibility.Collapsed;
+                        this.DeathSprites[i + 1].Visibility = Visibility.Visible;
+                        break;
+                    }
+                    else
+                    {
+                        this.DeathSprites[i].Visibility = Visibility.Collapsed;
+                        Sprite.Visibility = Visibility.Visible;
+                        this.animationTimer.Stop();
+                        this.IsDying = false;
+                        this.UpdateDeathSpritesLocation();
+                    }
+                }
             }
         }
 
