@@ -71,19 +71,9 @@ namespace FroggerStarter.View
         private void handlePlayerLivesChange(object sender, PlayerLivesUpdatedEventArgs e)
         {
             this.livesTextBlock.Text = e.PlayerLives.ToString();
-            if (e.PlayerLives <= 0)
-            {
-                this.gameManager.StopGame();
-                this.canvas.Children.Add(new GameOverSprite());
-            }
         }        private void handlePlayerScoreChange(object sender, PlayerScoreUpdatedEventArgs e)
         {
             this.scoreTextBlock.Text = e.PlayerScore.ToString();
-            /*if (this.gameManager.PlayerHasWon())
-            {
-                this.gameManager.StopGame();
-                this.canvas.Children.Add(new GameOverSprite());
-            }*/
         }
 
         private void handleRemainingTimeChange(object sender, RemainingTimeUpdatedEventArgs e)

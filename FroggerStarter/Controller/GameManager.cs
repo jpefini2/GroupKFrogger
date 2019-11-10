@@ -133,6 +133,11 @@ namespace FroggerStarter.Controller
             this.roadManager.ResetToOneVehiclePerLane();
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
+
+            if (this.playerManager.Lives == 0)
+            {
+                this.gameOver();
+            }
         }
 
         private void playerReachedHome()
@@ -161,6 +166,7 @@ namespace FroggerStarter.Controller
         {
             this.StopGame();
             this.gameCanvas.Children.Add(new GameOverSprite());
+            this.soundManager.PlayGameOverSound();
         }
 
         private void loadNextLevel()
