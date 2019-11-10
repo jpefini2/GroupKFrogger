@@ -2,6 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using FroggerStarter.Model;
+using FroggerStarter.View.Sprites;
 
 namespace FroggerStarter.Controller
 {
@@ -30,6 +31,8 @@ namespace FroggerStarter.Controller
         private FrogHomeManager frogHomeManager;
         private SoundManager soundManager;
         private GameSettings gameSettings;
+
+        private int currentLevel;
 
         /// <summary>Occurs when [player lives updated].</summary>
         public event EventHandler<PlayerLivesUpdatedEventArgs> PlayerLivesUpdated;
@@ -140,6 +143,36 @@ namespace FroggerStarter.Controller
             this.setPlayerToCenterOfBottomLane();
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
+
+            if (this.frogHomeManager.AllHomesAreFilled())
+            {
+                if (this.currentLevel < this.gameSettings.NumberOfLevels)
+                {
+                    this.loadNextLevel();
+                }
+                else
+                {
+                    this.gameOver();
+                }           
+            }
+        }
+
+        private void gameOver()
+        {
+            this.StopGame();
+            this.gameCanvas.Children.Add(new GameOverSprite());
+        }
+
+        private void loadNextLevel()
+        {
+            foreach (var vehicle in this.roadManager)
+            {
+                this.gameCanvas.Children.Remove(vehicle.Sprite);
+            }
+            this.frogHomeManager.EmptyAllHomes();
+
+            this.currentLevel++;
+            this.createAndPlaceRoad();
         }
 
         /// <summary>
@@ -156,6 +189,7 @@ namespace FroggerStarter.Controller
             this.gameSettings = new GameSettings();
             this.soundManager = new SoundManager();
             this.timeRemaining = this.gameSettings.TimeLimit;
+            this.currentLevel = 1;
             this.createAndPlacePlayer();
             this.createAndPlaceFrogHomes();
             this.createAndPlaceRoad();
@@ -205,7 +239,7 @@ namespace FroggerStarter.Controller
             var roadY = laneWidth * 2;
 
             this.roadManager = new RoadManager(roadY, roadLength, laneWidth);
-            foreach (var laneSettings in this.gameSettings.LevelSettings[0])
+            foreach (var laneSettings in this.gameSettings.LevelSettings[this.currentLevel - 1])
             {
                 this.roadManager.AddLane(laneSettings);
             }
