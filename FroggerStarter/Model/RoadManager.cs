@@ -13,7 +13,6 @@ namespace FroggerStarter.Model
         private readonly int y;
         private readonly int laneLength;
         private readonly int laneWidth;
-
         private readonly List<Lane> lanes;
 
         private DispatcherTimer revealVehicleTimer;
@@ -33,12 +32,10 @@ namespace FroggerStarter.Model
             {
                 throw new ArgumentOutOfRangeException(nameof(y));
             }
-
             if (laneLength < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(laneLength));
             }
-
             if (laneWidth < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(laneWidth));

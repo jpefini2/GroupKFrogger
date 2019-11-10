@@ -22,7 +22,6 @@ namespace FroggerStarter.Model
             Sprite = new FrogHomeSprite();
             this.IsFilled = false;
             this.FilledSprite = new FilledFrogHomeSprite {Visibility = Visibility.Collapsed};
-
         }
 
         /// <summary>Fills the home.</summary>
