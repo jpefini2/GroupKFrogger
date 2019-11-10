@@ -9,8 +9,7 @@ namespace FroggerStarter.Model
 {
     class Car : Vehicle
     {
-
-        public Car(Direction orientation) : base(orientation)
+        public Car(Direction orientation, int speed) : base(orientation, speed)
         {
             CarSprite sprite = new CarSprite();
             this.RotateSprite(sprite);

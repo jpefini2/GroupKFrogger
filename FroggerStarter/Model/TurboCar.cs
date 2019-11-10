@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
-    class TurboCar : Vehicle
+    class TurboCar : Car
     {
-        public TurboCar(Direction orientation) : base(orientation)
+        public TurboCar(Direction orientation, int speed) : base(orientation, speed * 2)
         {
             var sprite = new TurboCarSprite();
             this.RotateSprite(sprite);
