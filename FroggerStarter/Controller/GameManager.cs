@@ -264,6 +264,7 @@ namespace FroggerStarter.Controller
             if (this.frogHomeManager.IsCollidingWithEmptyHome(e.PositionOnShoulder))
             {
                 this.playerReachedHome();
+                this.soundManager.PlayFilledHomeSound();
             }
         }
 
