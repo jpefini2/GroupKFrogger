@@ -34,6 +34,9 @@ namespace FroggerStarter.Model
 
         public event EventHandler<PlayerMovingToShoulderEventArgs> PlayerMovingToShoulder;
 
+        /// <summary>Occurs when [player lives updated].</summary>
+        public event EventHandler<PlayerHitWallEventArgs> PlayerHitWall;
+
         /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
         /// <param name="startingLives">The starting lives of the player</param>
         public PlayerManager(int startingLives, int xBounds, int lowerYBounds, int upperYBounds)
@@ -106,6 +109,10 @@ namespace FroggerStarter.Model
             {
                 this.player.MoveLeft();
             }
+            else
+            {
+                this.onPlayerHitWall();
+            }
         }
 
         /// <summary>
@@ -118,6 +125,10 @@ namespace FroggerStarter.Model
             if (this.player.X + this.player.SpeedX + this.player.Width <= this.xBounds)
             {
                 this.player.MoveRight();
+            }
+            else
+            {
+                this.onPlayerHitWall();
             }
         }
 
@@ -149,6 +160,10 @@ namespace FroggerStarter.Model
             {
                 this.player.MoveDown();
             }
+            else
+            {
+                this.onPlayerHitWall();
+            }
         }
 
         /// <summary>Sets the speed of the player</summary>
@@ -164,6 +179,16 @@ namespace FroggerStarter.Model
             var data = new PlayerMovingToShoulderEventArgs { PositionOnShoulder = new Rectangle(this.player.X, this.player.Y - this.player.SpeedY, (int)this.player.Width, (int)this.player.Height) };
             this.PlayerMovingToShoulder?.Invoke(this, data);
         }
+
+        private void onPlayerHitWall()
+        {
+            var data = new PlayerHitWallEventArgs {};
+            this.PlayerHitWall?.Invoke(this, data);
+        }
+    }
+
+    public class PlayerHitWallEventArgs
+    {
     }
 
     public class PlayerMovingToShoulderEventArgs : EventArgs

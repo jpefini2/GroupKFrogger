@@ -10,9 +10,9 @@ namespace FroggerStarter.Model
 {
     class SoundManager
     {
-        private static readonly String vehicleCollisonSoundEffect = "ms-appx:///Resources/Car-crash-sound-effect.mp3";
-        private static readonly String hittingWallSoundEffect = "ms-appx:///Resources/Realistic_Punch-Mark_DiAngelo-1609462330.wav";
-        private static readonly String timeRunningOutSoundEffect = "ms-appx:///Resources/Tick-DeepFrozenApps-397275646.mp3";
+        private static readonly String vehicleCollisonSoundEffect = "ms-appx:///Resources/CarCrash.mp3";
+        private static readonly String hittingWallSoundEffect = "ms-appx:///Resources/HittingWall.wav";
+        private static readonly String timeRunningOutSoundEffect = "ms-appx:///Resources/TimerTick.mp3";
 
         public void PlayVehicleCollisionSound()
         {
