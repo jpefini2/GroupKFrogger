@@ -28,6 +28,7 @@ namespace FroggerStarter.Controller
         private PlayerManager playerManager;
         private RoadManager roadManager;
         private FrogHomeManager frogHomeManager;
+        private SoundManager soundManager;
         private GameSettings gameSettings;
 
         /// <summary>Occurs when [player lives updated].</summary>
@@ -112,7 +113,6 @@ namespace FroggerStarter.Controller
             if (this.roadManager.VehiclesAreCollidingWith(this.playerManager.CollisionBox))
             {
                 this.playerHit();
-               
             }
         }
 
@@ -124,6 +124,7 @@ namespace FroggerStarter.Controller
             this.roadManager.ResetToOneVehiclePerLane();
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
+            this.soundManager.PlayVehicleCollisionSound();
         }
 
         private void playerReachedHome()
@@ -148,6 +149,7 @@ namespace FroggerStarter.Controller
         {
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
+            this.soundManager = new SoundManager();
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.createAndPlacePlayer();
             this.createAndPlaceFrogHomes();
