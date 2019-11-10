@@ -35,12 +35,10 @@ namespace FroggerStarter.Model
             {
                 throw new ArgumentOutOfRangeException(nameof(y));
             }
-
             if (length < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
-
             if (width < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(width));
@@ -51,7 +49,6 @@ namespace FroggerStarter.Model
             this.width = width;
             this.length = length;
             this.trafficDirection = trafficDirection;
-
             this.vehicleScheduledToReveal = null;
             this.setupScheduledVehicleOffRoadTimer();
         }

@@ -40,9 +40,7 @@ namespace FroggerStarter.Model
         {
             Sprite = new FrogSprite();
             SetSpeed(SpeedXDirection, SpeedYDirection);
-
             this.setupDeathAnimation();
-
             this.IsDying = false;
             this.animationTimer = new DispatcherTimer();
             this.animationTimer.Tick += this.switchDeathSprite;

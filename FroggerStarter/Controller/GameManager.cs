@@ -67,7 +67,6 @@ namespace FroggerStarter.Controller
 
             this.backgroundHeight = backgroundHeight;
             this.backgroundWidth = backgroundWidth;
-
             this.setupGameTimer();
             this.setupCountDownTimer();
         }
@@ -128,9 +127,7 @@ namespace FroggerStarter.Controller
             this.playerManager.KillPlayer();
             this.onPlayerLivesUpdated();
             this.setPlayerToCenterOfBottomLane();
-
             this.roadManager.ResetToOneVehiclePerLane();
-
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
         }
@@ -141,7 +138,6 @@ namespace FroggerStarter.Controller
             this.playerManager.Score += this.timeRemaining * this.gameSettings.ScoreModifier;
             this.onPlayerScoreUpdated();
             this.setPlayerToCenterOfBottomLane();
-
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
         }
@@ -159,7 +155,6 @@ namespace FroggerStarter.Controller
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
             this.timeRemaining = this.gameSettings.TimeLimit;
-            
             this.createAndPlacePlayer();
             this.createAndPlaceFrogHomes();
             this.createAndPlaceRoad();
