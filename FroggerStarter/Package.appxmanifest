@@ -32,10 +32,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="FroggerStarter.App">
       <uap:VisualElements
-        DisplayName="Frogger V2 by Josh Pefinis"
+        DisplayName="Frogger by Pefinis, Pefinis"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="FroggerStarter"
+        Description="Frogger"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
