@@ -102,6 +102,11 @@ namespace FroggerStarter.Controller
             this.timeRemaining--;
             this.onRemainingTimeUpdated();
 
+            if (this.timeRemaining <= 5)
+            {
+                this.soundManager.PlayTimeRunningOutSound();
+            }
+
             if (this.timeRemaining == 0)
             {
                 this.playerHit();
@@ -113,6 +118,7 @@ namespace FroggerStarter.Controller
             if (this.roadManager.VehiclesAreCollidingWith(this.playerManager.CollisionBox))
             {
                 this.playerHit();
+                this.soundManager.PlayVehicleCollisionSound();
             }
         }
 
@@ -124,7 +130,6 @@ namespace FroggerStarter.Controller
             this.roadManager.ResetToOneVehiclePerLane();
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.onRemainingTimeUpdated();
-            this.soundManager.PlayVehicleCollisionSound();
         }
 
         private void playerReachedHome()

@@ -196,7 +196,8 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Resources\Car-crash-sound-effect.mp3" />
-    <Content Include="Resources\car_brake_crash-Cam_Martinez-567114981.wav" />
+    <Content Include="Resources\Realistic_Punch-Mark_DiAngelo-1609462330.wav" />
+    <Content Include="Resources\Tick-DeepFrozenApps-397275646.mp3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
