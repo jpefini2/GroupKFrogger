@@ -151,6 +151,7 @@ namespace FroggerStarter.Controller
 
             if (this.frogHomeManager.AllHomesAreFilled())
             {
+                this.soundManager.PlayLevelCompletedSound();
                 if (this.currentLevel < this.gameSettings.NumberOfLevels)
                 {
                     this.loadNextLevel();
