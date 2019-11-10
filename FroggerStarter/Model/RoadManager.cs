@@ -17,6 +17,7 @@ namespace FroggerStarter.Model
         private readonly List<Lane> lanes;
 
         private DispatcherTimer revealVehicleTimer;
+        private VehicleFactory vehicleFactory;
 
         /// <summary>Initializes a new instance of the <see cref="RoadManager"/> class.</summary>
         /// <param name="y">The y.</param>
@@ -49,6 +50,8 @@ namespace FroggerStarter.Model
             this.laneWidth = laneWidth;
             this.lanes = new List<Lane>();
             this.setupRevealVehicleTimer();
+
+            this.vehicleFactory = new VehicleFactory();
         }
 
         private void setupRevealVehicleTimer()
@@ -87,18 +90,18 @@ namespace FroggerStarter.Model
         {
             var laneY = this.y + this.lanes.Count * this.laneWidth;
             var lane = new Lane(laneY, this.laneLength, this.laneWidth, laneSettings.TrafficDirection);
-            FillLaneWithVehicles(laneSettings, lane);
+            this.fillLaneWithVehicles(laneSettings, lane);
             lane.HideAllVehicles();
             lane.RevealRandomVehicle();
             this.lanes.Add(lane);
         }
 
-        private static void FillLaneWithVehicles(LaneSettings laneSettings, Lane lane)
+        private void fillLaneWithVehicles(LaneSettings laneSettings, Lane lane)
         {
             var vehicles = new Vehicle[laneSettings.TrafficAmount];
             for (var i = 0; i < laneSettings.TrafficAmount; i++)
             {
-                var vehicle = new Vehicle(laneSettings.TrafficType, laneSettings.TrafficDirection);
+                var vehicle = this.vehicleFactory.MakeVehicle(laneSettings.TrafficType, laneSettings.TrafficDirection);
                 vehicle.SetSpeed(laneSettings.StartingTrafficSpeed, 0);
                 vehicles[i] = vehicle;
             }
