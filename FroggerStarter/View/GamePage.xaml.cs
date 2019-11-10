@@ -79,11 +79,11 @@ namespace FroggerStarter.View
         }        private void handlePlayerScoreChange(object sender, PlayerScoreUpdatedEventArgs e)
         {
             this.scoreTextBlock.Text = e.PlayerScore.ToString();
-            if (this.gameManager.PlayerHasWon())
+            /*if (this.gameManager.PlayerHasWon())
             {
                 this.gameManager.StopGame();
                 this.canvas.Children.Add(new GameOverSprite());
-            }
+            }*/
         }
 
         private void handleRemainingTimeChange(object sender, RemainingTimeUpdatedEventArgs e)

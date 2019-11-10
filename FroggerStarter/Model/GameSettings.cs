@@ -17,6 +17,8 @@ namespace FroggerStarter.Model
         /// <value>The number of frog homes.</value>
         public int NumberOfFrogHomes { get; }
 
+        public int NumberOfLevels { get; }
+
         /// <summary>Gets the time limit.</summary>
         /// <value>The time limit.</value>
         public int TimeLimit { get; }
@@ -32,6 +34,7 @@ namespace FroggerStarter.Model
         {
             this.NumberOfStartingLives = 4;
             this.NumberOfFrogHomes = 5;
+            this.NumberOfLevels = 3;
             this.TimeLimit = 20;
             this.ScoreModifier = 100;
             this.LevelSettings = new List<LevelSettings>();

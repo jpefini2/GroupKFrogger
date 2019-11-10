@@ -31,5 +31,12 @@ namespace FroggerStarter.Model
             Sprite.Visibility = Visibility.Collapsed;
             this.FilledSprite.Visibility = Visibility.Visible;
         }
+
+        public void EmptyHome()
+        {
+            this.IsFilled = false;
+            Sprite.Visibility = Visibility.Visible;
+            this.FilledSprite.Visibility = Visibility.Collapsed;
+        }
     }
 }
