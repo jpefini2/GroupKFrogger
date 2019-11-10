@@ -114,12 +114,6 @@ namespace FroggerStarter.Controller
                 this.playerHit();
                 
             }
-
-            if (this.frogHomeManager.IsCollidingWithEmptyHome(this.playerManager.CollisionBox))
-            {
-                
-                this.playerReachedHome();
-            }
         }
 
         private void playerHit()
@@ -164,7 +158,7 @@ namespace FroggerStarter.Controller
         {
             int playerXBound = (int)this.backgroundWidth;
             int playerLowerYBound = (int)this.backgroundHeight;
-            int playerUpperYBound = (int) this.backgroundHeight / RowsOnScreen;
+            int playerUpperYBound = ((int) this.backgroundHeight / RowsOnScreen) * 2;
             this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, playerXBound, playerLowerYBound, playerUpperYBound);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
 
@@ -174,6 +168,7 @@ namespace FroggerStarter.Controller
             }
 
             this.setPlayerToCenterOfBottomLane();
+            this.playerManager.PlayerMovingToShoulder += this.handlePlayerMovingToShoulder;
         }
 
         private void setPlayerToCenterOfBottomLane()
@@ -254,6 +249,14 @@ namespace FroggerStarter.Controller
             this.timer.Stop();
             this.countDownTimer.Stop();
             this.playerManager.SetSpeed(0, 0);
+        }
+
+        private void handlePlayerMovingToShoulder(object sender, PlayerMovingToShoulderEventArgs e)
+        {
+            if (this.frogHomeManager.IsCollidingWithEmptyHome(e.PositionOnShoulder))
+            {
+                this.playerReachedHome();
+            }
         }
 
         #endregion

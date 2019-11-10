@@ -32,6 +32,8 @@ namespace FroggerStarter.Model
         /// <value>The death sprites.</value>
         public BaseSprite[] DeathSprites => this.player.DeathSprites;
 
+        public event EventHandler<PlayerMovingToShoulderEventArgs> PlayerMovingToShoulder;
+
         /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
         /// <param name="startingLives">The starting lives of the player</param>
         public PlayerManager(int startingLives, int xBounds, int lowerYBounds, int upperYBounds)
@@ -130,6 +132,10 @@ namespace FroggerStarter.Model
             {
                 this.player.MoveUp();
             }
+            else
+            {
+                this.onPlayerMovingToShoulder();
+            }
         }
 
         /// <summary>
@@ -152,5 +158,18 @@ namespace FroggerStarter.Model
         {
             this.player.SetSpeed(xSpeed, ySpeed);
         }
+
+        private void onPlayerMovingToShoulder()
+        {
+            var data = new PlayerMovingToShoulderEventArgs { PositionOnShoulder = new Rectangle(this.player.X, this.player.Y - this.player.SpeedY, (int)this.player.Width, (int)this.player.Height) };
+            this.PlayerMovingToShoulder?.Invoke(this, data);
+        }
+    }
+
+    public class PlayerMovingToShoulderEventArgs : EventArgs
+    {
+        /// <summary>Gets or sets the remaining time.</summary>
+        /// <value>The remaining time.</value>
+        public Rectangle PositionOnShoulder { get; set; }
     }
 }
