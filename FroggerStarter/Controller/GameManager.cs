@@ -176,6 +176,7 @@ namespace FroggerStarter.Controller
 
             this.setPlayerToCenterOfBottomLane();
             this.playerManager.PlayerMovingToShoulder += this.handlePlayerMovingToShoulder;
+            this.playerManager.PlayerHitWall += this.handlePlayerHitWall;
         }
 
         private void setPlayerToCenterOfBottomLane()
@@ -264,6 +265,11 @@ namespace FroggerStarter.Controller
             {
                 this.playerReachedHome();
             }
+        }
+
+        private void handlePlayerHitWall(object sender, PlayerHitWallEventArgs e)
+        {
+            this.soundManager.PlayHittingWallSound();
         }
 
         #endregion

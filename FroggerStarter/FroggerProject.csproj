@@ -195,9 +195,9 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Resources\Car-crash-sound-effect.mp3" />
-    <Content Include="Resources\Realistic_Punch-Mark_DiAngelo-1609462330.wav" />
-    <Content Include="Resources\Tick-DeepFrozenApps-397275646.mp3" />
+    <Content Include="Resources\CarCrash.mp3" />
+    <Content Include="Resources\HittingWall.wav" />
+    <Content Include="Resources\TimerTick.mp3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
