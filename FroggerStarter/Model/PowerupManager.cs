@@ -10,7 +10,7 @@ namespace FroggerStarter.Model
 {
     public class PowerupManager : IEnumerable<Powerup>
     {
-        private const int PercentChanceOfPlaceingPowerup = 100;
+        private const int PercentChanceOfPlaceingPowerup = 50;
 
         private int xBound;
         private int upperYBound;

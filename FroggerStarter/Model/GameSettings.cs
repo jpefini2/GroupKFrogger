@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace FroggerStarter.Model
@@ -38,38 +39,80 @@ namespace FroggerStarter.Model
             this.TimeLimit = 20;
             this.ScoreModifier = 100;
             this.LevelSettings = new List<LevelSettings>();
+            
 
             this.setupLevelSettings();
         }
 
         private void setupLevelSettings()
         {
-            List<LaneSettings> level1LaneSettings = new List<LaneSettings> {
+            for (int i = 0; i < this.NumberOfLevels; i++)
+            {
+                this.LevelSettings.Add(new LevelSettings());
+            }
+
+            this.fillRoadSettingsForAllLevels();
+            this.fillRiverSettingsForAllLevels();
+        }
+
+        private void fillRiverSettingsForAllLevels()
+        {
+            List<LaneSettings> level1RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Right, VehicleType.Car, 5, 6),
                 new LaneSettings(Direction.Left, VehicleType.Truck, 3, 5),
                 new LaneSettings(Direction.Left, VehicleType.TurboCar, 4, 5),
                 new LaneSettings(Direction.Right, VehicleType.Truck, 2, 3),
                 new LaneSettings(Direction.Left, VehicleType.Car, 3, 2)
             };
-            this.LevelSettings.Add(new LevelSettings(level1LaneSettings));
+            this.LevelSettings[0].RoadLaneSettings = level1RoadSettings;
 
-            List<LaneSettings> level2LaneSettings = new List<LaneSettings> {
+            List<LaneSettings> level2RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Left, VehicleType.Truck, 4, 8),
                 new LaneSettings(Direction.Right, VehicleType.Truck, 3, 7),
                 new LaneSettings(Direction.Right, VehicleType.TurboCar, 4, 7),
                 new LaneSettings(Direction.Left, VehicleType.Car, 4, 5),
                 new LaneSettings(Direction.Right, VehicleType.TurboCar, 4, 4)
             };
-            this.LevelSettings.Add(new LevelSettings(level2LaneSettings));
+            this.LevelSettings[1].RoadLaneSettings = level2RoadSettings;
 
-            List<LaneSettings> level3LaneSettings = new List<LaneSettings> {
+            List<LaneSettings> level3RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Left, VehicleType.Truck, 4, 10),
                 new LaneSettings(Direction.Right, VehicleType.Truck, 4, 9),
                 new LaneSettings(Direction.Right, VehicleType.TurboCar, 4, 9),
                 new LaneSettings(Direction.Left, VehicleType.Car, 5, 7),
                 new LaneSettings(Direction.Left, VehicleType.TurboCar, 5, 6)
             };
-            this.LevelSettings.Add(new LevelSettings(level3LaneSettings));
+            this.LevelSettings[2].RoadLaneSettings = level3RoadSettings;
+        }
+
+        private void fillRoadSettingsForAllLevels()
+        {
+            List<LaneSettings> level1RiverSettings = new List<LaneSettings> {
+                new LaneSettings(Direction.Right, VehicleType.Log, 2, 6),
+                new LaneSettings(Direction.Left, VehicleType.Turtles, 3, 5),
+                new LaneSettings(Direction.Right, VehicleType.Log, 1, 4),
+                new LaneSettings(Direction.Right, VehicleType.Log, 2, 3),
+                new LaneSettings(Direction.Left, VehicleType.Turtles, 2, 2)
+            };
+            this.LevelSettings[0].RiverLaneSettings = level1RiverSettings;
+
+            List<LaneSettings> level2RiverSettings = new List<LaneSettings> {
+                new LaneSettings(Direction.Left, VehicleType.Turtles, 3, 7),
+                new LaneSettings(Direction.Right, VehicleType.Log, 2, 6),
+                new LaneSettings(Direction.Left, VehicleType.Log, 3, 5),
+                new LaneSettings(Direction.Left, VehicleType.Turtles, 3, 4),
+                new LaneSettings(Direction.Right, VehicleType.Log, 2, 3)
+            };
+            this.LevelSettings[1].RiverLaneSettings = level2RiverSettings;
+
+            List<LaneSettings> level3RiverSettings = new List<LaneSettings> {
+                new LaneSettings(Direction.Left, VehicleType.Log, 2, 8),
+                new LaneSettings(Direction.Left, VehicleType.Turtles, 2, 7),
+                new LaneSettings(Direction.Right, VehicleType.Turtles, 3, 6),
+                new LaneSettings(Direction.Right, VehicleType.Log, 2, 5),
+                new LaneSettings(Direction.Left, VehicleType.Log, 3, 4)
+            };
+            this.LevelSettings[2].RiverLaneSettings = level3RiverSettings;
         }
     }
 }

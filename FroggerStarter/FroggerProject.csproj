@@ -133,16 +133,20 @@
     <Compile Include="Model\HighScoreBoard.cs" />
     <Compile Include="Model\HighScoreElement.cs" />
     <Compile Include="Model\Lane.cs" />
+    <Compile Include="Model\LaneManager.cs" />
     <Compile Include="Model\LaneSettings.cs" />
     <Compile Include="Model\LevelSettings.cs" />
+    <Compile Include="Model\Log.cs" />
     <Compile Include="Model\PlayerManager.cs" />
     <Compile Include="Model\Powerup.cs" />
     <Compile Include="Model\PowerupManager.cs" />
+    <Compile Include="Model\RiverManager.cs" />
     <Compile Include="Model\RoadManager.cs" />
     <Compile Include="Model\SoundManager.cs" />
     <Compile Include="Model\TemporaryInvincibilityPowerup.cs" />
     <Compile Include="Model\Truck.cs" />
     <Compile Include="Model\TurboCar.cs" />
+    <Compile Include="Model\Turtles.cs" />
     <Compile Include="Model\Vehicle.cs" />
     <Compile Include="Model\VehicleFactory.cs" />
     <Compile Include="Model\VehicleType.cs" />
@@ -153,11 +157,17 @@
     <Compile Include="View\Sprites\BaseSprite.xaml.cs">
       <DependentUpon>BaseSprite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Sprites\LogSprite.xaml.cs">
+      <DependentUpon>LogSprite.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Sprites\TemporaryInvincibilityPowerupSprite.xaml.cs">
       <DependentUpon>TemporaryInvincibilityPowerupSprite.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\ExtraTimePowerupSprite.xaml.cs">
       <DependentUpon>ExtraTimePowerupSprite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sprites\TurtlesSprite.xaml.cs">
+      <DependentUpon>TurtlesSprite.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\WalkingFrogSprite.xaml.cs">
       <DependentUpon>WalkingFrogSprite.xaml</DependentUpon>
@@ -221,6 +231,7 @@
     <Content Include="Resources\CarCrash.mp3" />
     <Content Include="Resources\HittingWall.wav" />
     <Content Include="Resources\TimerTick.mp3" />
+    <Content Include="Resources\Splash.wav" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -235,11 +246,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Sprites\LogSprite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Sprites\TemporaryInvincibilityPowerupSprite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Sprites\ExtraTimePowerupSprite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sprites\TurtlesSprite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

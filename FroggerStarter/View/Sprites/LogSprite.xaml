@@ -1,0 +1,23 @@
+﻿<local:BaseSprite
+    x:Class="FroggerStarter.View.Sprites.LogSprite"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FroggerStarter.View.Sprites"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Height="40"
+    Width="150">
+
+    <Canvas Width="150" Height="40" Background="Transparent">
+        <Rectangle Canvas.Top="0" Canvas.Left="5" Fill="DarkGoldenrod" Width="140" Height="40"/>
+        <Ellipse Canvas.Top="0" Canvas.Left="140" Fill="Tan" Width="10" Height="40" />
+        <Ellipse Canvas.Top="0" Canvas.Left="0" Fill="DarkGoldenrod" Width="10" Height="40" />
+
+        <Polygon Fill="SaddleBrown" Points="10,5 10,5.25 40,5.25 40,5"/>
+        <Polygon Fill="SaddleBrown" Points="17,13 17,13.25 80,13.25 80,13"/>
+        <Polygon Fill="SaddleBrown" Points="85,37 85,37.25 100,37.25 100,37"/>
+        <Polygon Fill="SaddleBrown" Points="70,23 70,23.25 130,23.25 130,23"/>
+        <Polygon Fill="SaddleBrown" Points="20,29 20,29.25 35,29.25 35,29"/>
+    </Canvas>
+</local:BaseSprite>

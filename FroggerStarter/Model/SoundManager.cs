@@ -18,6 +18,7 @@ namespace FroggerStarter.Model
         private static readonly String gameOverSoundEffect = "ms-appx:///Resources/GameOver.wav";
         private static readonly String powerUpTakenSoundEffect = "ms-appx:///Resources/PowerUpTaken.wav";
         private static readonly String invincibilityActiveSoundEffect = "ms-appx:///Resources/InvincibilityActive.mp3";
+        private static readonly String splashSoundEffect = "ms-appx:///Resources/Splash.wav";
 
         public void PlayVehicleCollisionSound()
         {
@@ -57,6 +58,11 @@ namespace FroggerStarter.Model
         public void PlayInvincibilityActiveSound()
         {
             this.Play(invincibilityActiveSoundEffect);
+        }
+
+        public void PlayerSplashSound()
+        {
+            this.Play(splashSoundEffect);
         }
 
         private void Play(string fileName)

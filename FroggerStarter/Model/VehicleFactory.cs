@@ -25,6 +25,14 @@ namespace FroggerStarter.Model
             {
                 vehicle = new TurboCar(orientation, speed);
             }
+            else if (type == VehicleType.Turtles)
+            {
+                vehicle = new Turtles(orientation, speed);
+            }
+            else if (type == VehicleType.Log)
+            {
+                vehicle = new Log(orientation, speed);
+            }
             else
             {
                 vehicle = new Truck(orientation, speed);

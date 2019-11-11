@@ -14,9 +14,9 @@ namespace FroggerStarter.Controller
     {
         #region Data members
 
-        private const int TopLaneOffset = 4;
+        private const int TopLaneOffset = 55;
         private const int BottomLaneOffset = 5;
-        private const int RowsOnScreen = 8;
+        private const int RowsOnScreen = 13;
         private readonly double backgroundHeight;
         private readonly double backgroundWidth;
 
@@ -28,6 +28,7 @@ namespace FroggerStarter.Controller
 
         private PlayerManager playerManager;
         private RoadManager roadManager;
+        private RiverManager riverManager;
         private FrogHomeManager frogHomeManager;
         private SoundManager soundManager;
         private PowerupManager powerupManager;
@@ -94,7 +95,9 @@ namespace FroggerStarter.Controller
         private void gameTimerOnTick(object sender, object e)
         {
             this.roadManager.MoveTraffic();
-            this.checkVehicleCollision();
+            this.riverManager.MoveTraffic();
+            this.checkRoadCollision();
+            this.checkRiverCollision();
             this.checkPowerupCollision();
         }
 
@@ -122,11 +125,32 @@ namespace FroggerStarter.Controller
             }
         }
 
-        private void checkVehicleCollision()
+        private void checkRoadCollision()
         {
             if (this.roadManager.VehiclesAreCollidingWith(this.playerManager.CollisionBox))
             {
                 this.playerHitByVehicle();
+            }
+        }
+
+        private void checkRiverCollision()
+        {
+            if (this.playerManager.CollisionBox.IntersectsWith(this.riverManager.CollisionBox))
+            {
+                var isOnFlotationDevice = false;
+                foreach (var vehicle in this.riverManager)
+                {
+                    if (this.playerManager.CollisionBox.IntersectsWith(vehicle.CollisionBox))
+                    {
+                        isOnFlotationDevice = true;
+                        this.playerManager.MovePlayerWith(vehicle);
+                    }
+                }
+
+                if (!isOnFlotationDevice)
+                {
+                    this.playerDrowns();
+                }
             }
         }
 
@@ -153,6 +177,12 @@ namespace FroggerStarter.Controller
                 this.KillPlayer();
                 this.soundManager.PlayVehicleCollisionSound();
             }
+        }
+
+        private void playerDrowns()
+        {
+            this.KillPlayer();
+            this.soundManager.PlayerSplashSound();
         }
 
         public void RestartGame()
@@ -230,11 +260,16 @@ namespace FroggerStarter.Controller
             unloadLevelAssets();
             this.currentLevel++;
             this.createAndPlaceRoad();
+            this.createAndPlaceRiver();
         }
 
         private void unloadLevelAssets()
         {
             foreach (var vehicle in this.roadManager)
+            {
+                this.gameCanvas.Children.Remove(vehicle.Sprite);
+            }
+            foreach (var vehicle in this.riverManager)
             {
                 this.gameCanvas.Children.Remove(vehicle.Sprite);
             }
@@ -259,7 +294,7 @@ namespace FroggerStarter.Controller
         {
             int playerXBound = (int)this.backgroundWidth;
             int playerLowerYBound = (int)this.backgroundHeight;
-            int playerUpperYBound = ((int)this.backgroundHeight / RowsOnScreen) * 2;
+            int playerUpperYBound = TopLaneOffset + (((int)this.backgroundHeight - (BottomLaneOffset + TopLaneOffset)) / RowsOnScreen);
 
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
@@ -268,10 +303,12 @@ namespace FroggerStarter.Controller
             
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.currentLevel = 1;
-            this.createAndPlacePowerups(playerXBound, playerLowerYBound, playerUpperYBound);
-            this.createAndPlacePlayer(playerXBound, playerLowerYBound, playerUpperYBound);
-            this.createAndPlaceFrogHomes();
             this.createAndPlaceRoad();
+            this.createAndPlaceRiver();
+            this.createAndPlacePlayer(playerXBound, playerLowerYBound, playerUpperYBound);
+            this.createAndPlacePowerups(playerXBound, playerLowerYBound, playerUpperYBound);
+            this.createAndPlaceFrogHomes();
+            
         }
 
         private void createAndPlacePlayer(int playerXBound, int playerLowerYBound, int playerUpperYBound)
@@ -300,7 +337,7 @@ namespace FroggerStarter.Controller
 
         private void createAndPlaceFrogHomes()
         {
-            var y = (int) (this.backgroundHeight / RowsOnScreen) + TopLaneOffset;
+            var y = TopLaneOffset;
             this.frogHomeManager = new FrogHomeManager(y, (int) this.backgroundWidth, this.gameSettings.NumberOfFrogHomes);
 
             foreach (var frogHome in this.frogHomeManager)
@@ -313,16 +350,34 @@ namespace FroggerStarter.Controller
         private void createAndPlaceRoad()
         {
             var roadLength = (int)this.backgroundWidth;
-            var laneWidth = (int)this.backgroundHeight / RowsOnScreen;
-            var roadY = laneWidth * 2;
+            var laneWidth = ((int)this.backgroundHeight - (BottomLaneOffset + TopLaneOffset)) / RowsOnScreen;
+            var roadY = (laneWidth * 7) + TopLaneOffset;
 
             this.roadManager = new RoadManager(roadY, roadLength, laneWidth);
-            foreach (var laneSettings in this.gameSettings.LevelSettings[this.currentLevel - 1])
+            foreach (var laneSettings in this.gameSettings.LevelSettings[this.currentLevel - 1].RoadLaneSettings)
             {
                 this.roadManager.AddLane(laneSettings);
             }
 
             foreach (var vehicle in this.roadManager)
+            {
+                this.gameCanvas.Children.Add(vehicle.Sprite);
+            }
+        }
+
+        private void createAndPlaceRiver()
+        {
+            var riverLength = (int)this.backgroundWidth;
+            var laneWidth = ((int)this.backgroundHeight - (BottomLaneOffset + TopLaneOffset)) / RowsOnScreen;
+            var riverY = laneWidth + TopLaneOffset;
+
+            this.riverManager = new RiverManager(riverY, riverLength, laneWidth);
+            foreach (var laneSettings in this.gameSettings.LevelSettings[this.currentLevel - 1].RiverLaneSettings)
+            {
+                this.riverManager.AddLane(laneSettings);
+            }
+
+            foreach (var vehicle in this.riverManager)
             {
                 this.gameCanvas.Children.Add(vehicle.Sprite);
             }
