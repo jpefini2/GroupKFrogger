@@ -8,6 +8,7 @@ using FroggerStarter.View.Sprites;
 using System;
 using System.Diagnostics;
 using FroggerStarter.Model;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -138,6 +139,7 @@ namespace FroggerStarter.View
         {
             this.StartScreen.Visibility = Visibility.Collapsed;
             this.highScoreBoard.Visibility = Visibility.Collapsed;
+            this.closeScoreBoardButton.Visibility = Visibility.Collapsed;
             this.gameManager.RestartGame();
         }
 
@@ -151,6 +153,7 @@ namespace FroggerStarter.View
 
         private void ResetScoreBoardButton_Click(object sender, RoutedEventArgs e)
         {
+            this.highScoresListView.ItemsSource = new ObservableCollection<HighScore>();
         }
 
         private void CloseScoreBoardButton_Click(object sender, RoutedEventArgs e)
