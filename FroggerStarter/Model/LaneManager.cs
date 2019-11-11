@@ -9,6 +9,8 @@ using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
+    /// <summary>Manages a collection of traffic lanes</summary>
+    /// <seealso cref="System.Collections.Generic.IEnumerable{FroggerStarter.Model.Vehicle}" />
     public abstract class LaneManager : IEnumerable<Vehicle>
     {
         protected readonly int y;
@@ -17,6 +19,15 @@ namespace FroggerStarter.Model
         protected readonly List<Lane> lanes;
         protected VehicleFactory vehicleFactory;
 
+        /// <summary>Initializes a new instance of the <see cref="LaneManager"/> class.</summary>
+        /// <param name="y">The y.</param>
+        /// <param name="laneLength">Length of the lane.</param>
+        /// <param name="laneWidth">Width of the lane.</param>
+        /// <exception cref="ArgumentOutOfRangeException">y
+        /// or
+        /// laneLength
+        /// or
+        /// laneWidth</exception>
         public LaneManager(int y, int laneLength, int laneWidth)
         {
             if (y < 0)

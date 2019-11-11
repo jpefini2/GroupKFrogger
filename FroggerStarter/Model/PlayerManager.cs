@@ -34,6 +34,7 @@ namespace FroggerStarter.Model
         /// <value>The death sprites.</value>
         public BaseSprite[] DeathSprites => this.player.DeathSprites;
 
+        /// <summary>Occurs when [player moving to shoulder].</summary>
         public event EventHandler<PlayerMovingToShoulderEventArgs> PlayerMovingToShoulder;
 
         /// <summary>Occurs when [player lives updated].</summary>
@@ -101,6 +102,8 @@ namespace FroggerStarter.Model
             }
         }
 
+        /// <summary>Moves the player with according to the given vehicles speed and direction</summary>
+        /// <param name="vehicle">The vehicle.</param>
         public void MovePlayerWith(Vehicle vehicle)
         {
             if (vehicle.Orientation == Direction.Left)
@@ -210,10 +213,13 @@ namespace FroggerStarter.Model
         }
     }
 
+    /// <summary></summary>
     public class PlayerHitWallEventArgs
     {
     }
 
+    /// <summary></summary>
+    /// <seealso cref="System.EventArgs" />
     public class PlayerMovingToShoulderEventArgs : EventArgs
     {
         /// <summary>Gets or sets the remaining time.</summary>

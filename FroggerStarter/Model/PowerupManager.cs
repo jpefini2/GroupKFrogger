@@ -99,11 +99,13 @@ namespace FroggerStarter.Model
             }
         }
 
+        /// <summary>Stops the spawning of powerups.</summary>
         public void StopSpawningPowerups()
         {
             this.placePowerupTimer.Stop();
         }
 
+        /// <summary>Starts the spawning of powerups.</summary>
         public void StartSpawningPowerups()
         {
             this.placePowerupTimer.Start();

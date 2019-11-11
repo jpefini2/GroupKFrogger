@@ -8,10 +8,23 @@ using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
+    /// <summary>Manages a River</summary>
+    /// <seealso cref="FroggerStarter.Model.LaneManager" />
     public class RiverManager : LaneManager
     {
+        /// <summary>Gets or sets the collision box.</summary>
+        /// <value>The collision box.</value>
         public Rectangle CollisionBox { get; set; }
 
+        /// <summary>Initializes a new instance of the <see cref="RiverManager"/> class.</summary>
+        /// <param name="y">The y.</param>
+        /// <param name="laneLength">Length of the lane.</param>
+        /// <param name="laneWidth">Width of the lane.</param>
+        /// <exception cref="ArgumentOutOfRangeException">y
+        /// or
+        /// laneLength
+        /// or
+        /// laneWidth</exception>
         public RiverManager(int y, int laneLength, int laneWidth) : base(y, laneLength, laneWidth)
         {
             if (y < 0)

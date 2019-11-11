@@ -6,13 +6,20 @@ using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
+    /// <summary>Creates Vehicle Objects</summary>
     public class VehicleFactory
     {
 
+        /// <summary>Initializes a new instance of the <see cref="VehicleFactory"/> class.</summary>
         public VehicleFactory()
         {
         }
 
+        /// <summary>Makes the vehicle.</summary>
+        /// <param name="type">The type.</param>
+        /// <param name="orientation">The orientation.</param>
+        /// <param name="speed">The speed.</param>
+        /// <returns></returns>
         public Vehicle MakeVehicle(VehicleType type, Direction orientation, int speed)
         {
             Vehicle vehicle;
