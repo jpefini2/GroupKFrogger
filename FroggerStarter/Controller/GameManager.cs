@@ -177,6 +177,7 @@ namespace FroggerStarter.Controller
                         this.onRemainingTimeUpdated();
                     }
                     powerup.Sprite.Visibility = Visibility.Collapsed;
+                    this.soundManager.PlayPowerUpTakenSound();
                 }
             }
         }
