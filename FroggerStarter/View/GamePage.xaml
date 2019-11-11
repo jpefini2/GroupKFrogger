@@ -23,6 +23,44 @@
         <TextBlock Text="Time: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="10" Width="100" Height="40"  Foreground="WhiteSmoke" FontWeight="Bold" />
         <TextBlock x:Name="timeTextBlock" Text="20" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="110" Width="50" Height="40" Foreground="WhiteSmoke" FontWeight="Bold" />
 
+        <Grid x:Name="highScoreBoard" Canvas.ZIndex="1" Visibility="Collapsed">
+            <Rectangle Height="285" Width="250" Margin="368,80,0,0" Fill="LightBlue" />
+            <Rectangle Height="285" Width="2" Fill="Black" Margin="368,81,252,1" />
+            <Rectangle Height="286" Width="2" Fill="Black" Margin="620,80,0,2" />
+            <Rectangle Height="2" Width="252" Fill="Black" Margin="368,79,2,286" />
+            <Rectangle Height="2" Width="254" Fill="Black" Margin="368,365,0,0" />
+            <TextBlock Text="High Scores" TextAlignment="Left" Foreground="Black" Height="20" Width="240" Margin="378,-186,0,0" />
+            <Button x:Name="sortByNameButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Name" Padding="0" FontSize="10" Foreground="Black" Margin="515,82,0,0" VerticalAlignment="Top" Height="20" Width="35" RenderTransformOrigin="0.879,0.65" Click="SortByNameButton_Click"/>
+            <Button x:Name="sortByScoreButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Score" Padding="0" FontSize="10" Foreground="Black" Margin="550,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByScoreButton_Click"/>
+            <Button x:Name="sortByLevelButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Level" Padding="0" FontSize="10" Foreground="Black" Margin="585,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByLevelButton_Click"/>
+
+            <TextBlock Margin="190,331,0,0" Width="70" Height="20" Text="Enter Name:" Foreground="Black" FontSize="12" TextAlignment="Left" />
+            <TextBox 
+            HorizontalAlignment="Left" Margin="440,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                Background="White" BorderBrush="Black" BorderThickness="1" x:Name="nameTextBox" Width="100" Height="30" Canvas.ZIndex="1" TextChanged="NameTextBox_TextChanged" Text="" />
+            <Button x:Name="addScoreButton" BorderBrush="Black" BorderThickness="1" Background="LightGray" Height="25" FontSize="12" Content="Add"  Margin="560,335,0,0" VerticalAlignment="Top" Click="AddButton_Click" />
+
+            <ListView x:Name="highScoresListView" Background="LightBlue" HorizontalAlignment="Left" Height="233" Margin="370,102,0,0" VerticalAlignment="Top" Width="250" SelectionMode="none" >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Height" Value="20" />
+                        <Setter Property="MinHeight" Value="20" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="200" Height="30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Width="200" Height="30" Foreground="Black" 
+                                   Text="{Binding ToString}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
 
     </Canvas>
 </Page>

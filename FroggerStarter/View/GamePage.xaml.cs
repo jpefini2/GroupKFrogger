@@ -5,6 +5,9 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using FroggerStarter.Controller;
 using FroggerStarter.View.Sprites;
+using System;
+using System.Diagnostics;
+using FroggerStarter.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -43,6 +46,9 @@ namespace FroggerStarter.View
             this.gameManager.PlayerLivesUpdated += this.handlePlayerLivesChange;
             this.gameManager.PlayerScoreUpdated += this.handlePlayerScoreChange;
             this.gameManager.RemainingTimeUpdated += this.handleRemainingTimeChange;
+            this.gameManager.GameOver += this.handleGameOver;
+
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.HighScores;
         }
 
         #endregion
@@ -81,6 +87,36 @@ namespace FroggerStarter.View
             this.timeTextBlock.Text = e.RemainingTime.ToString();
         }
 
+        private void handleGameOver(object sender, GameOverEventArgs e)
+        {
+            this.highScoreBoard.Visibility = Visibility.Visible;
+        }
+
         #endregion
+
+        private void NameTextBox_TextChanged(object sender, Windows.UI.Xaml.Controls.TextChangedEventArgs e)
+        {
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.gameManager.SavePlayerScore(this.nameTextBox.Text);
+            this.addScoreButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void SortByNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Name);
+        }
+
+        private void SortByScoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Score);
+        }
+
+        private void SortByLevelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Level);
+        }
     }
 }

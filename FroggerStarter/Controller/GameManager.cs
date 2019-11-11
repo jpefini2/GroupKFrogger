@@ -33,6 +33,8 @@ namespace FroggerStarter.Controller
         private PowerupManager powerupManager;
         private GameSettings gameSettings;
 
+        public HighScoreBoard HighScoreBoard { get; set; }
+
         private int currentLevel;
 
         /// <summary>Occurs when [player lives updated].</summary>
@@ -43,6 +45,8 @@ namespace FroggerStarter.Controller
 
         /// <summary>Occurs when [remaining time updated].</summary>
         public event EventHandler<RemainingTimeUpdatedEventArgs> RemainingTimeUpdated;
+
+        public event EventHandler<GameOverEventArgs> GameOver;
 
         #endregion
 
@@ -187,6 +191,7 @@ namespace FroggerStarter.Controller
             this.StopGame();
             this.gameCanvas.Children.Add(new GameOverSprite());
             this.soundManager.PlayGameOverSound();
+            this.onGameOver();
         }
 
         private void loadNextLevel()
@@ -199,6 +204,12 @@ namespace FroggerStarter.Controller
 
             this.currentLevel++;
             this.createAndPlaceRoad();
+        }
+
+        public void SavePlayerScore(String name)
+        {
+            var highScore = new HighScore(name, this.playerManager.Score, currentLevel);
+            this.HighScoreBoard.AddHighScore(highScore);
         }
 
         /// <summary>
@@ -218,6 +229,8 @@ namespace FroggerStarter.Controller
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
             this.soundManager = new SoundManager();
+            this.HighScoreBoard = new HighScoreBoard();
+            
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.currentLevel = 1;
             this.createAndPlacePowerups(playerXBound, playerLowerYBound, playerUpperYBound);
@@ -323,6 +336,12 @@ namespace FroggerStarter.Controller
             this.RemainingTimeUpdated?.Invoke(this, data);
         }
 
+        private void onGameOver()
+        {
+            var data = new GameOverEventArgs { Score = this.playerManager.Score, Level = currentLevel };
+            this.GameOver?.Invoke(this, data);
+        }
+
         /// <summary>Stops the game.</summary>
         public void StopGame()
         {
@@ -346,6 +365,12 @@ namespace FroggerStarter.Controller
         }
 
         #endregion
+    }
+
+    public class GameOverEventArgs
+    {
+        public int Score { get; set; }
+        public int Level { get; set; }
     }
 
     /// <summary>Event args for change in player lives</summary>
