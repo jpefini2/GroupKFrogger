@@ -20,13 +20,11 @@ namespace FroggerStarter.Model
             set => highScores = value; 
         }
 
-        public HighScoreElement SortedBy { get; set; }
-
         public HighScoreBoard()
         {
             highScores = new ObservableCollection<HighScore>();
-            this.SortedBy = HighScoreElement.Score;
             this.populateScoreBoard();
+            this.highScores = this.GetSortedBy(HighScoreElement.Score);
         }
 
         private void populateScoreBoard()
@@ -51,7 +49,7 @@ namespace FroggerStarter.Model
             this.highScores.Add(score);
         }
 
-        public ObservableCollection<HighScore> sortBy(HighScoreElement highScoreElement)
+        public ObservableCollection<HighScore> GetSortedBy(HighScoreElement highScoreElement)
         {
             if (highScoreElement == HighScoreElement.Name)
             {
