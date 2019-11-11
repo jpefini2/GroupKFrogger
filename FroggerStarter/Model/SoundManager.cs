@@ -16,6 +16,7 @@ namespace FroggerStarter.Model
         private static readonly String filledHomeSoundEffect = "ms-appx:///Resources/FilledHome.wav";
         private static readonly String levelCompletedSoundEffect = "ms-appx:///Resources/LevelCompleted.wav";
         private static readonly String gameOverSoundEffect = "ms-appx:///Resources/GameOver.wav";
+        private static readonly String powerUpTakenSoundEffect = "ms-appx:///Resources/PowerUpTaken.wav";
 
         public void PlayVehicleCollisionSound()
         {
@@ -45,6 +46,11 @@ namespace FroggerStarter.Model
         public void PlayLevelCompletedSound()
         {
             this.Play(levelCompletedSoundEffect);
+        }
+
+        public void PlayPowerUpTakenSound()
+        {
+            this.Play(powerUpTakenSoundEffect);
         }
 
         private void Play(string fileName)
