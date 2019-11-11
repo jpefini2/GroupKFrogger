@@ -13,7 +13,7 @@
         <Grid x:Name="StartScreen" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Plum"  Canvas.ZIndex="1">
             <TextBlock Text="FROGGER" IsTextSelectionEnabled="True" FontSize="55" Canvas.Top="0" Canvas.Left="230" Foreground="Green" FontWeight="Bold" Margin="370,165,30,153" />
             <Button x:Name="startGameButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Start Game" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="163" Click="StartGameButton_Click" Canvas.Left="300" Canvas.Top="100" Margin="100,74,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="viewHighScoresButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="View ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ViewScoreBoardButton_Click" Canvas.Left="300" Canvas.Top="200" Margin="61,0,0,0"/>
+            <Button x:Name="viewHighScoresButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="View ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ViewScoreBoardButton_Click" Canvas.Left="300" Canvas.Top="200" Margin="61,527,0,0" VerticalAlignment="Top"/>
             <Button x:Name="resetHighScoresButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Reset ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ResetScoreBoardButton_Click" Canvas.Left="300" Canvas.Top="200" Margin="61,288,0,0" VerticalAlignment="Top"/>
         </Grid>
 
@@ -48,7 +48,7 @@
             <Button x:Name="sortByScoreButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Score" Padding="0" FontSize="10" Foreground="Black" Margin="550,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByScoreButton_Click"/>
             <Button x:Name="sortByLevelButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Level" Padding="0" FontSize="10" Foreground="Black" Margin="585,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByLevelButton_Click"/>
 
-            
+
             <TextBlock x:Name="enterNameTextBlock" Margin="190,331,0,0" Width="70" Height="20" Text="Enter Name:" Foreground="Black" FontSize="12" TextAlignment="Left" />
             <TextBox 
             HorizontalAlignment="Left" Margin="440,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
