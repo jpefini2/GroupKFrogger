@@ -109,7 +109,10 @@ namespace FroggerStarter.View
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             this.gameManager.SavePlayerScore(this.nameTextBox.Text);
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.GetSortedBySelected();
+
             this.addScoreButton.Visibility = Visibility.Collapsed;
+            this.nameTextBox.Text = "";
         }
 
         private void SortByNameButton_Click(object sender, RoutedEventArgs e)
@@ -153,7 +156,7 @@ namespace FroggerStarter.View
 
         private void ResetScoreBoardButton_Click(object sender, RoutedEventArgs e)
         {
-            this.highScoresListView.ItemsSource = new ObservableCollection<HighScore>();
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.ClearScores();
         }
 
         private void CloseScoreBoardButton_Click(object sender, RoutedEventArgs e)
