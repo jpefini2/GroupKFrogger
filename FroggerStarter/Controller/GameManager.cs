@@ -195,6 +195,7 @@ namespace FroggerStarter.Controller
             this.createAndPlaceRoad();
             this.createAndPlaceRiver();
             this.createAndPlacePlayer();
+            this.powerupManager.StartSpawningPowerups();
 
             this.timer.Start();
             this.countDownTimer.Start();
@@ -450,6 +451,7 @@ namespace FroggerStarter.Controller
             this.timer.Stop();
             this.countDownTimer.Stop();
             this.playerManager.SetSpeed(0, 0);
+            this.powerupManager.StopSpawningPowerups();
         }
 
         private void handlePlayerMovingToShoulder(object sender, PlayerMovingToShoulderEventArgs e)

@@ -99,6 +99,16 @@ namespace FroggerStarter.Model
             }
         }
 
+        public void StopSpawningPowerups()
+        {
+            this.placePowerupTimer.Stop();
+        }
+
+        public void StartSpawningPowerups()
+        {
+            this.placePowerupTimer.Start();
+        }
+
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<Powerup> GetEnumerator()
