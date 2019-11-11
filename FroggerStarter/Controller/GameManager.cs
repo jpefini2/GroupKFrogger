@@ -118,7 +118,7 @@ namespace FroggerStarter.Controller
 
             if (this.timeRemaining == 0)
             {
-                this.playerHit();
+                this.KillPlayer();
             }
         }
 
@@ -126,12 +126,11 @@ namespace FroggerStarter.Controller
         {
             if (this.roadManager.VehiclesAreCollidingWith(this.playerManager.CollisionBox))
             {
-                this.playerHit();
-                this.soundManager.PlayVehicleCollisionSound();
+                this.playerHitByVehicle();
             }
         }
 
-        private void playerHit()
+        private void KillPlayer()
         {
             this.playerManager.KillPlayer();
             this.onPlayerLivesUpdated();
@@ -143,6 +142,16 @@ namespace FroggerStarter.Controller
             if (this.playerManager.Lives == 0)
             {
                 this.gameOver();
+            }
+            
+        }
+
+        private void playerHitByVehicle()
+        {
+            if (!this.powerupManager.IsInvincibilityActive)
+            {
+                this.KillPlayer();
+                this.soundManager.PlayVehicleCollisionSound();
             }
         }
 
@@ -180,7 +189,12 @@ namespace FroggerStarter.Controller
                         this.timeRemaining += 10;
                         this.onRemainingTimeUpdated();
                     }
-                    powerup.Sprite.Visibility = Visibility.Collapsed;
+                    else if (powerup is TemporaryInvincibilityPowerup)
+                    {
+                        this.soundManager.PlayInvincibilityActiveSound();
+                    }
+
+                    this.powerupManager.PickedUp(powerup);
                     this.soundManager.PlayPowerUpTakenSound();
                 }
             }
@@ -244,6 +258,7 @@ namespace FroggerStarter.Controller
             
             this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, playerXBound, playerLowerYBound, playerUpperYBound);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
+            this.gameCanvas.Children.Add(this.playerManager.WalkingSprite);
 
             foreach (var sprite in this.playerManager.DeathSprites)
             {

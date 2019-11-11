@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using FroggerStarter.View.Sprites;
 using System;
+using Windows.UI.Xaml.Media;
 
 namespace FroggerStarter.Model
 {
@@ -16,7 +17,10 @@ namespace FroggerStarter.Model
         private const int SpeedXDirection = 50;
         private const int SpeedYDirection = 50;
 
-        private readonly DispatcherTimer animationTimer;
+        private DispatcherTimer deathAnimationTimer;
+        private DispatcherTimer walkingAnimationTimer;
+
+        public BaseSprite WalkingSprite { get; }
 
         /// <summary>
         /// Gets the death sprites that make up the frames of the death animation
@@ -38,28 +42,51 @@ namespace FroggerStarter.Model
         /// </summary>
         public Frog()
         {
-            Sprite = new FrogSprite();
+            this.Sprite = new FrogSprite();
+            this.WalkingSprite = new WalkingFrogSprite();
             SetSpeed(SpeedXDirection, SpeedYDirection);
-            this.setupDeathAnimation();
             this.IsDying = false;
-            this.animationTimer = new DispatcherTimer();
-            this.animationTimer.Tick += this.switchDeathSprite;
-            this.animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            this.setupDeathAnimation();
+            this.setupWalkingAnimation();
         }
 
         private void setupDeathAnimation()
         {
             this.DeathSprites = new BaseSprite[NumOfDeathAnimationFrames];
+            this.DeathSprites[0] = new FrogDeathSprite1 { Visibility = Visibility.Collapsed };
+            this.DeathSprites[1] = new FrogDeathSprite2 { Visibility = Visibility.Collapsed };
+            this.DeathSprites[2] = new FrogDeathSprite3 { Visibility = Visibility.Collapsed };
+            this.DeathSprites[3] = new FrogDeathSprite4 { Visibility = Visibility.Collapsed };
 
-            var deathSprite1 = new FrogDeathSprite1 {Visibility = Visibility.Collapsed};
-            var deathSprite2 = new FrogDeathSprite2 {Visibility = Visibility.Collapsed};
-            var deathSprite3 = new FrogDeathSprite3 {Visibility = Visibility.Collapsed};
-            var deathSprite4 = new FrogDeathSprite4 {Visibility = Visibility.Collapsed};
+            this.deathAnimationTimer = new DispatcherTimer();
+            this.deathAnimationTimer.Tick += this.switchDeathSprite;
+            this.deathAnimationTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+        }
 
-            this.DeathSprites[0] = deathSprite1;
-            this.DeathSprites[1] = deathSprite2;
-            this.DeathSprites[2] = deathSprite3;
-            this.DeathSprites[3] = deathSprite4;
+        private void setupWalkingAnimation()
+        {
+            this.WalkingSprite.Visibility = Visibility.Collapsed;
+
+            this.walkingAnimationTimer = new DispatcherTimer();
+            this.walkingAnimationTimer.Tick += this.stopWalking;
+            this.walkingAnimationTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
+        }
+
+        private void stopWalking(object sender, object e)
+        {
+            if (!IsDying)
+            {
+                this.Sprite.Visibility = Visibility.Visible;
+            }
+            this.WalkingSprite.Visibility = Visibility.Collapsed;
+            this.walkingAnimationTimer.Stop();
+        }
+
+        public void StartWalking()
+        {
+            this.WalkingSprite.Visibility = Visibility.Visible;
+            this.Sprite.Visibility = Visibility.Collapsed;
+            this.walkingAnimationTimer.Start();
         }
 
         /// <summary>Plays the death animation.</summary>
@@ -68,7 +95,7 @@ namespace FroggerStarter.Model
             this.IsDying = true;
             Sprite.Visibility = Visibility.Collapsed;
             this.DeathSprites[0].Visibility = Visibility.Visible;
-            this.animationTimer.Start();
+            this.deathAnimationTimer.Start();
         }
 
         private void switchDeathSprite(object sender, object e)
@@ -87,7 +114,7 @@ namespace FroggerStarter.Model
                     {
                         this.DeathSprites[i].Visibility = Visibility.Collapsed;
                         Sprite.Visibility = Visibility.Visible;
-                        this.animationTimer.Stop();
+                        this.deathAnimationTimer.Stop();
                         this.IsDying = false;
                         this.UpdateDeathSpritesLocation();
                     }
@@ -100,8 +127,11 @@ namespace FroggerStarter.Model
         /// Postcondition: X == X@prev + SpeedX</summary>
         public override void MoveRight()
         {
+            this.StartWalking();
+            this.rotateToFace(Direction.Right);
             base.MoveRight();
             this.UpdateDeathSpritesLocation();
+            this.WalkingSprite.RenderAt(X, Y);
         }
 
         /// <summary>Moves the frog left along with its death sprites.
@@ -109,8 +139,11 @@ namespace FroggerStarter.Model
         /// Postcondition: X == X@prev + SpeedX</summary>
         public override void MoveLeft()
         {
+            this.StartWalking();
+            this.rotateToFace(Direction.Left);
             base.MoveLeft();
             this.UpdateDeathSpritesLocation();
+            this.WalkingSprite.RenderAt(X, Y);
         }
 
         /// <summary>Moves the frog up along with its death sprites.
@@ -118,8 +151,11 @@ namespace FroggerStarter.Model
         /// Postcondition: Y == Y@prev - SpeedY</summary>
         public override void MoveUp()
         {
+            this.StartWalking();
+            this.rotateToFace(Direction.Up);
             base.MoveUp();
             this.UpdateDeathSpritesLocation();
+            this.WalkingSprite.RenderAt(X, Y);
         }
 
         /// <summary>Moves the frog down along with its death sprites.
@@ -127,8 +163,11 @@ namespace FroggerStarter.Model
         /// Postcondition: Y == Y@prev + SpeedY</summary>
         public override void MoveDown()
         {
+            this.StartWalking();
+            this.rotateToFace(Direction.Down);
             base.MoveDown();
             this.UpdateDeathSpritesLocation();
+            this.WalkingSprite.RenderAt(X, Y);
         }
 
         /// <summary>Updates the death sprites location to this frogs current location</summary>
@@ -138,6 +177,30 @@ namespace FroggerStarter.Model
             {
                 deathSprite.RenderAt(X, Y);
             }
+        }
+
+        private void rotateToFace(Direction direction)
+        {
+            int angle = 0;
+            if (direction == Direction.Down)
+            {
+                angle = 180;
+            }
+            else if (direction == Direction.Right)
+            {
+                angle = 90;
+            }
+            else if (direction == Direction.Left)
+            {
+                angle = -90;
+            }
+
+            RotateTransform rotate = new RotateTransform();
+            rotate.CenterX = rotate.CenterX + (this.Width / 2);
+            rotate.CenterY = rotate.CenterY + (this.Height / 2);
+            this.Sprite.RenderTransform = rotate;
+            this.WalkingSprite.RenderTransform = rotate;
+            rotate.Angle = angle;
         }
 
         #endregion

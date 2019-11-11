@@ -10,22 +10,27 @@ namespace FroggerStarter.Model
 {
     public class PowerupManager : IEnumerable<Powerup>
     {
-        private const int PercentChanceOfPlaceingPowerup = 30;
+        private const int PercentChanceOfPlaceingPowerup = 100;
 
         private int xBound;
         private int upperYBound;
         private int lowerYBound;
-
         private DispatcherTimer placePowerupTimer;
         private List<Powerup> powerups;
+
+        public bool IsInvincibilityActive { get; private set; }
+        private DispatcherTimer invincibilityTimer;
+
 
         public PowerupManager(int xBound, int lowerYBound, int upperYBound)
         {
             this.xBound = xBound;
             this.upperYBound = upperYBound;
             this.lowerYBound = lowerYBound;
+            this.IsInvincibilityActive = false;
             setupPlacePowerupTimer();
             setupPowerups();
+            setupInvincibilityTimer();
         }
 
         private void setupPlacePowerupTimer()
@@ -50,6 +55,7 @@ namespace FroggerStarter.Model
         {
             this.powerups = new List<Powerup>
             {
+                new TemporaryInvincibilityPowerup(),
                 new ExtraTimePowerup()
             };
 
@@ -59,14 +65,38 @@ namespace FroggerStarter.Model
             }
         }
 
+        private void setupInvincibilityTimer()
+        {
+            this.invincibilityTimer = new DispatcherTimer();
+            this.invincibilityTimer.Tick += this.endInvincibility;
+            this.invincibilityTimer.Interval = new TimeSpan(0, 0, 0, 3);
+            this.invincibilityTimer.Start();
+        }
+
+        private void endInvincibility(object sender, object e)
+        {
+            this.IsInvincibilityActive = false;
+        }
+
         private void placeRandomPowerup()
         {
             Random random = new Random();
-            int randomPowerupIndex = random.Next(0, this.powerups.Count - 1);
+            int randomPowerupIndex = random.Next(0, this.powerups.Count);
 
             this.powerups[randomPowerupIndex].X = random.Next(0, this.xBound);
             this.powerups[randomPowerupIndex].Y = random.Next(this.upperYBound, this.lowerYBound);
             this.powerups[randomPowerupIndex].Sprite.Visibility = Visibility.Visible;
+        }
+
+        public void PickedUp(Powerup powerup)
+        {
+            powerup.Sprite.Visibility = Visibility.Collapsed;
+
+            if (powerup is TemporaryInvincibilityPowerup)
+            {
+                this.IsInvincibilityActive = true;
+                this.invincibilityTimer.Start();
+            }
         }
 
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
