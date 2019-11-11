@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using FroggerStarter.View.Sprites;
 using System;
+using Windows.UI.Xaml.Media;
 
 namespace FroggerStarter.Model
 {
@@ -38,7 +39,7 @@ namespace FroggerStarter.Model
         /// </summary>
         public Frog()
         {
-            Sprite = new FrogSprite();
+            this.Sprite = new FrogSpriteUpDown();
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.setupDeathAnimation();
             this.IsDying = false;
@@ -100,6 +101,7 @@ namespace FroggerStarter.Model
         /// Postcondition: X == X@prev + SpeedX</summary>
         public override void MoveRight()
         {
+            this.rotateToFace(Direction.Right);
             base.MoveRight();
             this.UpdateDeathSpritesLocation();
         }
@@ -109,6 +111,7 @@ namespace FroggerStarter.Model
         /// Postcondition: X == X@prev + SpeedX</summary>
         public override void MoveLeft()
         {
+            this.rotateToFace(Direction.Left);
             base.MoveLeft();
             this.UpdateDeathSpritesLocation();
         }
@@ -118,6 +121,7 @@ namespace FroggerStarter.Model
         /// Postcondition: Y == Y@prev - SpeedY</summary>
         public override void MoveUp()
         {
+            this.rotateToFace(Direction.Up);
             base.MoveUp();
             this.UpdateDeathSpritesLocation();
         }
@@ -127,6 +131,7 @@ namespace FroggerStarter.Model
         /// Postcondition: Y == Y@prev + SpeedY</summary>
         public override void MoveDown()
         {
+            this.rotateToFace(Direction.Down);
             base.MoveDown();
             this.UpdateDeathSpritesLocation();
         }
@@ -138,6 +143,29 @@ namespace FroggerStarter.Model
             {
                 deathSprite.RenderAt(X, Y);
             }
+        }
+
+        private void rotateToFace(Direction direction)
+        {
+            int angle = 0;
+            if (direction == Direction.Down)
+            {
+                angle = 180;
+            }
+            else if (direction == Direction.Right)
+            {
+                angle = 90;
+            }
+            else if (direction == Direction.Left)
+            {
+                angle = -90;
+            }
+
+            RotateTransform rotate = new RotateTransform();
+            rotate.CenterX = rotate.CenterX + (this.Width / 2);
+            rotate.CenterY = rotate.CenterY + (this.Height / 2);
+            this.Sprite.RenderTransform = rotate;
+            rotate.Angle = angle;
         }
 
         #endregion

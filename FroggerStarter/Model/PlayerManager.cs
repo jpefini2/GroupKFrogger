@@ -1,6 +1,7 @@
 ﻿using FroggerStarter.View.Sprites;
 using System;
 using System.Drawing;
+using Windows.UI.Xaml.Media;
 
 namespace FroggerStarter.Model
 {
