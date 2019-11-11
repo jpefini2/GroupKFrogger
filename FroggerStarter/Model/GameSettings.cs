@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FroggerStarter.Model
 {
@@ -18,6 +16,12 @@ namespace FroggerStarter.Model
         /// <value>The number of frog homes.</value>
         public int NumberOfFrogHomes { get; }
 
+        /// <summary>
+        /// Gets the number of levels.
+        /// </summary>
+        /// <value>
+        /// The number of levels.
+        /// </value>
         public int NumberOfLevels { get; }
 
         /// <summary>Gets the time limit.</summary>
@@ -28,6 +32,12 @@ namespace FroggerStarter.Model
         /// <value>The score modifier.</value>
         public int ScoreModifier { get; }
 
+        /// <summary>
+        /// Gets the level settings.
+        /// </summary>
+        /// <value>
+        /// The level settings.
+        /// </value>
         public List<LevelSettings> LevelSettings { get; }
 
         /// <summary>Initializes a new instance of the <see cref="GameSettings"/> class.</summary>
@@ -46,7 +56,7 @@ namespace FroggerStarter.Model
 
         private void setupLevelSettings()
         {
-            for (int i = 0; i < this.NumberOfLevels; i++)
+            for (var i = 0; i < this.NumberOfLevels; i++)
             {
                 this.LevelSettings.Add(new LevelSettings());
             }
@@ -57,7 +67,7 @@ namespace FroggerStarter.Model
 
         private void fillRiverSettingsForAllLevels()
         {
-            List<LaneSettings> level1RoadSettings = new List<LaneSettings> {
+            var level1RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Right, VehicleType.Car, 5, 6),
                 new LaneSettings(Direction.Left, VehicleType.Truck, 3, 5),
                 new LaneSettings(Direction.Left, VehicleType.TurboCar, 4, 5),
@@ -66,7 +76,7 @@ namespace FroggerStarter.Model
             };
             this.LevelSettings[0].RoadLaneSettings = level1RoadSettings;
 
-            List<LaneSettings> level2RoadSettings = new List<LaneSettings> {
+            var level2RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Left, VehicleType.Truck, 4, 8),
                 new LaneSettings(Direction.Right, VehicleType.Truck, 3, 7),
                 new LaneSettings(Direction.Right, VehicleType.TurboCar, 4, 7),
@@ -75,7 +85,7 @@ namespace FroggerStarter.Model
             };
             this.LevelSettings[1].RoadLaneSettings = level2RoadSettings;
 
-            List<LaneSettings> level3RoadSettings = new List<LaneSettings> {
+            var level3RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Left, VehicleType.Truck, 4, 10),
                 new LaneSettings(Direction.Right, VehicleType.Truck, 4, 9),
                 new LaneSettings(Direction.Right, VehicleType.TurboCar, 4, 9),
@@ -87,7 +97,7 @@ namespace FroggerStarter.Model
 
         private void fillRoadSettingsForAllLevels()
         {
-            List<LaneSettings> level1RiverSettings = new List<LaneSettings> {
+            var level1RiverSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Right, VehicleType.Log, 2, 6),
                 new LaneSettings(Direction.Left, VehicleType.Turtles, 3, 5),
                 new LaneSettings(Direction.Right, VehicleType.Log, 1, 4),
@@ -96,7 +106,7 @@ namespace FroggerStarter.Model
             };
             this.LevelSettings[0].RiverLaneSettings = level1RiverSettings;
 
-            List<LaneSettings> level2RiverSettings = new List<LaneSettings> {
+            var level2RiverSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Left, VehicleType.Turtles, 3, 7),
                 new LaneSettings(Direction.Right, VehicleType.Log, 2, 6),
                 new LaneSettings(Direction.Left, VehicleType.Log, 3, 5),
@@ -105,7 +115,7 @@ namespace FroggerStarter.Model
             };
             this.LevelSettings[1].RiverLaneSettings = level2RiverSettings;
 
-            List<LaneSettings> level3RiverSettings = new List<LaneSettings> {
+            var level3RiverSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Left, VehicleType.Log, 2, 8),
                 new LaneSettings(Direction.Left, VehicleType.Turtles, 2, 7),
                 new LaneSettings(Direction.Right, VehicleType.Turtles, 3, 6),

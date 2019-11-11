@@ -2,6 +2,10 @@
 
 namespace FroggerStarter.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="FroggerStarter.Model.Powerup" />
     public class ExtraTimePowerup : Powerup
     {
         /// <summary>

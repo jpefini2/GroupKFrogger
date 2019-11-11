@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
@@ -44,7 +40,7 @@ namespace FroggerStarter.Model
 
         private void revealVehicleTimerOnTick(object sender, object e)
         {
-            foreach (var lane in this.lanes)
+            foreach (var lane in Lanes)
             {
                 lane.RevealRandomVehicle();
             }
@@ -53,7 +49,7 @@ namespace FroggerStarter.Model
         /// <summary>Hides all but one randomly chosen vehicle in each lane</summary>
         public void ResetToOneVehiclePerLane()
         {
-            foreach (var lane in this.lanes)
+            foreach (var lane in Lanes)
             {
                 lane.HideAllVehicles();
                 lane.RevealRandomVehicle();
