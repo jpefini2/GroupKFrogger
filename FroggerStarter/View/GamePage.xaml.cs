@@ -8,6 +8,7 @@ using FroggerStarter.View.Sprites;
 using System;
 using System.Diagnostics;
 using FroggerStarter.Model;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -49,6 +50,8 @@ namespace FroggerStarter.View
             this.gameManager.GameOver += this.handleGameOver;
 
             this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.HighScores;
+
+            this.gameManager.StopGame();
         }
 
         #endregion
@@ -93,6 +96,7 @@ namespace FroggerStarter.View
         {
             this.gameOverSprite.Visibility = Visibility.Visible;
             this.highScoreBoard.Visibility = Visibility.Visible;
+            this.showAddScoreElements();
             this.playAgainButton.Visibility = Visibility.Visible;
         }
 
@@ -105,22 +109,25 @@ namespace FroggerStarter.View
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             this.gameManager.SavePlayerScore(this.nameTextBox.Text);
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.GetSortedBySelected();
+
             this.addScoreButton.Visibility = Visibility.Collapsed;
+            this.nameTextBox.Text = "";
         }
 
         private void SortByNameButton_Click(object sender, RoutedEventArgs e)
         {
-            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Name);
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.GetSortedBy(HighScoreElement.Name);
         }
 
         private void SortByScoreButton_Click(object sender, RoutedEventArgs e)
         {
-            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Score);
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.GetSortedBy(HighScoreElement.Score);
         }
 
         private void SortByLevelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Level);
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.GetSortedBy(HighScoreElement.Level);
         }
 
         private void PlayAgainButton_Click(object sender, RoutedEventArgs e)
@@ -129,6 +136,47 @@ namespace FroggerStarter.View
             this.playAgainButton.Visibility = Visibility.Collapsed;
             this.gameOverSprite.Visibility = Visibility.Collapsed;
             this.gameManager.RestartGame();
+        }
+
+        private void StartGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.StartScreen.Visibility = Visibility.Collapsed;
+            this.highScoreBoard.Visibility = Visibility.Collapsed;
+            this.closeScoreBoardButton.Visibility = Visibility.Collapsed;
+            this.gameManager.RestartGame();
+        }
+
+        private void ViewScoreBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoreBoard.Visibility = Visibility.Visible;
+            this.hideAddScoreElements();
+            this.closeScoreBoardButton.Visibility = Visibility.Visible;
+
+        }
+
+        private void ResetScoreBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.ClearScores();
+        }
+
+        private void CloseScoreBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoreBoard.Visibility = Visibility.Collapsed;
+            this.closeScoreBoardButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void hideAddScoreElements()
+        {
+            this.enterNameTextBlock.Visibility = Visibility.Collapsed;
+            this.nameTextBox.Visibility = Visibility.Collapsed;
+            this.addScoreButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void showAddScoreElements()
+        {
+            this.enterNameTextBlock.Visibility = Visibility.Visible;
+            this.nameTextBox.Visibility = Visibility.Visible;
+            this.addScoreButton.Visibility = Visibility.Visible;
         }
     }
 }

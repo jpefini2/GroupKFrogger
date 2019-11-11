@@ -14,19 +14,20 @@ namespace FroggerStarter.Model
 
         private ObservableCollection<HighScore> highScores;
 
+        private HighScoreElement sortedBy;
+
         public ObservableCollection<HighScore> HighScores
         {
             get => highScores;
             set => highScores = value; 
         }
 
-        public HighScoreElement SortedBy { get; set; }
-
         public HighScoreBoard()
         {
             highScores = new ObservableCollection<HighScore>();
-            this.SortedBy = HighScoreElement.Score;
+            this.sortedBy = HighScoreElement.Score;
             this.populateScoreBoard();
+            this.highScores = this.GetSortedBy(HighScoreElement.Score);
         }
 
         private void populateScoreBoard()
@@ -49,29 +50,47 @@ namespace FroggerStarter.Model
         public void AddHighScore(HighScore score)
         {
             this.highScores.Add(score);
+            this.highScores = this.GetSortedBy(this.sortedBy);
         }
 
-        public ObservableCollection<HighScore> sortBy(HighScoreElement highScoreElement)
+        public ObservableCollection<HighScore> GetSortedBySelected()
+        {
+            return this.GetSortedBy(this.sortedBy);
+        }
+
+        public ObservableCollection<HighScore> GetSortedBy(HighScoreElement highScoreElement)
         {
             if (highScoreElement == HighScoreElement.Name)
             {
+                this.sortedBy = HighScoreElement.Name;
+
                 var list = new ObservableCollection<HighScore>(HighScores.OrderBy(x => x.Name).ThenByDescending(x => x.Score).ThenByDescending(x => x.Level).ToList());
                 this.highScores = list;
                 return list;
             }
             else if (highScoreElement == HighScoreElement.Score)
             {
+                this.sortedBy = HighScoreElement.Score;
+
                 var list = new ObservableCollection<HighScore>(HighScores.OrderByDescending(x => x.Score).ThenBy(x => x.Name).ThenByDescending(x => x.Level).ToList());
                 this.highScores = list;
                 return list;
             }
             else
             {
+                this.sortedBy = HighScoreElement.Level;
+
                 var list = new ObservableCollection<HighScore>(HighScores.OrderByDescending(x => x.Level).ThenByDescending(x => x.Score).ThenBy(x => x.Name).ToList());
                 this.highScores = list;
                 return list;
-            }
-            
+            }  
+        }
+
+        public ObservableCollection<HighScore> ClearScores()
+        {
+            var list = new ObservableCollection<HighScore>();
+            this.highScores = list;
+            return this.highScores;
         }
     }
 }
