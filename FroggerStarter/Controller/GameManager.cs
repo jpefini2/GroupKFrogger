@@ -30,6 +30,7 @@ namespace FroggerStarter.Controller
         private RoadManager roadManager;
         private FrogHomeManager frogHomeManager;
         private SoundManager soundManager;
+        private PowerupManager powerupManager;
         private GameSettings gameSettings;
 
         private int currentLevel;
@@ -89,7 +90,8 @@ namespace FroggerStarter.Controller
         private void gameTimerOnTick(object sender, object e)
         {
             this.roadManager.MoveTraffic();
-            this.checkPlayerCollision();
+            this.checkVehicleCollision();
+            this.checkPowerupCollision();
         }
 
         private void setupCountDownTimer()
@@ -116,7 +118,7 @@ namespace FroggerStarter.Controller
             }
         }
 
-        private void checkPlayerCollision()
+        private void checkVehicleCollision()
         {
             if (this.roadManager.VehiclesAreCollidingWith(this.playerManager.CollisionBox))
             {
@@ -163,6 +165,22 @@ namespace FroggerStarter.Controller
             }
         }
 
+        private void checkPowerupCollision()
+        {
+            foreach (var powerup in this.powerupManager)
+            {
+                if (powerup.Sprite.Visibility == Visibility.Visible && this.playerManager.CollisionBox.IntersectsWith(powerup.CollisionBox))
+                {
+                    if (powerup is ExtraTimePowerup)
+                    {
+                        this.timeRemaining += 10;
+                        this.onRemainingTimeUpdated();
+                    }
+                    powerup.Sprite.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         private void gameOver()
         {
             this.StopGame();
@@ -192,21 +210,24 @@ namespace FroggerStarter.Controller
         /// <exception cref="ArgumentNullException">gameCanvas</exception>
         public void InitializeGame(Canvas gamePage)
         {
+            int playerXBound = (int)this.backgroundWidth;
+            int playerLowerYBound = (int)this.backgroundHeight;
+            int playerUpperYBound = ((int)this.backgroundHeight / RowsOnScreen) * 2;
+
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
             this.soundManager = new SoundManager();
             this.timeRemaining = this.gameSettings.TimeLimit;
             this.currentLevel = 1;
-            this.createAndPlacePlayer();
+            this.createAndPlacePowerups(playerXBound, playerLowerYBound, playerUpperYBound);
+            this.createAndPlacePlayer(playerXBound, playerLowerYBound, playerUpperYBound);
             this.createAndPlaceFrogHomes();
             this.createAndPlaceRoad();
         }
 
-        private void createAndPlacePlayer()
+        private void createAndPlacePlayer(int playerXBound, int playerLowerYBound, int playerUpperYBound)
         {
-            int playerXBound = (int)this.backgroundWidth;
-            int playerLowerYBound = (int)this.backgroundHeight;
-            int playerUpperYBound = ((int) this.backgroundHeight / RowsOnScreen) * 2;
+            
             this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, playerXBound, playerLowerYBound, playerUpperYBound);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
 
@@ -254,6 +275,15 @@ namespace FroggerStarter.Controller
             foreach (var vehicle in this.roadManager)
             {
                 this.gameCanvas.Children.Add(vehicle.Sprite);
+            }
+        }
+
+        private void createAndPlacePowerups(int playerXBound, int playerLowerYBound, int playerUpperYBound)
+        {
+            this.powerupManager = new PowerupManager(playerXBound, playerLowerYBound, playerUpperYBound);
+            foreach (var powerup in this.powerupManager)
+            {
+                this.gameCanvas.Children.Add(powerup.Sprite);
             }
         }
 
