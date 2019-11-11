@@ -129,6 +129,8 @@
     <Compile Include="Model\FrogHomeManager.cs" />
     <Compile Include="Model\GameObject.cs" />
     <Compile Include="Model\GameSettings.cs" />
+    <Compile Include="Model\HighScore.cs" />
+    <Compile Include="Model\HighScoreBoard.cs" />
     <Compile Include="Model\Lane.cs" />
     <Compile Include="Model\LaneSettings.cs" />
     <Compile Include="Model\LevelSettings.cs" />
