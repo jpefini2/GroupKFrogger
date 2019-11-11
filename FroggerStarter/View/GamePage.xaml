@@ -15,9 +15,9 @@
             <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Start Game" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="163" Click="StartGameButton_Click"
                     Margin="100,74,0,0" VerticalAlignment="Top"/>
             <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="View ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ViewScoreBoardButton_Click"
-                    Margin="61,527,0,0" VerticalAlignment="Top"/>
-            <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Reset ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ResetScoreBoardButton_Click"
                     Margin="61,288,0,0" VerticalAlignment="Top"/>
+            <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Reset ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ResetScoreBoardButton_Click"
+                    Margin="61,527,0,0" VerticalAlignment="Top"/>
         </Grid>
 
         <TextBlock Text="Frogger" IsTextSelectionEnabled="True" FontSize="40" Canvas.Top="0" Canvas.Left="230" Width="150" Height="60" Foreground="Green" FontWeight="Bold" />
