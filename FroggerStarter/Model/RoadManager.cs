@@ -34,6 +34,8 @@ namespace FroggerStarter.Model
             this.revealVehicleTimer.Start();
         }
 
+        /// <summary>Adds the lane.</summary>
+        /// <param name="laneSettings">The lane settings.</param>
         public override void AddLane(LaneSettings laneSettings)
         {
             base.AddLane(laneSettings);

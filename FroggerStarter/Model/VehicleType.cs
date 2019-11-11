@@ -11,9 +11,9 @@ namespace FroggerStarter.Model
         Truck,
         /// <summary>A TurboCar, 50 x 40</summary>
         TurboCar,
-
+        /// <summary>The turtles, 100 x 40</summary>
         Turtles,
-
+        /// <summary>The log, 150, 40</summary>
         Log
     }
 }

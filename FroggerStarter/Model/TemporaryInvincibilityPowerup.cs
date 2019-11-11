@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
-    class TemporaryInvincibilityPowerup : Powerup
+    /// <summary>Temporary invincibility powerup</summary>
+    /// <seealso cref="FroggerStarter.Model.Powerup" />
+    public class TemporaryInvincibilityPowerup : Powerup
     {
+        /// <summary>Initializes a new instance of the <see cref="TemporaryInvincibilityPowerup"/> class.</summary>
         public TemporaryInvincibilityPowerup()
         {
             this.Sprite = new TemporaryInvincibilityPowerupSprite();

@@ -9,6 +9,8 @@ namespace FroggerStarter.Model
     /// <seealso cref="FroggerStarter.Model.GameObject" />
     public abstract class Vehicle : GameObject
     {
+        /// <summary>Gets the orientation.</summary>
+        /// <value>The orientation.</value>
         public Direction Orientation { get; } 
 
         /// <summary>Initializes a new instance of the <see cref="Vehicle"/> class.</summary>
@@ -20,6 +22,9 @@ namespace FroggerStarter.Model
             this.SetSpeed(speed, 0);
         }
 
+        /// <summary>Rotates the sprite.</summary>
+        /// <param name="vehicleSprite">The vehicle sprite.</param>
+        /// <exception cref="ArgumentNullException">vehicleSprite</exception>
         protected void RotateSprite(BaseSprite vehicleSprite)
         {
             if (vehicleSprite == null)

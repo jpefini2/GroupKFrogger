@@ -8,7 +8,8 @@ using Windows.Media.Playback;
 
 namespace FroggerStarter.Model
 {
-    class SoundManager
+    /// <summary>Manages playing sound effects</summary>
+    public class SoundManager
     {
         private static readonly String vehicleCollisonSoundEffect = "ms-appx:///Resources/CarCrash.mp3";
         private static readonly String hittingWallSoundEffect = "ms-appx:///Resources/HittingWall.wav";
@@ -20,46 +21,55 @@ namespace FroggerStarter.Model
         private static readonly String invincibilityActiveSoundEffect = "ms-appx:///Resources/InvincibilityActive.mp3";
         private static readonly String splashSoundEffect = "ms-appx:///Resources/Splash.wav";
 
+        /// <summary>Plays the vehicle collision sound.</summary>
         public void PlayVehicleCollisionSound()
         {
             this.Play(vehicleCollisonSoundEffect);
         }
 
+        /// <summary>Plays the hitting wall sound.</summary>
         public void PlayHittingWallSound()
         {
             this.Play(hittingWallSoundEffect);
         }
 
+        /// <summary>Plays the time running out sound.</summary>
         public void PlayTimeRunningOutSound()
         {
             this.Play(timeRunningOutSoundEffect);
         }
 
+        /// <summary>Plays the filled home sound.</summary>
         public void PlayFilledHomeSound()
         {
             this.Play(filledHomeSoundEffect);
         }
 
+        /// <summary>Plays the game over sound.</summary>
         public void PlayGameOverSound()
         {
             this.Play(gameOverSoundEffect);
         }
 
+        /// <summary>Plays the level completed sound.</summary>
         public void PlayLevelCompletedSound()
         {
             this.Play(levelCompletedSoundEffect);
         }
 
+        /// <summary>Plays the power up taken sound.</summary>
         public void PlayPowerUpTakenSound()
         {
             this.Play(powerUpTakenSoundEffect);
         }
 
+        /// <summary>Plays the invincibility active sound.</summary>
         public void PlayInvincibilityActiveSound()
         {
             this.Play(invincibilityActiveSoundEffect);
         }
 
+        /// <summary>Players the splash sound.</summary>
         public void PlayerSplashSound()
         {
             this.Play(splashSoundEffect);
