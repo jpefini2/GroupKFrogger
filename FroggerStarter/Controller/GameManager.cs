@@ -270,6 +270,7 @@ namespace FroggerStarter.Controller
         {
             this.StopGame();
             this.soundManager.PlayGameOverSound();
+            this.unloadLevelAssets();
             this.onGameOver();
         }
 
