@@ -10,7 +10,7 @@
 
     <Canvas x:Name="canvas" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Black">
 
-        <Grid x:Name="StartScreen" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Plum"  Canvas.ZIndex="1">
+        <Grid x:Name="startScreen" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Plum"  Canvas.ZIndex="1">
             <TextBlock Text="FROGGER" IsTextSelectionEnabled="True" FontSize="55" Canvas.Top="0" Canvas.Left="230" Foreground="Green" FontWeight="Bold" Margin="370,165,30,153" />
             <Button x:Name="startGameButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Start Game" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="163" Click="StartGameButton_Click" Canvas.Left="300" Canvas.Top="100" Margin="100,74,0,0" VerticalAlignment="Top"/>
             <Button x:Name="viewHighScoresButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="View ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ViewScoreBoardButton_Click" Canvas.Left="300" Canvas.Top="200" Margin="61,527,0,0" VerticalAlignment="Top"/>
