@@ -42,7 +42,7 @@ namespace FroggerStarter.Model
         /// </summary>
         public Frog()
         {
-            this.Sprite = new FrogSprite();
+            Sprite = new FrogSprite();
             this.WalkingSprite = new WalkingFrogSprite();
             SetSpeed(SpeedXDirection, SpeedYDirection);
             this.IsDying = false;
@@ -72,24 +72,34 @@ namespace FroggerStarter.Model
             this.walkingAnimationTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
         }
 
+        /// <summary>
+        /// Stops the walking animation.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void stopWalking(object sender, object e)
         {
-            if (!IsDying)
+            if (!this.IsDying)
             {
-                this.Sprite.Visibility = Visibility.Visible;
+                Sprite.Visibility = Visibility.Visible;
             }
             this.WalkingSprite.Visibility = Visibility.Collapsed;
             this.walkingAnimationTimer.Stop();
         }
 
+        /// <summary>
+        /// Starts the walking animation.
+        /// </summary>
         public void StartWalking()
         {
             this.WalkingSprite.Visibility = Visibility.Visible;
-            this.Sprite.Visibility = Visibility.Collapsed;
+            Sprite.Visibility = Visibility.Collapsed;
             this.walkingAnimationTimer.Start();
         }
 
-        /// <summary>Plays the death animation.</summary>
+        /// <summary>
+        /// Plays the death animation.
+        /// </summary>
         public void PlayDeathAnimation()
         {
             this.IsDying = true;
@@ -100,24 +110,22 @@ namespace FroggerStarter.Model
 
         private void switchDeathSprite(object sender, object e)
         {
-            for (int i = 0; i < this.DeathSprites.Length; i++)
+            for (var i = 0; i < this.DeathSprites.Length; i++)
             {
                 if (this.DeathSprites[i].Visibility == Visibility.Visible)
                 {
-                    if (i != (NumOfDeathAnimationFrames - 1))
+                    if (i != NumOfDeathAnimationFrames - 1)
                     {
                         this.DeathSprites[i].Visibility = Visibility.Collapsed;
                         this.DeathSprites[i + 1].Visibility = Visibility.Visible;
                         break;
                     }
-                    else
-                    {
-                        this.DeathSprites[i].Visibility = Visibility.Collapsed;
-                        Sprite.Visibility = Visibility.Visible;
-                        this.deathAnimationTimer.Stop();
-                        this.IsDying = false;
-                        this.UpdateDeathSpritesLocation();
-                    }
+
+                    this.DeathSprites[i].Visibility = Visibility.Collapsed;
+                    Sprite.Visibility = Visibility.Visible;
+                    this.deathAnimationTimer.Stop();
+                    this.IsDying = false;
+                    this.UpdateDeathSpritesLocation();
                 }
             }
         }
@@ -170,7 +178,9 @@ namespace FroggerStarter.Model
             this.WalkingSprite.RenderAt(X, Y);
         }
 
-        /// <summary>Updates the death sprites location to this frogs current location</summary>
+        /// <summary>
+        /// Updates the death sprites location to this frogs current location
+        /// </summary>
         public void UpdateDeathSpritesLocation()
         {
             foreach (var deathSprite in this.DeathSprites)
@@ -181,24 +191,24 @@ namespace FroggerStarter.Model
 
         private void rotateToFace(Direction direction)
         {
-            int angle = 0;
-            if (direction == Direction.Down)
+            var angle = 0;
+            switch (direction)
             {
-                angle = 180;
-            }
-            else if (direction == Direction.Right)
-            {
-                angle = 90;
-            }
-            else if (direction == Direction.Left)
-            {
-                angle = -90;
+                case Direction.Down:
+                    angle = 180;
+                    break;
+                case Direction.Right:
+                    angle = 90;
+                    break;
+                case Direction.Left:
+                    angle = -90;
+                    break;
             }
 
-            RotateTransform rotate = new RotateTransform();
-            rotate.CenterX = rotate.CenterX + (this.Width / 2);
-            rotate.CenterY = rotate.CenterY + (this.Height / 2);
-            this.Sprite.RenderTransform = rotate;
+            var rotate = new RotateTransform();
+            rotate.CenterX += Width / 2;
+            rotate.CenterY += Height / 2;
+            Sprite.RenderTransform = rotate;
             this.WalkingSprite.RenderTransform = rotate;
             rotate.Angle = angle;
         }

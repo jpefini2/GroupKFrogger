@@ -1,7 +1,6 @@
 ﻿using FroggerStarter.View.Sprites;
 using System;
 using System.Drawing;
-using Windows.UI.Xaml.Media;
 
 namespace FroggerStarter.Model
 {
@@ -9,9 +8,9 @@ namespace FroggerStarter.Model
     public class PlayerManager
     {
         private readonly Frog player;
-        private int xBounds;
-        private int lowerYBounds;
-        private int upperYBounds;
+        private readonly int xBounds;
+        private readonly int lowerYBounds;
+        private readonly int upperYBounds;
 
         /// <summary>Gets or sets the player's lives.</summary>
         /// <value>The lives.</value>
@@ -41,8 +40,13 @@ namespace FroggerStarter.Model
         /// <summary>Occurs when [player lives updated].</summary>
         public event EventHandler<PlayerHitWallEventArgs> PlayerHitWall;
 
-        /// <summary>Initializes a new instance of the <see cref="PlayerManager"/> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerManager" /> class.
+        /// </summary>
         /// <param name="startingLives">The starting lives of the player</param>
+        /// <param name="xBounds">The x bounds</param>
+        /// <param name="lowerYBounds">The lower y bounds.</param>
+        /// <param name="upperYBounds">The upper y bounds.</param>
         public PlayerManager(int startingLives, int xBounds, int lowerYBounds, int upperYBounds)
         {
             this.player = new Frog();
@@ -74,8 +78,6 @@ namespace FroggerStarter.Model
         /// as long as it remains within the specified bounds
         /// </summary>
         /// <param name="direction">The direction.</param>
-        /// <param name="xBounds">The x bounds.</param>
-        /// <param name="yBounds">The y bounds.</param>
         public void MovePlayer(Direction direction)
         {
             if (this.player.IsDying)
@@ -96,8 +98,6 @@ namespace FroggerStarter.Model
                     break;
                 case Direction.Down:
                     this.movePlayerDown();
-                    break;
-                default:
                     break;
             }
         }
@@ -208,7 +208,7 @@ namespace FroggerStarter.Model
 
         private void onPlayerHitWall()
         {
-            var data = new PlayerHitWallEventArgs {};
+            var data = new PlayerHitWallEventArgs();
             this.PlayerHitWall?.Invoke(this, data);
         }
     }
