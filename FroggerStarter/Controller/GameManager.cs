@@ -231,6 +231,7 @@ namespace FroggerStarter.Controller
             
             this.playerManager = new PlayerManager(this.gameSettings.NumberOfStartingLives, playerXBound, playerLowerYBound, playerUpperYBound);
             this.gameCanvas.Children.Add(this.playerManager.Sprite);
+            this.gameCanvas.Children.Add(this.playerManager.WalkingSprite);
 
             foreach (var sprite in this.playerManager.DeathSprites)
             {

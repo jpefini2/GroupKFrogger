@@ -29,6 +29,8 @@ namespace FroggerStarter.Model
         /// <value>The frog sprite.</value>
         public BaseSprite Sprite => this.player.Sprite;
 
+        public BaseSprite WalkingSprite => this.player.WalkingSprite;
+
         /// <summary>Gets the death sprites.</summary>
         /// <value>The death sprites.</value>
         public BaseSprite[] DeathSprites => this.player.DeathSprites;

@@ -154,8 +154,8 @@
     <Compile Include="View\Sprites\ExtraTimePowerupSprite.xaml.cs">
       <DependentUpon>ExtraTimePowerupSprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\FrogSpriteLeftRight.xaml.cs">
-      <DependentUpon>FrogSpriteLeftRight.xaml</DependentUpon>
+    <Compile Include="View\Sprites\WalkingFrogSprite.xaml.cs">
+      <DependentUpon>WalkingFrogSprite.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\TurboCarSprite.xaml.cs">
       <DependentUpon>TurboCarSprite.xaml</DependentUpon>
@@ -187,8 +187,8 @@
     <Compile Include="View\Sprites\CarSprite.xaml.cs">
       <DependentUpon>CarSprite.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sprites\FrogSpriteUpDown.xaml.cs">
-      <DependentUpon>FrogSpriteUpDown.xaml</DependentUpon>
+    <Compile Include="View\Sprites\FrogSprite.xaml.cs">
+      <DependentUpon>FrogSprite.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sprites\ISpriteRenderer.cs" />
   </ItemGroup>
@@ -232,7 +232,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Sprites\FrogSpriteLeftRight.xaml">
+    <Page Include="View\Sprites\WalkingFrogSprite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -276,7 +276,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Sprites\FrogSpriteUpDown.xaml">
+    <Page Include="View\Sprites\FrogSprite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
