@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sprites="using:FroggerStarter.View.Sprites"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -22,8 +23,11 @@
 
         <TextBlock Text="Time: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="10" Width="100" Height="40"  Foreground="WhiteSmoke" FontWeight="Bold" />
         <TextBlock x:Name="timeTextBlock" Text="20" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="110" Width="50" Height="40" Foreground="WhiteSmoke" FontWeight="Bold" />
+        <Button x:Name="playAgainButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Play Again" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="150" Click="PlayAgainButton_Click" Canvas.Left="100" Canvas.Top="205" Visibility="Collapsed" Canvas.ZIndex="1"/>
 
-        <Grid x:Name="highScoreBoard" Canvas.ZIndex="1" Visibility="Visible">
+        <sprites:GameOverSprite x:Name="gameOverSprite" Visibility="Collapsed"/>
+
+        <Grid x:Name="highScoreBoard" Canvas.ZIndex="1" Visibility="Collapsed">
             <Rectangle Height="285" Width="250" Margin="368,80,0,0" Fill="LightBlue" />
             <Rectangle Height="285" Width="2" Fill="Black" Margin="368,81,252,1" />
             <Rectangle Height="286" Width="2" Fill="Black" Margin="620,80,0,2" />

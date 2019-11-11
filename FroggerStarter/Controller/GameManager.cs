@@ -155,6 +155,24 @@ namespace FroggerStarter.Controller
             }
         }
 
+        public void RestartGame()
+        {
+            this.currentLevel = 1;
+            this.playerManager.Lives = this.gameSettings.NumberOfStartingLives;
+            this.playerManager.Score = 0;
+            this.timeRemaining = this.gameSettings.TimeLimit;
+            this.unloadLevelAssets();
+            this.createAndPlaceRoad();
+
+            this.timer.Start();
+            this.countDownTimer.Start();
+            this.playerManager.SetSpeed(50, 50);
+
+            this.onPlayerScoreUpdated();
+            this.onPlayerLivesUpdated();
+            this.onRemainingTimeUpdated();
+        }
+
         private void playerReachedHome()
         {
             this.frogHomeManager.FillHomesIntersectingWith(this.playerManager.CollisionBox);
@@ -203,21 +221,24 @@ namespace FroggerStarter.Controller
         private void gameOver()
         {
             this.StopGame();
-            this.gameCanvas.Children.Add(new GameOverSprite());
             this.soundManager.PlayGameOverSound();
             this.onGameOver();
         }
 
         private void loadNextLevel()
         {
+            unloadLevelAssets();
+            this.currentLevel++;
+            this.createAndPlaceRoad();
+        }
+
+        private void unloadLevelAssets()
+        {
             foreach (var vehicle in this.roadManager)
             {
                 this.gameCanvas.Children.Remove(vehicle.Sprite);
             }
             this.frogHomeManager.EmptyAllHomes();
-
-            this.currentLevel++;
-            this.createAndPlaceRoad();
         }
 
         public void SavePlayerScore(String name)

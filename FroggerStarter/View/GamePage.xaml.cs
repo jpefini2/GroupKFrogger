@@ -77,7 +77,9 @@ namespace FroggerStarter.View
         private void handlePlayerLivesChange(object sender, PlayerLivesUpdatedEventArgs e)
         {
             this.livesTextBlock.Text = e.PlayerLives.ToString();
-        }        private void handlePlayerScoreChange(object sender, PlayerScoreUpdatedEventArgs e)
+        }
+
+        private void handlePlayerScoreChange(object sender, PlayerScoreUpdatedEventArgs e)
         {
             this.scoreTextBlock.Text = e.PlayerScore.ToString();
         }
@@ -89,7 +91,9 @@ namespace FroggerStarter.View
 
         private void handleGameOver(object sender, GameOverEventArgs e)
         {
+            this.gameOverSprite.Visibility = Visibility.Visible;
             this.highScoreBoard.Visibility = Visibility.Visible;
+            this.playAgainButton.Visibility = Visibility.Visible;
         }
 
         #endregion
@@ -117,6 +121,14 @@ namespace FroggerStarter.View
         private void SortByLevelButton_Click(object sender, RoutedEventArgs e)
         {
             this.highScoresListView.ItemsSource = this.gameManager.HighScoreBoard.sortBy(HighScoreElement.Level);
+        }
+
+        private void PlayAgainButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.highScoreBoard.Visibility = Visibility.Collapsed;
+            this.playAgainButton.Visibility = Visibility.Collapsed;
+            this.gameOverSprite.Visibility = Visibility.Collapsed;
+            this.gameManager.RestartGame();
         }
     }
 }
