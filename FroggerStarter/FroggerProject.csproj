@@ -131,6 +131,7 @@
     <Compile Include="Model\GameSettings.cs" />
     <Compile Include="Model\HighScore.cs" />
     <Compile Include="Model\HighScoreBoard.cs" />
+    <Compile Include="Model\HighScoreElement.cs" />
     <Compile Include="Model\Lane.cs" />
     <Compile Include="Model\LaneSettings.cs" />
     <Compile Include="Model\LevelSettings.cs" />
@@ -211,6 +212,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Resources\HighScores.txt" />
     <Content Include="Resources\InvincibilityActive.mp3" />
     <Content Include="Resources\PowerUpTaken.wav" />
     <Content Include="Resources\FilledHome.wav" />

@@ -23,7 +23,7 @@
         <TextBlock Text="Time: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="10" Width="100" Height="40"  Foreground="WhiteSmoke" FontWeight="Bold" />
         <TextBlock x:Name="timeTextBlock" Text="20" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="110" Width="50" Height="40" Foreground="WhiteSmoke" FontWeight="Bold" />
 
-        <Grid x:Name="highScoreBoard" Canvas.ZIndex="1" Visibility="Collapsed">
+        <Grid x:Name="highScoreBoard" Canvas.ZIndex="1" Visibility="Visible">
             <Rectangle Height="285" Width="250" Margin="368,80,0,0" Fill="LightBlue" />
             <Rectangle Height="285" Width="2" Fill="Black" Margin="368,81,252,1" />
             <Rectangle Height="286" Width="2" Fill="Black" Margin="620,80,0,2" />
