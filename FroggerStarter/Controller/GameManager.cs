@@ -153,6 +153,7 @@ namespace FroggerStarter.Controller
 
             if (this.frogHomeManager.AllHomesAreFilled())
             {
+                this.soundManager.PlayLevelCompletedSound();
                 if (this.currentLevel < this.gameSettings.NumberOfLevels)
                 {
                     this.loadNextLevel();
@@ -176,6 +177,7 @@ namespace FroggerStarter.Controller
                         this.onRemainingTimeUpdated();
                     }
                     powerup.Sprite.Visibility = Visibility.Collapsed;
+                    this.soundManager.PlayPowerUpTakenSound();
                 }
             }
         }
