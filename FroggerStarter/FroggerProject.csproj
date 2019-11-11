@@ -221,6 +221,7 @@
     <Content Include="Resources\CarCrash.mp3" />
     <Content Include="Resources\HittingWall.wav" />
     <Content Include="Resources\TimerTick.mp3" />
+    <Content Include="Resources\TimeOut.mp3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -149,26 +149,6 @@ namespace FroggerStarter.Model
             return totalLength;
         }
 
-        /// <summary>Sets the speed of all newVehicles in this.newVehicles</summary>
-        /// <param name="speed">The speed.</param>
-        public void SetTrafficSpeed(int speed)
-        {
-            foreach (var vehicle in this.vehicles)
-            {
-                vehicle.SetSpeed(speed, 0);
-            }
-        }
-
-        /// <summary>Speeds up all newVehicles in this.newVehicles.</summary>
-        public void SpeedUpTraffic()
-        {
-            foreach (var vehicle in this)
-            {
-                var newXSpeed = vehicle.SpeedX + 2;
-                vehicle.SetSpeed(newXSpeed, 0);
-            }
-        }
-
         /// <summary>Hides all newVehicles.</summary>
         public void HideAllVehicles()
         {

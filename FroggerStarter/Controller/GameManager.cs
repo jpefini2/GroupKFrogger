@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using FroggerStarter.Model;
-using FroggerStarter.View.Sprites;
 
 namespace FroggerStarter.Controller
 {
@@ -118,7 +117,8 @@ namespace FroggerStarter.Controller
 
             if (this.timeRemaining == 0)
             {
-                this.KillPlayer();
+                this.killPlayer();
+                this.soundManager.PlayTimeOutSound();
             }
         }
 
@@ -130,7 +130,7 @@ namespace FroggerStarter.Controller
             }
         }
 
-        private void KillPlayer()
+        private void killPlayer()
         {
             this.playerManager.KillPlayer();
             this.onPlayerLivesUpdated();
@@ -150,7 +150,7 @@ namespace FroggerStarter.Controller
         {
             if (!this.powerupManager.IsInvincibilityActive)
             {
-                this.KillPlayer();
+                this.killPlayer();
                 this.soundManager.PlayVehicleCollisionSound();
             }
         }
@@ -202,14 +202,15 @@ namespace FroggerStarter.Controller
             {
                 if (powerup.Sprite.Visibility == Visibility.Visible && this.playerManager.CollisionBox.IntersectsWith(powerup.CollisionBox))
                 {
-                    if (powerup is ExtraTimePowerup)
+                    switch (powerup)
                     {
-                        this.timeRemaining += 10;
-                        this.onRemainingTimeUpdated();
-                    }
-                    else if (powerup is TemporaryInvincibilityPowerup)
-                    {
-                        this.soundManager.PlayInvincibilityActiveSound();
+                        case ExtraTimePowerup _:
+                            this.timeRemaining += 10;
+                            this.onRemainingTimeUpdated();
+                            break;
+                        case TemporaryInvincibilityPowerup _:
+                            this.soundManager.PlayInvincibilityActiveSound();
+                            break;
                     }
 
                     this.powerupManager.PickedUp(powerup);
@@ -227,7 +228,7 @@ namespace FroggerStarter.Controller
 
         private void loadNextLevel()
         {
-            unloadLevelAssets();
+            this.unloadLevelAssets();
             this.currentLevel++;
             this.createAndPlaceRoad();
         }
@@ -241,9 +242,9 @@ namespace FroggerStarter.Controller
             this.frogHomeManager.EmptyAllHomes();
         }
 
-        public void SavePlayerScore(String name)
+        public void SavePlayerScore(string name)
         {
-            var highScore = new HighScore(name, this.playerManager.Score, currentLevel);
+            var highScore = new HighScore(name, this.playerManager.Score, this.currentLevel);
             this.HighScoreBoard.AddHighScore(highScore);
         }
 
@@ -257,9 +258,9 @@ namespace FroggerStarter.Controller
         /// <exception cref="ArgumentNullException">gameCanvas</exception>
         public void InitializeGame(Canvas gamePage)
         {
-            int playerXBound = (int)this.backgroundWidth;
-            int playerLowerYBound = (int)this.backgroundHeight;
-            int playerUpperYBound = ((int)this.backgroundHeight / RowsOnScreen) * 2;
+            var playerXBound = (int)this.backgroundWidth;
+            var playerLowerYBound = (int)this.backgroundHeight;
+            var playerUpperYBound = (int)this.backgroundHeight / RowsOnScreen * 2;
 
             this.gameCanvas = gamePage ?? throw new ArgumentNullException(nameof(gamePage));
             this.gameSettings = new GameSettings();
@@ -344,16 +345,6 @@ namespace FroggerStarter.Controller
             this.playerManager.MovePlayer(direction);
         }
 
-        /// <summary>Has the player won</summary>
-        /// <returns>
-        /// true, if all frog homes are filled,
-        /// false, if not
-        /// </returns>
-        public bool PlayerHasWon()
-        {
-            return this.frogHomeManager.AllHomesAreFilled();
-        }
-        
         private void onPlayerLivesUpdated()
         {
             var data = new PlayerLivesUpdatedEventArgs { PlayerLives = this.playerManager.Lives};
@@ -374,7 +365,7 @@ namespace FroggerStarter.Controller
 
         private void onGameOver()
         {
-            var data = new GameOverEventArgs { Score = this.playerManager.Score, Level = currentLevel };
+            var data = new GameOverEventArgs { Score = this.playerManager.Score, Level = this.currentLevel };
             this.GameOver?.Invoke(this, data);
         }
 

@@ -1,17 +1,15 @@
 ﻿using FroggerStarter.View.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
-    class ExtraTimePowerup : Powerup
+    public class ExtraTimePowerup : Powerup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExtraTimePowerup"/> class.
+        /// </summary>
         public ExtraTimePowerup()
         {
-            this.Sprite = new ExtraTimePowerupSprite();
+            Sprite = new ExtraTimePowerupSprite();
         }
     }
 }

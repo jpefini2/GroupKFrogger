@@ -1,68 +1,71 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 
 namespace FroggerStarter.Model
 {
-    class SoundManager
+    public class SoundManager
     {
-        private static readonly String vehicleCollisonSoundEffect = "ms-appx:///Resources/CarCrash.mp3";
-        private static readonly String hittingWallSoundEffect = "ms-appx:///Resources/HittingWall.wav";
-        private static readonly String timeRunningOutSoundEffect = "ms-appx:///Resources/TimerTick.mp3";
-        private static readonly String filledHomeSoundEffect = "ms-appx:///Resources/FilledHome.wav";
-        private static readonly String levelCompletedSoundEffect = "ms-appx:///Resources/LevelCompleted.wav";
-        private static readonly String gameOverSoundEffect = "ms-appx:///Resources/GameOver.wav";
-        private static readonly String powerUpTakenSoundEffect = "ms-appx:///Resources/PowerUpTaken.wav";
-        private static readonly String invincibilityActiveSoundEffect = "ms-appx:///Resources/InvincibilityActive.mp3";
+        private const string VehicleCollisionSoundEffect = "ms-appx:///Resources/CarCrash.mp3";
+        private const string HittingWallSoundEffect = "ms-appx:///Resources/HittingWall.wav";
+        private const string TimeRunningOutSoundEffect = "ms-appx:///Resources/TimerTick.mp3";
+        private const string FilledHomeSoundEffect = "ms-appx:///Resources/FilledHome.wav";
+        private const string LevelCompletedSoundEffect = "ms-appx:///Resources/LevelCompleted.wav";
+        private const string GameOverSoundEffect = "ms-appx:///Resources/GameOver.wav";
+        private const string PowerUpTakenSoundEffect = "ms-appx:///Resources/PowerUpTaken.wav";
+        private const string InvincibilityActiveSoundEffect = "ms-appx:///Resources/InvincibilityActive.mp3";
+        private const string TimeOutSoundEffect = "ms-appx:///Resources/TimeOut.mp3";
 
         public void PlayVehicleCollisionSound()
         {
-            this.Play(vehicleCollisonSoundEffect);
+            play(VehicleCollisionSoundEffect);
         }
 
         public void PlayHittingWallSound()
         {
-            this.Play(hittingWallSoundEffect);
+            play(HittingWallSoundEffect);
         }
 
         public void PlayTimeRunningOutSound()
         {
-            this.Play(timeRunningOutSoundEffect);
+            play(TimeRunningOutSoundEffect);
         }
 
         public void PlayFilledHomeSound()
         {
-            this.Play(filledHomeSoundEffect);
+            play(FilledHomeSoundEffect);
         }
 
         public void PlayGameOverSound()
         {
-            this.Play(gameOverSoundEffect);
+            play(GameOverSoundEffect);
         }
 
         public void PlayLevelCompletedSound()
         {
-            this.Play(levelCompletedSoundEffect);
+            play(LevelCompletedSoundEffect);
         }
 
         public void PlayPowerUpTakenSound()
         {
-            this.Play(powerUpTakenSoundEffect);
+            play(PowerUpTakenSoundEffect);
         }
 
         public void PlayInvincibilityActiveSound()
         {
-            this.Play(invincibilityActiveSoundEffect);
+            play(InvincibilityActiveSoundEffect);
         }
 
-        private void Play(string fileName)
+        public void PlayTimeOutSound()
         {
-            var mediaPlayer = new MediaPlayer();
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri($"{fileName}", UriKind.RelativeOrAbsolute));
+            play(TimeOutSoundEffect);
+        }
+
+        private static void play(string fileName)
+        {
+            var mediaPlayer = new MediaPlayer {
+                Source = MediaSource.CreateFromUri(new Uri($"{fileName}", UriKind.RelativeOrAbsolute))
+            };
             mediaPlayer.Play();
         }
     }

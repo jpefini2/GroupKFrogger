@@ -16,7 +16,7 @@ namespace FroggerStarter.Model
         private readonly List<Lane> lanes;
 
         private DispatcherTimer revealVehicleTimer;
-        private VehicleFactory vehicleFactory;
+        private readonly VehicleFactory vehicleFactory;
 
         /// <summary>Initializes a new instance of the <see cref="RoadManager"/> class.</summary>
         /// <param name="y">The y.</param>

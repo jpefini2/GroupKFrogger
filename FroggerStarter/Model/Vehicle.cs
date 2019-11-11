@@ -9,15 +9,17 @@ namespace FroggerStarter.Model
     /// <seealso cref="FroggerStarter.Model.GameObject" />
     public abstract class Vehicle : GameObject
     {
-        private readonly Direction orientation;     
+        private readonly Direction orientation;
 
-        /// <summary>Initializes a new instance of the <see cref="Vehicle"/> class.</summary>
-        /// <param name="vehicleType">Type of the vehicle.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vehicle" /> class.
+        /// </summary>
         /// <param name="orientation">The orientation.</param>
-        public Vehicle(Direction orientation, int speed)
+        /// <param name="speed">The speed.</param>
+        protected Vehicle(Direction orientation, int speed)
         {
             this.orientation = orientation;
-            this.SetSpeed(speed, 0);
+            SetSpeed(speed, 0);
         }
 
         protected void RotateSprite(BaseSprite vehicleSprite)

@@ -4,11 +4,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using FroggerStarter.Controller;
-using FroggerStarter.View.Sprites;
-using System;
-using System.Diagnostics;
 using FroggerStarter.Model;
-using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -63,16 +59,16 @@ namespace FroggerStarter.View
             switch (args.VirtualKey)
             {
                 case VirtualKey.Left:
-                    this.gameManager.MovePlayer(Model.Direction.Left);
+                    this.gameManager.MovePlayer(Direction.Left);
                     break;
                 case VirtualKey.Right:
-                    this.gameManager.MovePlayer(Model.Direction.Right);
+                    this.gameManager.MovePlayer(Direction.Right);
                     break;
                 case VirtualKey.Up:
-                    this.gameManager.MovePlayer(Model.Direction.Up);
+                    this.gameManager.MovePlayer(Direction.Up);
                     break;
                 case VirtualKey.Down:
-                    this.gameManager.MovePlayer(Model.Direction.Down);
+                    this.gameManager.MovePlayer(Direction.Down);
                     break;
             }
         }
@@ -140,7 +136,7 @@ namespace FroggerStarter.View
 
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
-            this.StartScreen.Visibility = Visibility.Collapsed;
+            this.startScreen.Visibility = Visibility.Collapsed;
             this.highScoreBoard.Visibility = Visibility.Collapsed;
             this.closeScoreBoardButton.Visibility = Visibility.Collapsed;
             this.gameManager.RestartGame();

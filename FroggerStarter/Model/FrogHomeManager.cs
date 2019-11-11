@@ -16,7 +16,9 @@ namespace FroggerStarter.Model
         private readonly int widthOfHomeRow;
         private IList<FrogHome> frogHomes;
 
-        /// <summary>Initializes a new instance of the <see cref="FrogHomeManager"/> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FrogHomeManager" /> class.
+        /// </summary>
         /// <param name="y">The y.</param>
         /// <param name="widthOfHomeRow">The width of home row.</param>
         /// <param name="numberOfHomes">The number of homes.</param>
@@ -27,6 +29,10 @@ namespace FroggerStarter.Model
             this.createAndPlaceHomes(numberOfHomes);
         }
 
+        /// <summary>
+        /// Creates the and place homes.
+        /// </summary>
+        /// <param name="numberOfHomes">The number of homes.</param>
         private void createAndPlaceHomes(int numberOfHomes)
         {
             this.frogHomes = new List<FrogHome>();
@@ -45,10 +51,13 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Determines whether the specified collisionBox is colliding with an empty home stored here</summary>
+        /// <summary>
+        /// Determines whether the specified collisionBox is colliding with an empty home stored here
+        /// </summary>
         /// <param name="collisionBox">The collision box.</param>
         /// <returns>
-        ///   <c>true</c> if [the specified collision box] [is colliding with empty home]; otherwise, <c>false</c>.</returns>
+        ///   <c>true</c> if [the specified collision box] [is colliding with empty home]; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsCollidingWithEmptyHome(Rectangle collisionBox)
         {
             var isColliding = false;
@@ -65,7 +74,9 @@ namespace FroggerStarter.Model
             return isColliding;
         }
 
-        /// <summary>Fills the home(s) intersecting with the specified collisionBox</summary>
+        /// <summary>
+        /// Fills the home(s) intersecting with the specified collisionBox
+        /// </summary>
         /// <param name="collisionBox">The collision box.</param>
         public void FillHomesIntersectingWith(Rectangle collisionBox)
         {
@@ -79,8 +90,12 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Determines whether all the homes stored here are filled</summary>
-        /// <returns>true if all are filled; otherwise, false</returns>
+        /// <summary>
+        /// Determines whether all the homes stored here are filled
+        /// </summary>
+        /// <returns>
+        /// true if all are filled; otherwise, false
+        /// </returns>
         public bool AllHomesAreFilled()
         {
             var allHomesFilled = true;
@@ -96,6 +111,9 @@ namespace FroggerStarter.Model
             return allHomesFilled;
         }
 
+        /// <summary>
+        /// Empties all homes.
+        /// </summary>
         public void EmptyAllHomes()
         {
             foreach (var home in this)
@@ -104,8 +122,12 @@ namespace FroggerStarter.Model
             }
         }
 
-        /// <summary>Returns an enumerator that iterates through the collection.</summary>
-        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
         public IEnumerator<FrogHome> GetEnumerator()
         {
             return this.frogHomes.GetEnumerator();

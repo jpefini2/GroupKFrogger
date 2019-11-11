@@ -32,6 +32,9 @@ namespace FroggerStarter.Model
             this.FilledSprite.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Empties the home.
+        /// </summary>
         public void EmptyHome()
         {
             this.IsFilled = false;
