@@ -101,6 +101,26 @@ namespace FroggerStarter.Model
             }
         }
 
+        public void MovePlayerWith(Vehicle vehicle)
+        {
+            if (vehicle.Orientation == Direction.Left)
+            {
+                if (this.player.X - vehicle.SpeedX >= 0)
+                {
+                    this.player.X -= vehicle.SpeedX;
+                    this.player.UpdateDeathSpritesLocation();
+                }
+            }
+            else
+            {
+                if (this.player.X + vehicle.SpeedX + this.player.Width <= this.xBounds)
+                {
+                    this.player.X += vehicle.SpeedX;
+                    this.player.UpdateDeathSpritesLocation();
+                }
+            }
+        }
+
         /// <summary>
         ///     Moves the player to the left.
         ///     Precondition: none

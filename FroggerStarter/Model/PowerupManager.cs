@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
     public class PowerupManager : IEnumerable<Powerup>
     {
-        private const int PercentChanceOfPlacingPowerup = 100;
+        private const int PercentChanceOfPlaceingPowerup = 50;
 
-        private readonly int xBound;
-        private readonly int upperYBound;
-        private readonly int lowerYBound;
+        private int xBound;
+        private int upperYBound;
+        private int lowerYBound;
         private DispatcherTimer placePowerupTimer;
         private List<Powerup> powerups;
 
@@ -25,9 +28,9 @@ namespace FroggerStarter.Model
             this.upperYBound = upperYBound;
             this.lowerYBound = lowerYBound;
             this.IsInvincibilityActive = false;
-            this.setupPlacePowerupTimer();
-            this.setupPowerups();
-            this.setupInvincibilityTimer();
+            setupPlacePowerupTimer();
+            setupPowerups();
+            setupInvincibilityTimer();
         }
 
         private void setupPlacePowerupTimer()
@@ -40,9 +43,9 @@ namespace FroggerStarter.Model
 
         private void placePowerupTimerOnTick(object sender, object e)
         {
-            var random = new Random();
-            var newRandom = random.Next(1, 100);
-            if (newRandom <= PercentChanceOfPlacingPowerup)
+            Random random = new Random();
+            int newRandom = random.Next(1, 100);
+            if (newRandom <= PercentChanceOfPlaceingPowerup)
             {
                 this.placeRandomPowerup();
             }
@@ -77,8 +80,8 @@ namespace FroggerStarter.Model
 
         private void placeRandomPowerup()
         {
-            var random = new Random();
-            var randomPowerupIndex = random.Next(0, this.powerups.Count);
+            Random random = new Random();
+            int randomPowerupIndex = random.Next(0, this.powerups.Count);
 
             this.powerups[randomPowerupIndex].X = random.Next(0, this.xBound);
             this.powerups[randomPowerupIndex].Y = random.Next(this.upperYBound, this.lowerYBound);
@@ -94,6 +97,16 @@ namespace FroggerStarter.Model
                 this.IsInvincibilityActive = true;
                 this.invincibilityTimer.Start();
             }
+        }
+
+        public void StopSpawningPowerups()
+        {
+            this.placePowerupTimer.Stop();
+        }
+
+        public void StartSpawningPowerups()
+        {
+            this.placePowerupTimer.Start();
         }
 
         /// <summary>Returns an enumerator that iterates through the collection.</summary>

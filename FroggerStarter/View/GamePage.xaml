@@ -10,14 +10,11 @@
 
     <Canvas x:Name="canvas" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Black">
 
-        <Grid x:Name="startScreen" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Plum"  Canvas.ZIndex="1">
-            <TextBlock Text="FROGGER" IsTextSelectionEnabled="True" FontSize="55" Foreground="Green" FontWeight="Bold" Margin="370,165,30,153" />
-            <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Start Game" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="163" Click="StartGameButton_Click"
-                    Margin="100,74,0,0" VerticalAlignment="Top"/>
-            <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="View ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ViewScoreBoardButton_Click"
-                    Margin="61,0,0,0"/>
-            <Button BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Reset ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ResetScoreBoardButton_Click"
-                    Margin="61,288,0,0" VerticalAlignment="Top"/>
+        <Grid x:Name="StartScreen" Width="{StaticResource AppWidth}" Height="{StaticResource AppHeight}" Background="Plum"  Canvas.ZIndex="1">
+            <TextBlock Text="FROGGER" IsTextSelectionEnabled="True" FontSize="55" Canvas.Top="0" Canvas.Left="230" Foreground="Green" FontWeight="Bold" Margin="370,165,30,153" />
+            <Button x:Name="startGameButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Start Game" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="163" Click="StartGameButton_Click" Canvas.Left="300" Canvas.Top="100" Margin="100,74,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="viewHighScoresButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="View ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ViewScoreBoardButton_Click" Canvas.Left="300" Canvas.Top="200" Margin="61,527,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="resetHighScoresButton" BorderBrush="Black" BorderThickness="1" Background="RosyBrown" Content="Reset ScoreBoard" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="241" Click="ResetScoreBoardButton_Click" Canvas.Left="300" Canvas.Top="200" Margin="61,288,0,0" VerticalAlignment="Top"/>
         </Grid>
 
         <TextBlock Text="Frogger" IsTextSelectionEnabled="True" FontSize="40" Canvas.Top="0" Canvas.Left="230" Width="150" Height="60" Foreground="Green" FontWeight="Bold" />
@@ -29,10 +26,13 @@
         <TextBlock x:Name="scoreTextBlock" Text="0" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="0" Canvas.Left="510" Width="125" Height="40" Foreground="Blue" FontWeight="Bold" />
 
         <Rectangle Canvas.Top="55" Fill="Gray" Width="{StaticResource AppWidth}" Height="50" />
-        <Rectangle Canvas.Top="355" Fill="Gray" Width="{StaticResource AppWidth}" Height="55" />
+        <Rectangle Canvas.Top="355" Fill="Gray" Width="{StaticResource AppWidth}" Height="50" />
+        <Rectangle Canvas.Top="655" Fill="Gray" Width="{StaticResource AppWidth}" Height="55" />
 
-        <TextBlock Text="Time: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="10" Width="100" Height="40"  Foreground="WhiteSmoke" FontWeight="Bold" />
-        <TextBlock x:Name="timeTextBlock" Text="20" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="360" Canvas.Left="110" Width="50" Height="40" Foreground="WhiteSmoke" FontWeight="Bold" />
+        <Rectangle Canvas.Top="105" Fill="LightSeaGreen" Width="{StaticResource AppWidth}" Height="250" />
+
+        <TextBlock Text="Time: " IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="660" Canvas.Left="10" Width="100" Height="40"  Foreground="WhiteSmoke" FontWeight="Bold" />
+        <TextBlock x:Name="timeTextBlock" Text="20" IsTextSelectionEnabled="True" FontSize="35" Canvas.Top="660" Canvas.Left="110" Width="50" Height="40" Foreground="WhiteSmoke" FontWeight="Bold" />
         <Button x:Name="playAgainButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Play Again" Padding="0" FontSize="30" Foreground="Black" Height="50" Width="150" Click="PlayAgainButton_Click" Canvas.Left="100" Canvas.Top="205" Visibility="Collapsed" Canvas.ZIndex="1"/>
 
         <sprites:GameOverSprite x:Name="gameOverSprite" Visibility="Collapsed"/>
@@ -44,11 +44,11 @@
             <Rectangle Height="2" Width="252" Fill="Black" Margin="368,79,2,286" />
             <Rectangle Height="2" Width="254" Fill="Black" Margin="368,365,0,0" />
             <TextBlock Text="High Scores" TextAlignment="Left" Foreground="Black" Height="20" Width="240" Margin="378,-186,0,0" />
-            <Button BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Name" Padding="0" FontSize="10" Foreground="Black" Margin="515,82,0,0" VerticalAlignment="Top" Height="20" Width="35" RenderTransformOrigin="0.879,0.65" Click="SortByNameButton_Click"/>
-            <Button BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Score" Padding="0" FontSize="10" Foreground="Black" Margin="550,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByScoreButton_Click"/>
-            <Button BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Level" Padding="0" FontSize="10" Foreground="Black" Margin="585,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByLevelButton_Click"/>
+            <Button x:Name="sortByNameButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Name" Padding="0" FontSize="10" Foreground="Black" Margin="515,82,0,0" VerticalAlignment="Top" Height="20" Width="35" RenderTransformOrigin="0.879,0.65" Click="SortByNameButton_Click"/>
+            <Button x:Name="sortByScoreButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Score" Padding="0" FontSize="10" Foreground="Black" Margin="550,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByScoreButton_Click"/>
+            <Button x:Name="sortByLevelButton" BorderBrush="Black" BorderThickness="1" Background="Wheat" Content="Level" Padding="0" FontSize="10" Foreground="Black" Margin="585,82,0,0" VerticalAlignment="Top" Height="20" Width="35" Click="SortByLevelButton_Click"/>
 
-            
+
             <TextBlock x:Name="enterNameTextBlock" Margin="190,331,0,0" Width="70" Height="20" Text="Enter Name:" Foreground="Black" FontSize="12" TextAlignment="Left" />
             <TextBox 
             HorizontalAlignment="Left" Margin="440,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top"

@@ -3,25 +3,16 @@ using System.Collections.Generic;
 
 namespace FroggerStarter.Model
 {
-    public class LevelSettings : IEnumerable<LaneSettings>
+    public class LevelSettings
     {
-        private readonly List<LaneSettings> laneSettings;
+        public List<LaneSettings> RoadLaneSettings { get; set; }
 
-        public LevelSettings(List<LaneSettings> laneSettings)
-        {
-            this.laneSettings = laneSettings;
-        }
+        public List<LaneSettings> RiverLaneSettings { get; set; }
 
-        /// <summary>Returns an enumerator that iterates through the collection.</summary>
-        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-        public IEnumerator<LaneSettings> GetEnumerator()
+        public LevelSettings()
         {
-            return this.laneSettings.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
+            this.RoadLaneSettings = new List<LaneSettings>();
+            this.RiverLaneSettings = new List<LaneSettings>();
         }
     }
 }

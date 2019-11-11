@@ -10,6 +10,10 @@ namespace FroggerStarter.Model
         /// <summary>A Truck 100 x 40</summary>
         Truck,
         /// <summary>A TurboCar, 50 x 40</summary>
-        TurboCar
+        TurboCar,
+
+        Turtles,
+
+        Log
     }
 }
