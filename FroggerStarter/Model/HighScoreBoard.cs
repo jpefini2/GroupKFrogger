@@ -1,50 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
     /// <summary>The high scores</summary>
     public class HighScoreBoard
     {
-        private const String highScoresRecord = "Resources/HighScores.txt";
-
-        private ObservableCollection<HighScore> highScores;
+        private const string HighScoresRecord = "Resources/HighScores.txt";
 
         private HighScoreElement sortedBy;
 
         /// <summary>Gets or sets the high scores.</summary>
         /// <value>The high scores.</value>
-        public ObservableCollection<HighScore> HighScores
-        {
-            get => highScores;
-            set => highScores = value; 
-        }
+        public ObservableCollection<HighScore> HighScores { get; set; }
 
         /// <summary>Initializes a new instance of the <see cref="HighScoreBoard"/> class.</summary>
         public HighScoreBoard()
         {
-            highScores = new ObservableCollection<HighScore>();
+            this.HighScores = new ObservableCollection<HighScore>();
             this.sortedBy = HighScoreElement.Score;
             this.populateScoreBoard();
-            this.highScores = this.GetSortedBy(HighScoreElement.Score);
+            this.HighScores = this.GetSortedBy(HighScoreElement.Score);
         }
 
         private void populateScoreBoard()
         {
-            using (var reader = new StreamReader(highScoresRecord))
+            using (var reader = new StreamReader(HighScoresRecord))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     var data = line.Split(" ");
-                    String name = data[0];
-                    int score = Int32.Parse(data[1]);
-                    int level = Int32.Parse(data[2]);
+                    var name = data[0];
+                    var score = int.Parse(data[1]);
+                    var level = int.Parse(data[2]);
 
                     this.AddHighScore(new HighScore(name, score, level));
                 }
@@ -55,8 +45,8 @@ namespace FroggerStarter.Model
         /// <param name="score">The score.</param>
         public void AddHighScore(HighScore score)
         {
-            this.highScores.Add(score);
-            this.highScores = this.GetSortedBy(this.sortedBy);
+            this.HighScores.Add(score);
+            this.HighScores = this.GetSortedBy(this.sortedBy);
         }
 
         /// <summary>Gets the sorted by selected.</summary>
@@ -71,30 +61,33 @@ namespace FroggerStarter.Model
         /// <returns></returns>
         public ObservableCollection<HighScore> GetSortedBy(HighScoreElement highScoreElement)
         {
-            if (highScoreElement == HighScoreElement.Name)
+            switch (highScoreElement)
             {
-                this.sortedBy = HighScoreElement.Name;
+                case HighScoreElement.Name:
+                {
+                    this.sortedBy = HighScoreElement.Name;
 
-                var list = new ObservableCollection<HighScore>(HighScores.OrderBy(x => x.Name).ThenByDescending(x => x.Score).ThenByDescending(x => x.Level).ToList());
-                this.highScores = list;
-                return list;
+                    var list = new ObservableCollection<HighScore>(this.HighScores.OrderBy(x => x.Name).ThenByDescending(x => x.Score).ThenByDescending(x => x.Level).ToList());
+                    this.HighScores = list;
+                    return list;
+                }
+                case HighScoreElement.Score:
+                {
+                    this.sortedBy = HighScoreElement.Score;
+
+                    var list = new ObservableCollection<HighScore>(this.HighScores.OrderByDescending(x => x.Score).ThenBy(x => x.Name).ThenByDescending(x => x.Level).ToList());
+                    this.HighScores = list;
+                    return list;
+                }
+                default:
+                {
+                    this.sortedBy = HighScoreElement.Level;
+
+                    var list = new ObservableCollection<HighScore>(this.HighScores.OrderByDescending(x => x.Level).ThenByDescending(x => x.Score).ThenBy(x => x.Name).ToList());
+                    this.HighScores = list;
+                    return list;
+                }
             }
-            else if (highScoreElement == HighScoreElement.Score)
-            {
-                this.sortedBy = HighScoreElement.Score;
-
-                var list = new ObservableCollection<HighScore>(HighScores.OrderByDescending(x => x.Score).ThenBy(x => x.Name).ThenByDescending(x => x.Level).ToList());
-                this.highScores = list;
-                return list;
-            }
-            else
-            {
-                this.sortedBy = HighScoreElement.Level;
-
-                var list = new ObservableCollection<HighScore>(HighScores.OrderByDescending(x => x.Level).ThenByDescending(x => x.Score).ThenBy(x => x.Name).ToList());
-                this.highScores = list;
-                return list;
-            }  
         }
 
         /// <summary>Clears the scores.</summary>
@@ -102,8 +95,8 @@ namespace FroggerStarter.Model
         public ObservableCollection<HighScore> ClearScores()
         {
             var list = new ObservableCollection<HighScore>();
-            this.highScores = list;
-            return this.highScores;
+            this.HighScores = list;
+            return this.HighScores;
         }
     }
 }

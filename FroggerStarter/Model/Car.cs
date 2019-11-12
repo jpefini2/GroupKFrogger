@@ -2,6 +2,10 @@
 
 namespace FroggerStarter.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="FroggerStarter.Model.Vehicle" />
     public class Car : Vehicle
     {
         /// <summary>

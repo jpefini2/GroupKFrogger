@@ -1,9 +1,4 @@
 ﻿using FroggerStarter.View.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FroggerStarter.Model
 {
@@ -14,7 +9,7 @@ namespace FroggerStarter.Model
         /// <summary>Initializes a new instance of the <see cref="TemporaryInvincibilityPowerup"/> class.</summary>
         public TemporaryInvincibilityPowerup()
         {
-            this.Sprite = new TemporaryInvincibilityPowerupSprite();
+            Sprite = new TemporaryInvincibilityPowerupSprite();
         }
     }
 }

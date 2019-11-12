@@ -1,36 +1,49 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
+    /// <summary>
+    /// defines instance of PowerupManager
+    /// </summary>
+    /// <seealso cref="Powerup" />
     public class PowerupManager : IEnumerable<Powerup>
     {
-        private const int PercentChanceOfPlaceingPowerup = 50;
+        private const int PercentChanceOfPlacingPowerup = 50;
 
-        private int xBound;
-        private int upperYBound;
-        private int lowerYBound;
+        private readonly int xBound;
+        private readonly int upperYBound;
+        private readonly int lowerYBound;
         private DispatcherTimer placePowerupTimer;
         private List<Powerup> powerups;
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is invincibility active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is invincibility active; otherwise, <c>false</c>.
+        /// </value>
         public bool IsInvincibilityActive { get; private set; }
         private DispatcherTimer invincibilityTimer;
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PowerupManager"/> class.
+        /// </summary>
+        /// <param name="xBound">The x bound.</param>
+        /// <param name="lowerYBound">The lower y bound.</param>
+        /// <param name="upperYBound">The upper y bound.</param>
         public PowerupManager(int xBound, int lowerYBound, int upperYBound)
         {
             this.xBound = xBound;
             this.upperYBound = upperYBound;
             this.lowerYBound = lowerYBound;
             this.IsInvincibilityActive = false;
-            setupPlacePowerupTimer();
-            setupPowerups();
-            setupInvincibilityTimer();
+            this.setupPlacePowerupTimer();
+            this.setupPowerups();
+            this.setupInvincibilityTimer();
         }
 
         private void setupPlacePowerupTimer()
@@ -43,9 +56,9 @@ namespace FroggerStarter.Model
 
         private void placePowerupTimerOnTick(object sender, object e)
         {
-            Random random = new Random();
-            int newRandom = random.Next(1, 100);
-            if (newRandom <= PercentChanceOfPlaceingPowerup)
+            var random = new Random();
+            var newRandom = random.Next(1, 100);
+            if (newRandom <= PercentChanceOfPlacingPowerup)
             {
                 this.placeRandomPowerup();
             }
@@ -80,14 +93,18 @@ namespace FroggerStarter.Model
 
         private void placeRandomPowerup()
         {
-            Random random = new Random();
-            int randomPowerupIndex = random.Next(0, this.powerups.Count);
+            var random = new Random();
+            var randomPowerupIndex = random.Next(0, this.powerups.Count);
 
             this.powerups[randomPowerupIndex].X = random.Next(0, this.xBound);
             this.powerups[randomPowerupIndex].Y = random.Next(this.upperYBound, this.lowerYBound);
             this.powerups[randomPowerupIndex].Sprite.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Picks up powerup.
+        /// </summary>
+        /// <param name="powerup">The powerup.</param>
         public void PickedUp(Powerup powerup)
         {
             powerup.Sprite.Visibility = Visibility.Collapsed;

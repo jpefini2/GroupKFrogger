@@ -1,6 +1,9 @@
 ﻿
 namespace FroggerStarter.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HighScore
     {
         /// <summary>

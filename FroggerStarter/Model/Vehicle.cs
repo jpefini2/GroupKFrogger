@@ -11,15 +11,17 @@ namespace FroggerStarter.Model
     {
         /// <summary>Gets the orientation.</summary>
         /// <value>The orientation.</value>
-        public Direction Orientation { get; } 
+        public Direction Orientation { get; }
 
-        /// <summary>Initializes a new instance of the <see cref="Vehicle"/> class.</summary>
-        /// <param name="vehicleType">Type of the vehicle.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vehicle" /> class.
+        /// </summary>
         /// <param name="orientation">The orientation.</param>
-        public Vehicle(Direction orientation, int speed)
+        /// <param name="speed">The speed.</param>
+        protected Vehicle(Direction orientation, int speed)
         {
             this.Orientation = orientation;
-            this.SetSpeed(speed, 0);
+            SetSpeed(speed, 0);
         }
 
         /// <summary>Rotates the sprite.</summary>

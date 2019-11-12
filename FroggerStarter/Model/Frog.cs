@@ -20,6 +20,12 @@ namespace FroggerStarter.Model
         private DispatcherTimer deathAnimationTimer;
         private DispatcherTimer walkingAnimationTimer;
 
+        /// <summary>
+        /// Gets the walking sprite.
+        /// </summary>
+        /// <value>
+        /// The walking sprite.
+        /// </value>
         public BaseSprite WalkingSprite { get; }
 
         /// <summary>

@@ -3,21 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace FroggerStarter.Model
 {
-    /// <summary>Manages a collection of traffic lanes</summary>
-    /// <seealso cref="System.Collections.Generic.IEnumerable{FroggerStarter.Model.Vehicle}" />
+    /// <summary>
+    /// Manages a collection of traffic lanes
+    /// </summary>
+    /// <seealso cref="Vehicle" />
+    /// <seealso cref="Vehicle" />
     public abstract class LaneManager : IEnumerable<Vehicle>
     {
-        protected readonly int y;
-        protected readonly int laneLength;
-        protected readonly int laneWidth;
-        protected readonly List<Lane> lanes;
-        protected VehicleFactory vehicleFactory;
+        /// <summary>
+        /// The y
+        /// </summary>
+        protected readonly int Y;
+        /// <summary>
+        /// The lane length
+        /// </summary>
+        protected readonly int LaneLength;
+        /// <summary>
+        /// The lane width
+        /// </summary>
+        protected readonly int LaneWidth;
+        /// <summary>
+        /// The lanes
+        /// </summary>
+        protected readonly List<Lane> Lanes;
+        /// <summary>
+        /// The vehicle factory
+        /// </summary>
+        protected VehicleFactory VehicleFactory;
 
         /// <summary>Initializes a new instance of the <see cref="LaneManager"/> class.</summary>
         /// <param name="y">The y.</param>
@@ -28,7 +44,7 @@ namespace FroggerStarter.Model
         /// laneLength
         /// or
         /// laneWidth</exception>
-        public LaneManager(int y, int laneLength, int laneWidth)
+        protected LaneManager(int y, int laneLength, int laneWidth)
         {
             if (y < 0)
             {
@@ -43,21 +59,21 @@ namespace FroggerStarter.Model
                 throw new ArgumentOutOfRangeException(nameof(laneWidth));
             }
 
-            this.y = y;
-            this.laneLength = laneLength;
-            this.laneWidth = laneWidth;
-            this.lanes = new List<Lane>();
-            this.vehicleFactory = new VehicleFactory();
+            this.Y = y;
+            this.LaneLength = laneLength;
+            this.LaneWidth = laneWidth;
+            this.Lanes = new List<Lane>();
+            this.VehicleFactory = new VehicleFactory();
         }
 
         /// <summary>Adds the lane.</summary>
         /// <param name="laneSettings">The lane settings.</param>
         public virtual void AddLane(LaneSettings laneSettings)
         {
-            var laneY = this.y + this.lanes.Count * this.laneWidth;
-            var lane = new Lane(laneY, this.laneLength, this.laneWidth, laneSettings.TrafficDirection);
+            var laneY = this.Y + this.Lanes.Count * this.LaneWidth;
+            var lane = new Lane(laneY, this.LaneLength, this.LaneWidth, laneSettings.TrafficDirection);
             this.fillLaneWithVehicles(laneSettings, lane);
-            this.lanes.Add(lane);
+            this.Lanes.Add(lane);
         }
 
         private void fillLaneWithVehicles(LaneSettings laneSettings, Lane lane)
@@ -65,7 +81,7 @@ namespace FroggerStarter.Model
             var vehicles = new Vehicle[laneSettings.TrafficAmount];
             for (var i = 0; i < laneSettings.TrafficAmount; i++)
             {
-                var vehicle = this.vehicleFactory.MakeVehicle(laneSettings.TrafficType, laneSettings.TrafficDirection, laneSettings.StartingTrafficSpeed);
+                var vehicle = this.VehicleFactory.MakeVehicle(laneSettings.TrafficType, laneSettings.TrafficDirection, laneSettings.StartingTrafficSpeed);
                 vehicles[i] = vehicle;
             }
             lane.SetAndSpaceVehicles(vehicles);
@@ -95,7 +111,7 @@ namespace FroggerStarter.Model
 
         private void moveTrafficForwardInAllLanes()
         {
-            foreach (var lane in this.lanes)
+            foreach (var lane in this.Lanes)
             {
                 lane.MoveTraffic();
             }
@@ -105,7 +121,7 @@ namespace FroggerStarter.Model
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<Vehicle> GetEnumerator()
         {
-            return this.lanes.SelectMany(lane => lane).GetEnumerator();
+            return this.Lanes.SelectMany(lane => lane).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
