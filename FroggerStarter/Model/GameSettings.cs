@@ -55,7 +55,7 @@ namespace FroggerStarter.Model
             this.fillRiverSettingsForAllLevels();
         }
 
-        private void fillRiverSettingsForAllLevels()
+        private void fillRoadSettingsForAllLevels()
         {
             List<LaneSettings> level1RoadSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Right, VehicleType.Car, 5, 6),
@@ -85,7 +85,7 @@ namespace FroggerStarter.Model
             this.LevelSettings[2].RoadLaneSettings = level3RoadSettings;
         }
 
-        private void fillRoadSettingsForAllLevels()
+        private void fillRiverSettingsForAllLevels()
         {
             List<LaneSettings> level1RiverSettings = new List<LaneSettings> {
                 new LaneSettings(Direction.Right, VehicleType.Log, 2, 6),
